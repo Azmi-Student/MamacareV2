@@ -96,140 +96,106 @@
             </div>
         @else
             {{-- STATE 2: RINGKASAN & CHECKLIST --}}
-            <div class="space-y-6 md:space-y-8">
+            {{-- STATE 2: RINGKASAN & CHECKLIST (PURE PINK & WHITE) --}}
+<div class="space-y-5">
 
-                {{-- Hero: Status Utama Kehamilan --}}
-                <div
-                    class="bg-[#FF3EA5] rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden shadow-[8px_8px_0px_0px_#ff90c8] md:shadow-[15px_15px_0px_0px_#ff90c8] border-4 border-[#FF3EA5]">
-                    <div class="efek-gelas-premium opacity-20"></div>
-                    <div class="relative z-10">
-                        <p
-                            class="font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] opacity-90 mb-3 md:mb-4 italic">
-                            Usia Kehamilan Mama</p>
-                        <h2 class="text-5xl sm:text-7xl md:text-9xl font-black italic tracking-tighter leading-none mb-4">
-                            Minggu {{ $data['minggu'] }}</h2>
-                        <div class="flex flex-wrap items-center gap-3 md:gap-4">
-                            <span
-                                class="bg-white text-[#FF3EA5] px-4 md:px-6 py-1.5 md:py-2 rounded-xl font-black uppercase text-sm md:text-lg italic shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)]">
-                                Hari Ke-{{ $data['hari'] }}
-                            </span>
-                            <span class="font-black italic uppercase tracking-tighter opacity-90 text-sm md:text-xl">On
-                                Track! 🏃‍♀️</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Grid: Info Penting --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
-                    {{-- Card Ukuran --}}
-                    <div
-                        class="bg-white border-4 border-[#FF3EA5] rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0px_0px_#ff90c8] relative overflow-hidden group">
-                        <p
-                            class="text-[9px] md:text-[10px] font-black text-[#FF3EA5] uppercase tracking-widest mb-3 opacity-60">
-                            Ukuran Janin</p>
-                        <h4
-                            class="text-2xl md:text-4xl font-black text-[#FF3EA5] italic uppercase tracking-tighter leading-tight">
-                            Seukuran {{ $data['ukuran'] }}</h4>
-                        <div
-                            class="absolute -right-2 -bottom-2 opacity-10 text-6xl md:text-8xl font-black italic text-[#FF3EA5] rotate-12">
-                            📏</div>
-                    </div>
-
-                    {{-- Card HPL --}}
-                    <div
-                        class="bg-white border-4 border-[#FF3EA5] rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0px_0px_#ff90c8] flex flex-col justify-center relative overflow-hidden group">
-                        <p
-                            class="text-[9px] md:text-[10px] font-black text-[#FF3EA5] uppercase tracking-widest mb-3 opacity-60">
-                            Estimasi Lahir</p>
-                        <h4
-                            class="text-xl md:text-3xl font-black text-[#FF3EA5] italic uppercase tracking-tighter leading-tight">
-                            {{ $data['hpl'] }}</h4>
-                        <div
-                            class="absolute -right-2 -bottom-2 opacity-10 text-6xl md:text-8xl font-black italic text-[#FF3EA5] -rotate-12">
-                            🗓️</div>
-                    </div>
-                </div>
-
-                {{-- DAILY CHECKLIST SECTION --}}
-                <div
-                    class="bg-white border-4 border-[#FF3EA5] rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 shadow-[6px_6px_0px_0px_#ff90c8] md:shadow-[10px_10px_0px_0px_#ff90c8]">
-                    <div class="flex items-center justify-between mb-6 md:mb-8">
-                        <div>
-                            <h3 class="text-xl md:text-2xl font-black text-[#FF3EA5] uppercase italic tracking-tighter">
-                                Daily Checklist</h3>
-                            <p class="text-[9px] md:text-[10px] font-bold text-[#FF3EA5] opacity-60 uppercase mt-1 italic">
-                                Tersimpan otomatis di sistem</p>
-                        </div>
-                        <span class="text-3xl md:text-4xl">📝</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-3 md:gap-4">
-                        @php
-                            $harian = $data['harian'] ?? [];
-                            $status = $data['checklist_status'] ?? [];
-                        @endphp
-
-                        @foreach ($harian as $index => $tugas)
-                            @php $isDone = isset($status[$index]) && $status[$index] == true; @endphp
-
-                            <div x-data="{
-                                checked: {{ $isDone ? 'true' : 'false' }},
-                                toggle() {
-                                    this.checked = !this.checked;
-                                    fetch('{{ route('mama.kalender.update_checklist') }}', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')
-                                        },
-                                        body: JSON.stringify({ index: {{ $index }}, checked: this.checked })
-                                    });
-                                }
-                            }" @click="toggle()"
-                                class="checklist-item flex items-center p-4 rounded-xl md:rounded-2xl border-2 md:border-4 border-[#FF3EA5] cursor-pointer transition-all active:scale-[0.98]"
-                                :class="checked ? 'bg-pink-50 opacity-60 border-dashed shadow-none' :
-                                    'bg-white shadow-[3px_3px_0px_0px_#FF3EA5] md:shadow-[4px_4px_0px_0px_#FF3EA5]'">
-
-                                <div class="shrink-0 w-6 h-6 md:w-8 md:h-8 border-2 md:border-4 border-[#FF3EA5] rounded-lg flex items-center justify-center transition-all"
-                                    :class="checked ? 'bg-[#FF3EA5]' : 'bg-white'">
-                                    <svg x-show="checked" class="w-4 h-4 md:w-5 md:h-5 text-white" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-
-                                <span
-                                    class="ml-3 md:ml-4 font-black text-[#FF3EA5] uppercase italic text-xs md:text-sm tracking-tight leading-tight"
-                                    :class="checked ? 'line-through opacity-50' : ''">
-                                    {{ $tugas }}
-                                </span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                {{-- CTA: Tombol Panduan Lengkap --}}
-                <a href="{{ route('mama.kalender.detail', ['hpht' => $data['hpht']]) }}"
-                    class="group block bg-white border-4 border-[#FF3EA5] p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-[6px_6px_0px_0px_#FF3EA5] md:shadow-[12px_12px_0px_0px_#FF3EA5] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all relative overflow-hidden text-center">
-                    <div class="efek-gelas-premium opacity-5 group-hover:opacity-20 transition-opacity"></div>
-                    <div class="relative z-10">
-                        <span
-                            class="text-2xl md:text-4xl font-black text-[#FF3EA5] uppercase italic tracking-tighter leading-none block">Lihat
-                            Panduan Lengkap Mama 📖</span>
-                        <p
-                            class="mt-3 text-[10px] font-bold text-[#FF3EA5] opacity-60 uppercase tracking-widest italic leading-none">
-                            Eksplor tugas harian, nutrisi, & pantangan AI</p>
-                    </div>
-                </a>
-
-                {{-- Action: Reset --}}
-                <div class="text-center pb-6">
-                    <a href="{{ route('mama.kalender.reset') }}"
-                        class="text-[9px] md:text-[10px] font-black text-[#FF3EA5] uppercase underline underline-offset-4 tracking-widest italic opacity-40 hover:opacity-100 transition-all">
-                        ↺ Ganti Tanggal HPHT Mama
-                    </a>
-                </div>
+    {{-- Hero: Status Utama Kehamilan --}}
+    <div class="bg-[#FF3EA5] rounded-[2rem] p-6 text-white relative overflow-hidden shadow-[6px_6px_0px_0px_#ff90c8] border-2 border-[#FF3EA5]">
+        <div class="relative z-10">
+            <p class="font-black uppercase tracking-widest text-[9px] opacity-90 mb-1">Usia Kehamilan Mama</p>
+            <div class="flex items-baseline gap-2 mb-3">
+                <h2 class="text-5xl font-black tracking-tighter leading-none">Minggu {{ $data['minggu'] }}</h2>
             </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-white text-[#FF3EA5] px-3 py-1 rounded-lg font-black uppercase text-[10px] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
+                    Hari Ke-{{ $data['hari'] }}
+                </span>
+                <span class="font-black uppercase tracking-tight text-[10px]">On Track! ✨</span>
+            </div>
+        </div>
+        {{-- Pola Titik-titik Putih Halus --}}
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 10px 10px;"></div>
+    </div>
+
+    {{-- Grid: Info Penting (Variasi Shadow & Border Pink) --}}
+    <div class="grid grid-cols-2 gap-4">
+        {{-- Card Ukuran: Border Tebal --}}
+        <div class="bg-white border-4 border-[#FF3EA5] rounded-3xl p-4 shadow-[4px_4px_0px_0px_#ff90c8] relative overflow-hidden">
+            <p class="text-[8px] font-black text-[#FF3EA5] uppercase tracking-widest mb-1">Ukuran Janin</p>
+            <h4 class="text-xs md:text-sm font-black text-[#FF3EA5] uppercase leading-tight line-clamp-2">Seukuran {{ $data['ukuran'] }}</h4>
+            <div class="absolute -right-1 -bottom-1 opacity-10 text-3xl rotate-12 text-[#FF3EA5]">📏</div>
+        </div>
+
+        {{-- Card HPL: Border Tipis --}}
+        <div class="bg-white border-2 border-[#FF3EA5] rounded-3xl p-4 shadow-[4px_4px_0px_0px_#ff90c8] relative overflow-hidden">
+            <p class="text-[8px] font-black text-[#FF3EA5] uppercase tracking-widest mb-1 opacity-60">Estimasi Lahir</p>
+            <h4 class="text-xs md:text-sm font-black text-[#FF3EA5] uppercase leading-tight">{{ $data['hpl'] }}</h4>
+            <div class="absolute -right-1 -bottom-1 opacity-10 text-3xl -rotate-12 text-[#FF3EA5]">🗓️</div>
+        </div>
+    </div>
+
+    {{-- DAILY CHECKLIST SECTION --}}
+    <div class="bg-white border-2 border-[#FF3EA5] rounded-[2.5rem] p-5 shadow-[6px_6px_0px_0px_#ff90c8]">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h3 class="text-sm font-black text-[#FF3EA5] uppercase tracking-wider">Daily Checklist</h3>
+                <p class="text-[8px] font-bold text-[#FF3EA5] opacity-50 uppercase mt-0.5">Disimpan otomatis</p>
+            </div>
+            <span class="text-xl">📝</span>
+        </div>
+
+        <div class="space-y-2.5">
+            @foreach ($data['harian'] as $index => $tugas)
+                @php $isDone = isset($data['checklist_status'][$index]) && $data['checklist_status'][$index]; @endphp
+
+                <div x-data="{
+                    checked: {{ $isDone ? 'true' : 'false' }},
+                    toggle() {
+                        this.checked = !this.checked;
+                        fetch('{{ route('mama.kalender.update_checklist') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name=\'csrf-token\']').getAttribute('content')
+                            },
+                            body: JSON.stringify({ index: {{ $index }}, checked: this.checked })
+                        });
+                    }
+                }" @click="toggle()"
+                    class="flex items-center p-3 rounded-2xl border-2 border-[#FF3EA5] cursor-pointer transition-all active:scale-[0.98]"
+                    :class="checked ? 'bg-pink-50 opacity-50 border-dashed shadow-none translate-x-1' : 'bg-white shadow-[3px_3px_0px_0px_#FF3EA5]'">
+
+                    <div class="shrink-0 w-5 h-5 border-2 border-[#FF3EA5] rounded flex items-center justify-center transition-all"
+                        :class="checked ? 'bg-[#FF3EA5]' : 'bg-white'">
+                        <svg x-show="checked" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="5">
+                            <path d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+
+                    <span class="ml-3 font-black text-[#FF3EA5] uppercase text-[10px] tracking-tight leading-tight"
+                        :class="checked ? 'line-through opacity-40' : ''">
+                        {{ $tugas }}
+                    </span>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- CTA: Tombol Detail --}}
+    <a href="{{ route('mama.kalender.detail', ['hpht' => $data['hpht']]) }}"
+        class="block bg-white border-2 border-[#FF3EA5] p-5 rounded-[2rem] shadow-[4px_4px_0px_0px_#FF3EA5] active:shadow-none active:translate-y-0.5 transition-all text-center group">
+        <span class="text-base font-black text-[#FF3EA5] uppercase tracking-tighter block group-hover:scale-105 transition-transform">Lihat Detail Minggu Ini 📖</span>
+        <p class="mt-1 text-[8px] font-bold text-[#FF3EA5] opacity-40 uppercase tracking-widest">Eksplor Nutrisi & Tips</p>
+    </a>
+
+    {{-- Action: Reset --}}
+    <div class="text-center pt-2">
+        <a href="{{ route('mama.kalender.reset') }}"
+            class="text-[8px] font-black text-[#FF3EA5] uppercase underline underline-offset-4 tracking-widest opacity-30 hover:opacity-100 transition-all">
+            ↺ Ganti Tanggal HPHT
+        </a>
+    </div>
+</div>
         @endif
     </div>
 @endsection

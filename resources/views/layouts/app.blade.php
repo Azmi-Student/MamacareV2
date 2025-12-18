@@ -80,6 +80,21 @@
             width: 0%;
             transition: width 0.2s ease-out; /* Bikin gerakan bar dari JS lebih halus */
         }
+        /* Mengunci gaya teks agar tetap Pink saat Autofill Browser */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-text-fill-color: #FF3EA5 !important; /* Warna Pink Primary */
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* Background tetap Putih */
+            transition: background-color 5000s ease-in-out 0s;
+            font-family: inherit !important;
+        }
+
+        /* Menangani state preview saat memilih data */
+        input:autofill {
+            color: #FF3EA5 !important;
+        }
     </style>
 </head>
 
