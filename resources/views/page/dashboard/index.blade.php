@@ -75,11 +75,12 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
                     {{-- Tombol 1: KALENDER KEHAMILAN --}}
-                    <a href="#"
+                    <a href="{{ route('mama.kalender') }}"
                         class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
+
                         <img src="{{ asset('images/fitur-kalender.png') }}"
                             class="w-8 h-8 object-contain transition group-hover:scale-110">
-                        {{-- Teks dibuat 2 baris (max-w) biar rapi --}}
+
                         <span
                             class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
                             Kalender Kehamilan
@@ -98,15 +99,15 @@
                     </a>
 
                     {{-- Tombol 3: CHAT MAMA.AI --}}
-                    <a href="#"
-                        class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
-                        <img src="{{ asset('images/fitur-chat.png') }}"
-                            class="w-8 h-8 object-contain transition group-hover:scale-110">
-                        <span
-                            class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
-                            Chat Mama.ai
-                        </span>
-                    </a>
+<a href="{{ route('mama.ai') }}"
+    class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
+    <img src="{{ asset('images/fitur-chat.png') }}"
+        class="w-8 h-8 object-contain transition group-hover:scale-110">
+    <span
+        class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
+        Chat Mama.ai
+    </span>
+</a>
 
                     {{-- Tombol 4: LAINNYA --}}
                     <a href="#"
@@ -138,105 +139,168 @@
             <div
                 class="lg:col-span-2 bg-white rounded-xl p-4 border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#FF3EA5] h-full flex flex-col justify-between">
 
+                {{-- Logika Ambil Data AI --}}
+                @php
+                    // Ambil data dari relasi user ke kehamilan
+                    $dataKehamilan = auth()->user()->kehamilan;
+                    $aiData = $dataKehamilan ? json_decode($dataKehamilan->ai_data, true) : null;
+
+                    $harian = $aiData['harian'] ?? [
+                        'Istirahat cukup (Tidur 8 jam)',
+                        'Minum air putih (2-3 Liter)',
+                        'Makan buah & sayur',
+                    ];
+                    $status = $aiData['checklist_status'] ?? [];
+
+                    // Item 1 sebagai Highlight, sisanya sebagai agenda lainnya
+                    $highlight = $harian[0] ?? 'Istirahat Cukup';
+                    $agendas = array_slice($harian, 1, 2); // Ambil 2 agenda berikutnya
+                @endphp
+
                 {{-- Layout Grid: Kiri (Highlight), Kanan (List) --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
 
-                    {{-- 1. KARTU HIGHLIGHT (Selanjutnya) --}}
-                    {{-- Style: Full Pink Background, Teks Putih --}}
-                    <div
-                        class="bg-[#FF3EA5] rounded-xl p-5 flex flex-col justify-between border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] relative overflow-hidden group hover:-translate-y-1 transition-transform duration-200">
+                    {{-- 1. KARTU HIGHLIGHT (Tugas Pertama / Index 0) --}}
+                    @php $isDoneH = isset($status[0]) && $status[0] == true; @endphp
+                    <div x-data="{
+                        checked: {{ $isDoneH ? 'true' : 'false' }},
+                        toggle() {
+                            this.checked = !this.checked;
+                            fetch('{{ route('mama.kalender.update_checklist') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')
+                                },
+                                body: JSON.stringify({ index: 0, checked: this.checked })
+                            });
+                        }
+                    }" @click="toggle()"
+                        class="cursor-pointer rounded-xl p-5 flex flex-col justify-between border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] relative overflow-hidden group hover:-translate-y-1 transition-all duration-200 min-h-[200px]"
+                        :class="checked ? 'bg-pink-400 opacity-80' : 'bg-[#FF3EA5]'">
 
-                        {{-- Dekorasi Blur Putih --}}
+                        {{-- Dekorasi Glossy --}}
                         <div class="absolute right-0 top-0 w-24 h-24 bg-white opacity-10 rounded-full blur-xl -mr-6 -mt-6">
                         </div>
 
-                        <div class="relative z-10">
-                            {{-- Badge --}}
-                            <span
-                                class="inline-block px-3 py-1 bg-white border-2 border-white rounded-md text-[10px] font-black text-[#FF3EA5] mb-4 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.5)]">
-                                SELANJUTNYA
-                            </span>
-
-                            {{-- Icon --}}
-                            <div
-                                class="w-12 h-12 bg-white rounded-lg border-2 border-white flex items-center justify-center text-[#FF3EA5] mb-4 shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)]">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
+                        <div class="relative z-10 flex flex-col h-full">
+                            {{-- Badge Status --}}
+                            <div class="mb-4">
+                                <span
+                                    class="inline-block px-3 py-1 bg-white border-2 border-white rounded-md text-[10px] font-black text-[#FF3EA5] shadow-[2px_2px_0px_0px_rgba(255,255,255,0.5)]">
+                                    <span x-text="checked ? 'SELESAI' : 'SELANJUTNYA'"></span>
+                                </span>
                             </div>
 
-                            {{-- Konten Teks (Putih) --}}
-                            <h4 class="font-black text-white text-xl leading-tight mb-1 uppercase tracking-tight">
-                                MINUM VITAMIN PRENATAL
-                            </h4>
-                            <p class="text-xs text-pink-100 font-bold">Jangan lupa setelah makan ya bun.</p>
-                        </div>
+                            <div class="flex items-start gap-4 flex-1">
+                                {{-- Icon Box --}}
+                                <div
+                                    class="shrink-0 w-12 h-12 bg-white rounded-lg border-2 border-white flex items-center justify-center text-[#FF3EA5] shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)]">
+                                    <template x-if="!checked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </template>
+                                    <template x-if="checked">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            stroke-width="4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </template>
+                                </div>
 
-                        {{-- Waktu --}}
-                        <div class="mt-4 pt-3 border-t-2 border-white/30 flex items-center gap-2 relative z-10">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="text-sm font-black text-white tracking-wider">08:00 WIB</span>
+                                {{-- Text Area --}}
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-black text-white text-lg md:text-xl leading-tight mb-1 uppercase tracking-tight line-clamp-3 break-words"
+                                        :class="checked ? 'line-through opacity-70' : ''">
+                                        {{ $highlight }}
+                                    </h4>
+                                    <p class="text-[10px] text-pink-100 font-bold italic"
+                                        x-text="checked ? 'Hebat, Mama luar biasa!' : 'Ketuk jika sudah dilakukan'"></p>
+                                </div>
+                            </div>
+
+                            {{-- Footer Kartu --}}
+                            <div class="mt-4 pt-3 border-t-2 border-white/30 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-[10px] font-black text-white tracking-wider uppercase">Fokus Utama
+                                    Mama</span>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- 2. KARTU LIST (Lainnya) --}}
+                    {{-- 2. KARTU LIST (Agenda Lainnya / Index 1 & 2) --}}
                     <div class="flex flex-col gap-3">
-                        <p class="text-[10px] font-black text-[#FF3EA5] uppercase tracking-widest mb-0 ml-1">
-                            AGENDA LAINNYA
+                        <p class="text-[10px] font-black text-[#FF3EA5] uppercase tracking-widest mb-0 ml-1">AGENDA LAINNYA
                         </p>
 
-                        {{-- Item List 1 --}}
-                        {{-- Style: White BG, Pink Border, Pink Text --}}
-                        <div
-                            class="flex items-center gap-3 p-3 rounded-xl border-2 border-[#FF3EA5] bg-white hover:bg-pink-50 hover:shadow-[2px_2px_0px_0px_#FF3EA5] transition-all cursor-pointer active:translate-y-0.5 active:shadow-none">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-[#FF3EA5] border-2 border-[#FF3EA5] flex items-center justify-center text-white shadow-[2px_2px_0px_0px_#ff90c8]">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M7 17l9.2-9.2M17 17V7H7" />
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="font-black text-xs text-[#FF3EA5] uppercase truncate">JALAN PAGI RINGAN</h4>
-                                <p class="text-[10px] font-bold text-pink-400 truncate">09:30 WIB</p>
-                            </div>
-                        </div>
+                        @foreach ($agendas as $index => $tugas)
+                            @php
+                                $actualIndex = $index + 1; // Karena item pertama adalah index 0
+                                $isDone = isset($status[$actualIndex]) && $status[$actualIndex] == true;
+                            @endphp
+                            <div x-data="{
+                                checked: {{ $isDone ? 'true' : 'false' }},
+                                toggle() {
+                                    this.checked = !this.checked;
+                                    fetch('{{ route('mama.kalender.update_checklist') }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')
+                                        },
+                                        body: JSON.stringify({ index: {{ $actualIndex }}, checked: this.checked })
+                                    });
+                                }
+                            }" @click="toggle()"
+                                class="flex items-center gap-3 p-3 rounded-xl border-2 border-[#FF3EA5] transition-all cursor-pointer active:translate-y-0.5 active:shadow-none"
+                                :class="checked ? 'bg-pink-50 opacity-60 border-dashed' :
+                                    'bg-white hover:bg-pink-50 hover:shadow-[2px_2px_0px_0px_#FF3EA5]'">
 
-                        {{-- Item List 2 --}}
-                        <div
-                            class="flex items-center gap-3 p-3 rounded-xl border-2 border-[#FF3EA5] bg-white hover:bg-pink-50 hover:shadow-[2px_2px_0px_0px_#FF3EA5] transition-all cursor-pointer active:translate-y-0.5 active:shadow-none">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-[#FF3EA5] border-2 border-[#FF3EA5] flex items-center justify-center text-white shadow-[2px_2px_0px_0px_#ff90c8]">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                    </path>
-                                </svg>
+                                <div class="w-10 h-10 shrink-0 rounded-lg border-2 flex items-center justify-center transition-all"
+                                    :class="checked ? 'bg-[#FF3EA5] border-[#FF3EA5] text-white' :
+                                        'bg-white border-[#FF3EA5] text-[#FF3EA5]'">
+                                    <template x-if="!checked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M7 17l9.2-9.2M17 17V7H7" />
+                                        </svg>
+                                    </template>
+                                    <template x-if="checked">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            stroke-width="4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7">
+                                            </path>
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-black text-xs text-[#FF3EA5] uppercase truncate"
+                                        :class="checked ? 'line-through' : ''">
+                                        {{ $tugas }}
+                                    </h4>
+                                    <p class="text-[10px] font-bold text-pink-400 truncate"
+                                        x-text="checked ? 'Selesai' : 'Belum selesai'"></p>
+                                </div>
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="font-black text-xs text-[#FF3EA5] uppercase truncate">KONSULTASI DOKTER</h4>
-                                <p class="text-[10px] font-bold text-pink-400 truncate">16:00 WIB</p>
-                            </div>
-                        </div>
+                        @endforeach
 
                         {{-- Link Lihat Semua --}}
                         <div class="mt-auto text-right">
-                            <a href="#"
+                            <a href="{{ route('mama.kalender') }}"
                                 class="inline-block px-3 py-1 rounded-md border-2 border-[#FF3EA5] text-[10px] font-black text-[#FF3EA5] hover:bg-[#FF3EA5] hover:text-white transition-colors uppercase tracking-wide">
                                 LIHAT SEMUA &rarr;
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -305,12 +369,12 @@
                 Normal: Text Pink, Border Transparent
                 Hover: Border Pink
                 Active (17): Full Pink Block, Shadow Lighter Pink (#ff90c8) biar kelihatan timbul
-            --}}
+                --}}
                         <div
                             class="w-6 h-6 flex items-center justify-center text-[10px] rounded cursor-pointer mx-auto font-black border-2 transition-all duration-100
-            {{ $i == 17
-                ? 'bg-[#FF3EA5] text-white border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8] -translate-y-0.5'
-                : 'text-[#FF3EA5] border-transparent hover:border-[#FF3EA5] hover:bg-pink-50' }}">
+                            {{ $i == 17
+                                ? 'bg-[#FF3EA5] text-white border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8] -translate-y-0.5'
+                                : 'text-[#FF3EA5] border-transparent hover:border-[#FF3EA5] hover:bg-pink-50' }}">
                             {{ $i }}
                         </div>
                     @endfor
