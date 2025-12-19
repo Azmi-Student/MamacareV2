@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
 
         // Fitur: Rekap Data Pemeriksaan\
         Route::get('/rekap-data', [RekapDataController::class, 'index'])->name('mama.rekap-data');
+        Route::get('/rekap-data/{id}', [RekapDataController::class, 'detail'])->name('mama.rekap-data.detail');
     });
 
 
