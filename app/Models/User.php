@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(KehamilanMama::class);
     }
+    // Relasi: User bisa punya profil Dokter (kalau dia dokter)
+    public function doctor() {
+        return $this->hasOne(Doctor::class);
+    }
 }

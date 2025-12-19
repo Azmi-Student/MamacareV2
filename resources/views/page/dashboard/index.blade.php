@@ -58,12 +58,14 @@
             <div class="w-full md:w-3/5 p-6 md:p-8 z-10 relative">
 
                 {{-- Sapaan --}}
-                <h1
-                    class="text-2xl md:text-4xl font-black text-white mb-2 uppercase tracking-tight drop-shadow-md leading-none">
+                <h1 class="text-2xl md:text-4xl font-black text-white mb-2 tracking-tight drop-shadow-md leading-none">
+                    {{-- Bagian Selamat Datang: Boleh Uppercase atau Normal (Tergantung selera) --}}
                     Selamat Datang, <br>
+
+                    {{-- Bagian Nama: Capitalize + Font Black (Sangat Tebal) --}}
                     <span
-                        class="bg-white text-[#FF3EA5] px-2 rounded-md shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)] inline-block mt-1 transform -rotate-1">
-                        {{ Auth::user()->name ?? 'BUNDA' }}!
+                        class="bg-white text-[#FF3EA5] px-2 rounded-md shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)] inline-block mt-1 capitalize font-black">
+                        {{ Auth::user()->name ?? 'Bunda' }}!
                     </span>
                 </h1>
 
@@ -88,7 +90,7 @@
                     </a>
 
                     {{-- Tombol 2: RESERVASI DOKTER --}}
-                    <a href="#"
+                    <a href="{{ route('mama.reservasi') }}"
                         class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
                         <img src="{{ asset('images/fitur-reservasi.png') }}"
                             class="w-8 h-8 object-contain transition group-hover:scale-110">
@@ -99,15 +101,15 @@
                     </a>
 
                     {{-- Tombol 3: CHAT MAMA.AI --}}
-<a href="{{ route('mama.ai') }}"
-    class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
-    <img src="{{ asset('images/fitur-chat.png') }}"
-        class="w-8 h-8 object-contain transition group-hover:scale-110">
-    <span
-        class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
-        Chat Mama.ai
-    </span>
-</a>
+                    <a href="{{ route('mama.ai') }}"
+                        class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
+                        <img src="{{ asset('images/fitur-chat.png') }}"
+                            class="w-8 h-8 object-contain transition group-hover:scale-110">
+                        <span
+                            class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
+                            Chat Mama.ai
+                        </span>
+                    </a>
 
                     {{-- Tombol 4: LAINNYA --}}
                     <a href="#"
@@ -304,95 +306,10 @@
                 </div>
             </div>
 
-            {{-- Container Utama: Border Pink + Shadow Pink Solid --}}
-            <div
-                class="lg:col-span-1 bg-white rounded-xl p-3 border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#FF3EA5] h-full flex flex-col transition-transform hover:-translate-y-1">
-
-                {{-- Header Mini --}}
-                <div class="flex items-center justify-between mb-3">
-                    {{-- Tombol Previous: Border Pink, Icon Pink --}}
-                    <button
-                        class="w-6 h-6 flex items-center justify-center rounded-md border-2 border-[#FF3EA5] text-[#FF3EA5] hover:bg-[#FF3EA5] hover:text-white hover:shadow-[1px_1px_0px_0px_#FF3EA5] active:translate-y-0.5 active:shadow-none transition-all">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7">
-                            </path>
-                        </svg>
-                    </button>
-
-                    {{-- Bulan & Tahun: Text Pink Tebal --}}
-                    <span class="font-black text-xs text-[#FF3EA5] uppercase tracking-widest">
-                        {{ now()->format('F Y') }}
-                    </span>
-
-                    {{-- Tombol Next --}}
-                    <button
-                        class="w-6 h-6 flex items-center justify-center rounded-md border-2 border-[#FF3EA5] text-[#FF3EA5] hover:bg-[#FF3EA5] hover:text-white hover:shadow-[1px_1px_0px_0px_#FF3EA5] active:translate-y-0.5 active:shadow-none transition-all">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-
-                {{-- Nama Hari: Pink BG + White Text + Pink Border + Pink Shadow --}}
-                <div class="grid grid-cols-7 text-center mb-1 gap-1">
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        MIN</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        SEN</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        SEL</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        RAB</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        KAM</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        JUM</div>
-                    <div
-                        class="text-[8px] font-black text-white bg-[#FF3EA5] rounded py-0.5 border-2 border-[#FF3EA5] shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                        SAB</div>
-                </div>
-
-                {{-- Tanggal --}}
-                <div class="grid grid-cols-7 gap-y-1 gap-x-0.5 text-center flex-1 place-content-start mt-2">
-                    <div class="w-5 h-5"></div>
-                    <div class="w-5 h-5"></div>
-
-                    @for ($i = 1; $i <= 30; $i++)
-                        {{-- 
-                Normal: Text Pink, Border Transparent
-                Hover: Border Pink
-                Active (17): Full Pink Block, Shadow Lighter Pink (#ff90c8) biar kelihatan timbul
-                --}}
-                        <div
-                            class="w-6 h-6 flex items-center justify-center text-[10px] rounded cursor-pointer mx-auto font-black border-2 transition-all duration-100
-                            {{ $i == 17
-                                ? 'bg-[#FF3EA5] text-white border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8] -translate-y-0.5'
-                                : 'text-[#FF3EA5] border-transparent hover:border-[#FF3EA5] hover:bg-pink-50' }}">
-                            {{ $i }}
-                        </div>
-                    @endfor
-                </div>
-
-                {{-- Footer Agenda Mini: Garis Pemisah Pink --}}
-                <div class="mt-auto pt-2 border-t-2 border-[#FF3EA5]">
-                    <div class="flex items-center gap-2">
-                        <div
-                            class="w-6 h-6 rounded bg-[#FF3EA5] border-2 border-[#FF3EA5] flex items-center justify-center text-white shadow-[1.5px_1.5px_0px_0px_#ff90c8]">
-                            <span class="font-black text-[9px]">17</span>
-                        </div>
-                        <div class="min-w-0">
-                            <p class="text-[8px] font-bold text-pink-300 uppercase leading-none mb-0.5">Hari ini</p>
-                            <p class="text-[9px] font-black text-[#FF3EA5] truncate leading-none">SENAM HAMIL</p>
-                        </div>
-                    </div>
-                </div>
+            {{-- BAGIAN KANAN: Kalender --}}
+            <div class="lg:col-span-1 h-full">
+                {{-- Memanggil file components/calendar-widget.blade.php --}}
+                <x-calendar-widget />
             </div>
 
         </section>

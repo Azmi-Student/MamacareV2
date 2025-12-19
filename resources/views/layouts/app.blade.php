@@ -37,6 +37,7 @@
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -52,7 +53,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            
+
             /* HALUS: Fade In & Fade Out sama-sama 1.2 detik */
             opacity: 1;
             visibility: visible;
@@ -70,23 +71,33 @@
         .spin-continuous {
             animation: spin 1.5s linear infinite;
         }
+
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Progress Bar Fill */
         #progress-bar-fill {
             width: 0%;
-            transition: width 0.2s ease-out; /* Bikin gerakan bar dari JS lebih halus */
+            transition: width 0.2s ease-out;
+            /* Bikin gerakan bar dari JS lebih halus */
         }
+
         /* Mengunci gaya teks agar tetap Pink saat Autofill Browser */
         input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
         input:-webkit-autofill:active {
-            -webkit-text-fill-color: #FF3EA5 !important; /* Warna Pink Primary */
-            -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* Background tetap Putih */
+            -webkit-text-fill-color: #FF3EA5 !important;
+            /* Warna Pink Primary */
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+            /* Background tetap Putih */
             transition: background-color 5000s ease-in-out 0s;
             font-family: inherit !important;
         }
@@ -103,30 +114,32 @@
     {{-- LOADING SCREEN --}}
     <div id="loading-screen">
         {{-- Logo Muter --}}
-        <img src="{{ asset('images/logo-icon.png') }}" 
-             alt="Loading..." 
-             class="w-16 h-16 object-contain spin-continuous mb-8">
-        
+        <img src="{{ asset('images/logo-icon.png') }}" alt="Loading..."
+            class="w-16 h-16 object-contain spin-continuous mb-8">
+
         {{-- Progress Bar Container --}}
         <div class="w-64 h-2 bg-gray-100 rounded-full overflow-hidden relative shadow-inner">
             <div id="progress-bar-fill" class="h-full bg-[#FF3EA5] rounded-full"></div>
         </div>
-        
+
         <p class="mt-4 text-xs font-semibold text-gray-400 tracking-[0.2em] animate-pulse uppercase">Memuat</p>
     </div>
 
 
     <div class="flex h-screen overflow-hidden">
         {{-- SIDEBAR --}}
-        <div class="hidden lg:flex w-64 flex-col bg-white border-r-2 border-[#FF3EA5] h-full transition-all duration-300 z-40">
+        <div
+            class="hidden lg:flex w-64 flex-col bg-white border-r-2 border-[#FF3EA5] h-full transition-all duration-300 z-40">
             @include('components.sidebar')
         </div>
 
         {{-- MAIN CONTENT --}}
         <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
-            <header class="lg:hidden mx-4 mt-4 rounded-xl bg-white border-2 border-[#FF3EA5] shadow-[3px_3px_0px_0px_#ff90c8] h-14 flex items-center justify-between px-4 shrink-0 z-30 relative">
+            <header
+                class="lg:hidden mx-4 mt-4 rounded-xl bg-white border-2 border-[#FF3EA5] shadow-[3px_3px_0px_0px_#ff90c8] h-14 flex items-center justify-between px-4 shrink-0 z-30 relative">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo-icon.png') }}" alt="Mamacare Logo" class="block w-7 h-7 object-contain">
+                    <img src="{{ asset('images/logo-icon.png') }}" alt="Mamacare Logo"
+                        class="block w-7 h-7 object-contain">
                     <span class="font-black text-lg text-[#FF3EA5] tracking-tight pl-1 uppercase">MamaCare</span>
                 </div>
                 <div class="flex items-center gap-3">
@@ -143,18 +156,18 @@
     </div>
 
     {{-- MOBILE NAVBAR --}}
-@if(!isset($hideNavbar) || !$hideNavbar)
-    <div class="lg:hidden">
-        @include('components.navbar-mobile')
-    </div>
-@endif
+    @if (!isset($hideNavbar) || !$hideNavbar)
+        <div class="lg:hidden">
+            @include('components.navbar-mobile')
+        </div>
+    @endif
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const loader = document.getElementById('loading-screen');
             const progressFill = document.getElementById('progress-bar-fill');
-            
+
             let progress = 0;
             let isPageLoaded = false;
             let simulationInterval;
@@ -163,7 +176,7 @@
                 clearInterval(simulationInterval);
                 progress = 0;
                 progressFill.style.width = '0%';
-                
+
                 // Mulai Fade In (Muncul) secara halus
                 loader.classList.remove('loader-hidden');
 
@@ -171,7 +184,7 @@
                     if (!isPageLoaded) {
                         // Jalan pelan ke 90%
                         if (progress < 90) {
-                            progress += Math.random() * 1.5; 
+                            progress += Math.random() * 1.5;
                         }
                     } else {
                         // Geber ke 100%
@@ -181,7 +194,7 @@
                     if (progress >= 100) {
                         progress = 100;
                         clearInterval(simulationInterval);
-                        
+
                         // Setelah bar 100%, tunggu sebentar baru Fade Out
                         setTimeout(() => {
                             loader.classList.add('loader-hidden');
@@ -189,7 +202,7 @@
                     }
 
                     progressFill.style.width = progress + '%';
-                }, 40); 
+                }, 40);
             }
 
             // A. Inisialisasi awal saat buka web
@@ -208,8 +221,8 @@
                     const targetAttr = target.getAttribute('target');
 
                     if (
-                        targetAttr === '_blank' || 
-                        href === '#' || 
+                        targetAttr === '_blank' ||
+                        href === '#' ||
                         (href && href.startsWith('javascript')) ||
                         (href && href.startsWith('#'))
                     ) {
@@ -219,9 +232,11 @@
                     // Reset status dan mulai animasi fade in
                     isPageLoaded = false;
                     runProgressSimulation();
-                    
+
                     // Safety timeout
-                    setTimeout(() => { isPageLoaded = true; }, 6000);
+                    setTimeout(() => {
+                        isPageLoaded = true;
+                    }, 6000);
                 }
             });
 
@@ -234,8 +249,11 @@
         });
     </script>
     <script>
-    // Global configuration untuk fetch agar selalu bawa token CSRF
-    window.Laravel = { csrfToken: '{{ csrf_token() }}' };
-</script>
+        // Global configuration untuk fetch agar selalu bawa token CSRF
+        window.Laravel = {
+            csrfToken: '{{ csrf_token() }}'
+        };
+    </script>
 </body>
+
 </html>
