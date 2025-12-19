@@ -60,7 +60,6 @@ class ReservationController extends Controller
         ]);
 
         // 3. Kembalikan ke halaman dengan pesan sukses
-        // Pastikan nama route 'mama.reservasi' sudah sesuai di web.php Anda
-        return redirect()->back()->with('success', 'Janji temu berhasil dibuat! Cek status antrian Anda di bagian bawah halaman ini ya, Bun.');
+        return redirect()->back()->with('success', 'Janji temu berhasil dibuat! Silakan cek tiketnya di menu "Antrian Saya" ya, Bun.');
     }
 }

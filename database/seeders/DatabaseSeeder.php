@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         // 4. User Dokter 2: Dr. Aisah (Keibuan & Lembut)
         $dokter2 = User::create([
             'name' => 'Dr. Aisah Putri',
-            'email' => 'aisah@mamacare.com',
+            'email' => 'aisah@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'dokter',
         ]);
@@ -70,8 +70,8 @@ class DatabaseSeeder extends Seeder
         // 5. User Dokter 3: Bidan Siti (Telaten & Praktis)
         $dokter3 = User::create([
             'name' => 'Bidan Siti',
-            'email' => 'siti@mamacare.com',
-            'password' => Hash::make('password'),
+            'email' => 'siti@gmail.com',
+            'password' => Hash::make('dokter'),
             'role' => 'dokter',
         ]);
 
