@@ -57,14 +57,24 @@
         {{-- === MENU KHUSUS MAMA === --}}
         @if (auth()->user()->role === 'mama')
             {{-- LINK: TANYA DOKTER --}}
-            <a href="#"
-                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1">
-                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] text-[#FF3EA5]" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
+            @php
+                // Cek apakah route saat ini adalah 'mama.tanya-dokter' atau sub-halamannya
+                $isTanyaActive = request()->routeIs('mama.tanya-dokter*');
+            @endphp
+            <a href="{{ Route::has('mama.tanya-dokter.index') ? route('mama.tanya-dokter.index') : '#' }}"
+                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
+                {{ $isTanyaActive
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
+                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
+
+                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm text-[#FF3EA5]">
+
+                <span
+                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                     Tanya Dokter
                 </span>
             </a>
@@ -76,8 +86,8 @@
             <a href="{{ Route::has('mama.rekap-data') ? route('mama.rekap-data') : '#' }}"
                 class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
                 {{ $isRekapActive
-                ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
-                : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
+                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
 
                 <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">

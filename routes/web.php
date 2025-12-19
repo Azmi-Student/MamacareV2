@@ -12,6 +12,7 @@ use App\Http\Controllers\KalenderKehamilanController;
 use App\Http\Controllers\ReservationController; // Reservasi Mama
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\RekapDataController;
+use App\Http\Controllers\TanyaDokterController;
 
 // --- ADMIN CONTROLLERS ---
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -65,6 +66,9 @@ Route::middleware('auth')->group(function () {
         // Fitur: Rekap Data Pemeriksaan\
         Route::get('/rekap-data', [RekapDataController::class, 'index'])->name('mama.rekap-data');
         Route::get('/rekap-data/{id}', [RekapDataController::class, 'detail'])->name('mama.rekap-data.detail');
+
+        // Fitur: Tanya Dokter
+        Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter.index');
     });
 
 
