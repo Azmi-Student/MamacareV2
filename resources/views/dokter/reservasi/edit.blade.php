@@ -3,194 +3,281 @@
 @section('title', 'Periksa Pasien - Mamacare')
 
 @section('content')
-{{-- Background Putih Polos dengan Tipografi Pink Tua --}}
-<div class="min-h-screen py-8 md:py-12 bg-white text-[#C21B75] font-sans selection:bg-[#FF3EA5] selection:text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {{-- 1. HEADER SECTION --}}
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b-8 border-[#FF3EA5] pb-10">
-            <div class="flex items-center gap-6">
-                {{-- Back Button: Bulat Tebal 3D --}}
-                <a href="{{ route('dokter.reservasi.index') }}" 
-                   class="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-white border-4 border-[#C21B75] text-[#C21B75] font-black text-3xl rounded-full shadow-[4px_4px_0px_0px_#FF3EA5] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                    &larr;
-                </a>
-                
-                <div>
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
-                        Pemeriksaan
-                    </h2>
-                    <div class="mt-2 inline-block bg-[#FF3EA5] text-white px-3 py-1 border-2 border-[#C21B75] shadow-[3px_3px_0px_0px_#C21B75] rounded-full text-xs md:text-sm font-black tracking-widest uppercase">
-                        Manajemen Rekam Medis
-                    </div>
-                </div>
-            </div>
-
-            {{-- Status Badge (Desktop Only) --}}
-            <div class="hidden md:block">
-                <div class="bg-white border-4 border-[#C21B75] px-6 py-3 rounded-2xl shadow-[6px_6px_0px_0px_#FF3EA5]">
-                    <span class="block text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-60">Status DB</span>
-                    <div class="text-xl font-black uppercase italic">{{ $appointment->status == 'pending' ? 'Menunggu' : $appointment->status }}</div>
-                </div>
-            </div>
-        </div>
-
-        {{-- 2. GRID LAYOUT --}}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div class="min-h-screen py-8 bg-white text-[#FF3EA5] font-sans selection:bg-[#FF3EA5] selection:text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
             
-            {{-- KOLOM KIRI: Data Pasien --}}
-            <div class="lg:col-span-1">
-                <div class="bg-white border-4 border-[#C21B75] p-8 rounded-[2.5rem] shadow-[10px_10px_0px_0px_#FF3EA5] lg:sticky lg:top-8">
-                    
-                    {{-- Avatar & Name --}}
-                    <div class="flex flex-col items-center mb-8 pb-8 border-b-4 border-dashed border-pink-100">
-                        <div class="w-24 h-24 bg-white border-4 border-[#FF3EA5] rounded-full flex items-center justify-center text-4xl font-black text-[#FF3EA5] mb-4 shadow-[4px_4px_0px_0px_#C21B75]">
-                            {{ substr($appointment->user->name, 0, 1) }}
-                        </div>
-                        <h3 class="text-2xl font-black text-center uppercase tracking-tight leading-tight px-2">
-                            {{ $appointment->user->name }}
-                        </h3>
-                        <p class="mt-1 text-sm font-bold text-[#FF3EA5] tracking-wide">{{ $appointment->user->email }}</p>
-                    </div>
-
-                    {{-- Info List --}}
-                    <div class="space-y-6">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest bg-[#FF3EA5] text-white px-2 py-0.5 rounded-md">Jadwal Periksa</label>
-                            <div class="mt-2 text-lg font-black">{{ \Carbon\Carbon::parse($appointment->date)->isoFormat('dddd, D MMMM Y') }}</div>
-                            <div class="text-[#FF3EA5] font-black italic">Pukul {{ $appointment->time }} WIB</div>
-                        </div>
-
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest bg-[#C21B75] text-white px-2 py-0.5 rounded-md">Keluhan Awal</label>
-                            <div class="mt-2 p-4 bg-pink-50 border-2 border-[#C21B75] rounded-2xl text-sm font-bold italic leading-relaxed">
-                                "{{ $appointment->notes ?? 'Tidak ada keluhan spesifik.' }}"
-                            </div>
-                        </div>
+            {{-- 1. HEADER --}}
+            <div class="flex items-center justify-between mb-8 border-b-2 border-[#FF3EA5] pb-6 border-dashed">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('dokter.reservasi.index') }}" 
+                       class="w-10 h-10 flex items-center justify-center bg-white border-2 border-[#FF3EA5] text-[#FF3EA5] rounded-lg shadow-[3px_3px_0px_0px_#FF3EA5] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    </a>
+                    <div>
+                        <h2 class="text-2xl font-black uppercase tracking-tight">Pemeriksaan Medis</h2>
+                        <p class="text-xs font-bold opacity-60">Manajemen Pasien</p>
                     </div>
                 </div>
             </div>
 
-            {{-- KOLOM KANAN: Form Update --}}
-            <div class="lg:col-span-2">
-                {{-- FORM START: Enctype ditambahkan --}}
-                <form action="{{ route('dokter.reservasi.update', $appointment->id) }}" method="POST" enctype="multipart/form-data"
-                      x-data="{ status: '{{ old('status', $appointment->status) }}' }"> 
-                    @csrf
-                    @method('PATCH')
+            {{-- 2. GRID LAYOUT --}}
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                {{-- KOLOM KIRI (Info Pasien) --}}
+                <div class="md:col-span-4 space-y-6">
+                    <div class="bg-white border-2 border-[#FF3EA5] rounded-2xl p-6 shadow-[5px_5px_0px_0px_#FF3EA5] sticky top-6">
+                        <div class="flex flex-col items-center text-center mb-6">
+                            <div class="w-20 h-20 bg-[#FF3EA5] text-white rounded-full flex items-center justify-center text-3xl font-black border-2 border-[#FF3EA5] mb-3">
+                                {{ substr($appointment->user->name, 0, 1) }}
+                            </div>
+                            <h3 class="text-lg font-black uppercase leading-tight">{{ $appointment->user->name }}</h3>
+                            <p class="text-xs font-bold opacity-60 mt-1">{{ $appointment->user->email }}</p>
+                        </div>
+                        <div class="space-y-4 pt-4 border-t-2 border-dashed border-[#FF3EA5]">
+                            <div>
+                                <p class="text-[10px] font-black uppercase bg-[#FF3EA5] text-white inline-block px-2 py-0.5 rounded mb-1">Jadwal</p>
+                                <p class="text-sm font-bold">{{ \Carbon\Carbon::parse($appointment->date)->isoFormat('dddd, D MMMM Y') }}</p>
+                                <p class="text-sm font-bold opacity-60">Jam {{ $appointment->time }} WIB</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase bg-[#FF3EA5] text-white inline-block px-2 py-0.5 rounded mb-1">Keluhan</p>
+                                <div class="text-sm font-medium italic opacity-80">"{{ $appointment->notes ?? '-' }}"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- KOLOM KANAN (Form Update) --}}
+                <div class="md:col-span-8">
                     
-                    @php $isCompleted = $appointment->status == 'completed'; @endphp
+                    @php
+                        $statusDB = $appointment->status;
+                        $isPending = $statusDB == 'pending';
+                        $isConfirmed = $statusDB == 'confirmed';
+                        $isCompleted = $statusDB == 'completed';
+                        $isCancelled = $statusDB == 'cancelled';
 
-                    <div class="bg-white border-4 border-[#C21B75] p-6 md:p-10 rounded-[3rem] shadow-[15px_15px_0px_0px_#FF3EA5]">
-                        
-                        <h3 class="text-2xl md:text-3xl font-black uppercase mb-10 border-b-4 border-[#FF3EA5] pb-4 inline-block tracking-tighter">
-                            Update Status
-                        </h3>
+                        $lockPending = $isConfirmed || $isCompleted || $isCancelled;
+                        $lockConfirmed = $isCompleted || $isCancelled;
+                    @endphp
 
-                        {{-- Timeline Radio --}}
-                        <div class="flex flex-col gap-6 mb-10">
-                            <label class="relative cursor-pointer group {{ $isCompleted ? 'opacity-40 grayscale pointer-events-none' : '' }}">
-                                <input type="radio" name="status" value="pending" x-model="status" class="peer sr-only" {{ $isCompleted ? 'disabled' : '' }}>
-                                <div class="flex items-center p-5 border-4 border-[#C21B75] rounded-3xl bg-white group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] group-hover:shadow-[6px_6px_0px_0px_#FF3EA5] transition-all
-                                            peer-checked:bg-[#FF3EA5] peer-checked:text-white peer-checked:border-[#C21B75] peer-checked:shadow-[8px_8px_0px_0px_#C21B75]">
-                                    <div class="w-10 h-10 border-4 border-current rounded-full flex items-center justify-center font-black mr-4 bg-white text-[#C21B75]">1</div>
-                                    <div class="font-black uppercase text-lg tracking-tight">Menunggu (Pending)</div>
-                                </div>
-                            </label>
+                    <form action="{{ route('dokter.reservasi.update', $appointment->id) }}" method="POST" enctype="multipart/form-data"
+                          x-data="{ status: '{{ old('status', $appointment->status) }}' }"> 
+                        @csrf
+                        @method('PATCH')
 
-                            <label class="relative cursor-pointer group {{ $isCompleted ? 'opacity-40 grayscale pointer-events-none' : '' }}">
-                                <input type="radio" name="status" value="confirmed" x-model="status" class="peer sr-only" {{ $isCompleted ? 'disabled' : '' }}>
-                                <div class="flex items-center p-5 border-4 border-[#C21B75] rounded-3xl bg-white group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] group-hover:shadow-[6px_6px_0px_0px_#FF3EA5] transition-all
-                                            peer-checked:bg-[#FF3EA5] peer-checked:text-white peer-checked:border-[#C21B75] peer-checked:shadow-[8px_8px_0px_0px_#C21B75]">
-                                    <div class="w-10 h-10 border-4 border-current rounded-full flex items-center justify-center font-black mr-4 bg-white text-[#C21B75]">2</div>
-                                    <div class="font-black uppercase text-lg tracking-tight">Konfirmasi (Confirmed)</div>
-                                </div>
-                            </label>
-
-                            <label class="relative cursor-pointer group">
-                                <input type="radio" name="status" value="completed" x-model="status" class="peer sr-only">
-                                <div class="flex items-center p-5 border-4 border-[#C21B75] rounded-3xl bg-white group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] group-hover:shadow-[6px_6px_0px_0px_#FF3EA5] transition-all
-                                            peer-checked:bg-[#FF3EA5] peer-checked:text-white peer-checked:border-[#C21B75] peer-checked:shadow-[8px_8px_0px_0px_#C21B75]">
-                                    <div class="w-10 h-10 border-4 border-current rounded-full flex items-center justify-center font-black mr-4 bg-white text-[#C21B75]">3</div>
-                                    <div class="font-black uppercase text-lg tracking-tight text-left">Selesai & Input Hasil (Completed)</div>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div class="mb-10 pl-2">
-                            <label class="inline-flex items-center gap-3 cursor-pointer group">
-                                <input type="radio" name="status" value="cancelled" x-model="status" class="w-6 h-6 accent-[#C21B75] border-4 border-[#C21B75]">
-                                <span class="font-black text-sm uppercase tracking-widest text-[#C21B75] group-hover:underline">[X] Batalkan Janji Temu</span>
-                            </label>
-                        </div>
-
-                        {{-- INPUT FORM (Show when Completed) --}}
-                        <div x-show="status === 'completed'" 
-                             x-transition:enter="transition ease-out duration-300"
-                             x-transition:enter-start="opacity-0 translate-y-8"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             class="space-y-8 border-t-8 border-[#C21B75] pt-10 mt-10">
+                        <div class="bg-white border-2 border-[#FF3EA5] rounded-2xl p-6 md:p-8 shadow-[5px_5px_0px_0px_#FF3EA5] relative overflow-hidden">
                             
-                            <h4 class="text-2xl font-black uppercase bg-[#FF3EA5] text-white inline-block px-4 py-1 rounded-lg shadow-[4px_4px_0px_0px_#C21B75]">
-                                Rekam Medis Pasien
-                            </h4>
+                            {{-- ALERT JIKA CANCELLED --}}
+                            @if($isCancelled)
+                                <div class="mb-8 bg-pink-50 border-2 border-[#FF3EA5] p-4 rounded-xl flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-[#FF3EA5] rounded-full flex items-center justify-center text-white font-bold shrink-0">X</div>
+                                    <div>
+                                        <h4 class="font-black uppercase text-[#FF3EA5] text-lg">Janji Temu Dibatalkan</h4>
+                                        <p class="text-xs font-bold text-[#FF3EA5] opacity-70">Data ini dikunci dan tidak dapat diubah kembali.</p>
+                                    </div>
+                                </div>
+                            @else
+                                <h3 class="text-xl font-black uppercase mb-6 flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-[#FF3EA5] rounded-full inline-block"></span>
+                                    Update Status
+                                </h3>
+                            @endif
 
-                            {{-- Diagnosa --}}
-                            <div>
-                                <label class="block font-black uppercase text-sm mb-3 ml-1">Diagnosa Dokter <span class="text-[#FF3EA5]">*</span></label>
-                                <textarea name="diagnosis" rows="4" 
-                                          class="w-full bg-white border-4 border-[#C21B75] rounded-[2rem] p-6 font-bold text-lg focus:ring-0 focus:border-[#FF3EA5] shadow-[6px_6px_0px_0px_#FF3EA5] transition-all placeholder-pink-200"
-                                          placeholder="Tuliskan diagnosa pemeriksaan di sini...">{{ old('diagnosis', $appointment->diagnosis) }}</textarea>
-                                @error('diagnosis') <p class="mt-3 text-sm font-black text-[#FF3EA5] bg-pink-50 px-2 py-1 inline-block border-2 border-[#FF3EA5] rounded-md uppercase">! {{ $message }}</p> @enderror
-                            </div>
-
-                            {{-- Resep --}}
-                            <div>
-                                <label class="block font-black uppercase text-sm mb-3 ml-1">Resep & Saran Medik</label>
-                                <textarea name="prescription" rows="4" 
-                                          class="w-full bg-white border-4 border-[#C21B75] rounded-[2rem] p-6 font-bold text-lg focus:ring-0 focus:border-[#FF3EA5] shadow-[6px_6px_0px_0px_#FF3EA5] transition-all placeholder-pink-200"
-                                          placeholder="Tuliskan daftar obat atau saran tindakan...">{{ old('prescription', $appointment->prescription) }}</textarea>
-                            </div>
-
-                            {{-- UPLOAD GAMBAR --}}
-                            <div class="pt-4">
-                                <label class="block font-black uppercase text-sm mb-4 ml-1 text-[#C21B75]">Upload Gambar (USG / Lampiran)</label>
+                            {{-- WRAPPER FIELDSET --}}
+                            <fieldset {{ $isCancelled ? 'disabled' : '' }} class="{{ $isCancelled ? 'opacity-50 grayscale' : '' }} transition-all">
                                 
-                                @if($appointment->image)
-                                    <div class="mb-6 p-4 border-4 border-[#FF3EA5] rounded-[2rem] inline-block bg-white shadow-[6px_6px_0px_0px_#C21B75]">
-                                        <p class="text-[10px] font-black uppercase mb-2">Lampiran Saat Ini:</p>
-                                        <img src="{{ asset('storage/' . $appointment->image) }}" class="w-48 h-48 object-cover rounded-2xl border-2 border-[#C21B75]">
+                                <div class="space-y-3 mb-8">
+                                    {{-- 1. PENDING --}}
+                                    <label class="group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all
+                                        {{ $lockPending ? 'border-[#FF3EA5]/20 bg-pink-50/30 opacity-60 cursor-not-allowed' : 'border-[#FF3EA5] cursor-pointer hover:bg-pink-50' }}">
+                                        
+                                        <input type="radio" name="status" value="pending" x-model="status" class="peer sr-only" {{ $lockPending ? 'disabled' : '' }}>
+                                        <div class="w-6 h-6 border-2 border-[#FF3EA5] rounded flex items-center justify-center peer-checked:bg-[#FF3EA5] peer-checked:text-white">
+                                            @if($lockPending)
+                                                <svg class="w-3 h-3 text-[#FF3EA5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                            @else
+                                                <span class="font-black text-xs" x-show="status == 'pending'">✓</span>
+                                            @endif
+                                        </div>
+                                        <div><span class="block text-sm font-black uppercase text-[#FF3EA5]">1. Menunggu (Pending)</span></div>
+                                    </label>
+
+                                    {{-- 2. CONFIRMED --}}
+                                    <label class="group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all
+                                        {{ $lockConfirmed ? 'border-[#FF3EA5]/20 bg-pink-50/30 opacity-60 cursor-not-allowed' : 'border-[#FF3EA5] cursor-pointer hover:bg-pink-50' }}">
+                                        
+                                        <input type="radio" name="status" value="confirmed" x-model="status" class="peer sr-only" {{ $lockConfirmed ? 'disabled' : '' }}>
+                                        <div class="w-6 h-6 border-2 border-[#FF3EA5] rounded flex items-center justify-center peer-checked:bg-[#FF3EA5] peer-checked:text-white">
+                                            @if($lockConfirmed)
+                                                <svg class="w-3 h-3 text-[#FF3EA5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                            @else
+                                                <span class="font-black text-xs" x-show="status == 'confirmed'">✓</span>
+                                            @endif
+                                        </div>
+                                        <div><span class="block text-sm font-black uppercase text-[#FF3EA5]">2. Konfirmasi & Periksa</span></div>
+                                    </label>
+
+                                    {{-- 3. COMPLETED --}}
+                                    <label class="group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all
+                                        {{ $isPending ? 'border-[#FF3EA5]/30 bg-pink-50/20 cursor-not-allowed opacity-60' : 'border-[#FF3EA5] cursor-pointer hover:bg-pink-50' }}">
+                                        
+                                        <input type="radio" name="status" value="completed" x-model="status" class="peer sr-only" {{ $isPending ? 'disabled' : '' }}>
+                                        <div class="w-6 h-6 border-2 border-[#FF3EA5] rounded flex items-center justify-center peer-checked:bg-[#FF3EA5] peer-checked:text-white">
+                                            @if($isPending)
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                            @else
+                                                <span class="font-black text-xs" x-show="status == 'completed'">✓</span>
+                                            @endif
+                                        </div>
+                                        <div class="w-full">
+                                            <span class="block text-sm font-black uppercase text-[#FF3EA5]">3. Selesai & Input Hasil</span>
+                                            @if($isPending)
+                                                <p class="text-[10px] font-bold mt-1 text-[#FF3EA5] bg-pink-100 inline-block px-2 rounded">Konfirmasi Dulu!</p>
+                                            @endif
+                                        </div>
+                                    </label>
+                                </div>
+
+                                {{-- FORM INPUT HASIL (Completed) --}}
+                                <div x-show="status === 'completed'" class="pt-8 border-t-2 border-dashed border-[#FF3EA5] space-y-6">
+                                    <div class="bg-[#FF3EA5] text-white px-4 py-2 rounded-lg inline-block text-sm font-black uppercase shadow-sm">Rekam Medis</div>
+                                    
+                                    {{-- DIAGNOSA: Perhatikan class focus:border-[#FF3EA5] focus:outline-none --}}
+                                    <div>
+                                        <label class="block text-xs font-black uppercase mb-2 ml-1 text-[#FF3EA5]">Diagnosa <span class="text-xl leading-none">*</span></label>
+                                        <textarea 
+                                            name="diagnosis" 
+                                            rows="3" 
+                                            class="w-full bg-white border-2 border-[#FF3EA5] focus:border-[#FF3EA5] focus:outline-none rounded-xl p-4 font-bold text-sm text-[#FF3EA5] focus:text-[#FF3EA5] caret-[#FF3EA5] focus:ring-0 focus:shadow-[4px_4px_0px_0px_#FF3EA5] transition-all placeholder-[#FF3EA5]/40" 
+                                            placeholder="Tulis diagnosa...">{{ old('diagnosis', $appointment->diagnosis) }}</textarea>
+                                        @error('diagnosis') <p class="mt-2 text-xs font-bold bg-pink-100 px-2 py-1 inline-block rounded text-[#FF3EA5]">! {{ $message }}</p> @enderror
+                                    </div>
+
+                                    {{-- RESEP --}}
+                                    <div>
+                                        <label class="block text-xs font-black uppercase mb-2 ml-1 text-[#FF3EA5]">Resep & Saran</label>
+                                        <textarea 
+                                            name="prescription" 
+                                            rows="3" 
+                                            class="w-full bg-white border-2 border-[#FF3EA5] focus:border-[#FF3EA5] focus:outline-none rounded-xl p-4 font-bold text-sm text-[#FF3EA5] focus:text-[#FF3EA5] caret-[#FF3EA5] focus:ring-0 focus:shadow-[4px_4px_0px_0px_#FF3EA5] transition-all placeholder-[#FF3EA5]/40" 
+                                            placeholder="Tulis resep...">{{ old('prescription', $appointment->prescription) }}</textarea>
+                                    </div>
+
+                                    {{-- UPLOAD GAMBAR (3 SLOT - INSTANT PREVIEW) --}}
+<div>
+    <label class="block text-xs font-black uppercase mb-2 ml-1 text-[#FF3EA5]">
+        Upload USG / Foto (Maks 3)
+    </label>
+
+    {{-- Container 3 Slot --}}
+    <div class="grid grid-cols-3 gap-4">
+        @for ($i = 0; $i < 3; $i++)
+            @php
+                // 1. Ambil URL Gambar Lama dari Database (Jika Ada)
+                $currentImages = [];
+                $imageUrl = null; // Default kosong
+
+                if($appointment->image) {
+                    $decoded = json_decode($appointment->image, true);
+                    // Support format lama (string) atau baru (array)
+                    $arr = is_array($decoded) ? $decoded : [$appointment->image];
+                    
+                    if(isset($arr[$i])) {
+                        $imageUrl = asset('storage/' . $arr[$i]);
+                    }
+                }
+            @endphp
+
+            {{-- 
+                ALPINE JS LOGIC:
+                - photoPreview: Diisi URL database saat load awal.
+                - updatePreview(): Fungsi untuk membaca file baru dan mengubah gambar.
+            --}}
+            <div class="relative group w-full aspect-square" 
+                 x-data="{ 
+                     photoPreview: '{{ $imageUrl }}', 
+                     updatePreview(event) {
+                         const file = event.target.files[0];
+                         if (file) {
+                             const reader = new FileReader();
+                             reader.onload = (e) => { this.photoPreview = e.target.result; };
+                             reader.readAsDataURL(file);
+                         }
+                     }
+                 }">
+                
+                {{-- Input File: Transparan menutupi seluruh kotak --}}
+                <input type="file" name="images[]" 
+                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                       accept="image/*"
+                       @change="updatePreview($event)">
+                
+                {{-- Tampilan Kotak --}}
+                <div class="w-full h-full bg-white border-2 border-dashed border-[#FF3EA5] rounded-xl flex flex-col items-center justify-center text-center overflow-hidden relative group-hover:bg-pink-50 transition-colors">
+                    
+                    {{-- KONDISI 1: Jika ada Preview (Entah dari DB atau Upload Baru) --}}
+                    <div x-show="photoPreview" class="w-full h-full absolute inset-0 z-10">
+                        <img :src="photoPreview" class="w-full h-full object-cover">
+                        
+                        {{-- Label Ganti Foto (Muncul saat hover) --}}
+                        <div class="absolute inset-0 bg-[#FF3EA5]/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-white font-black text-[10px] uppercase border-2 border-white px-2 py-1 rounded">Ganti</span>
+                        </div>
+                    </div>
+
+                    {{-- KONDISI 2: Jika KOSONG (Belum ada preview) --}}
+                    <div x-show="!photoPreview" class="flex flex-col items-center justify-center">
+                        <div class="w-8 h-8 bg-[#FF3EA5]/10 rounded-full flex items-center justify-center mb-1 group-hover:bg-[#FF3EA5] group-hover:text-white transition-colors text-[#FF3EA5]">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <span class="text-[8px] font-black uppercase text-[#FF3EA5]">Slot {{ $i+1 }}</span>
+                    </div>
+
+                </div>
+            </div>
+        @endfor
+    </div>
+    
+    <p class="mt-2 text-[10px] font-bold text-[#FF3EA5] opacity-60">
+        * Klik kotak untuk menambah/mengganti foto. Preview akan langsung muncul.
+    </p>
+    @error('images') <p class="mt-1 text-xs font-bold text-[#FF3EA5]">! {{ $message }}</p> @enderror
+    @error('images.*') <p class="mt-1 text-xs font-bold text-[#FF3EA5]">! {{ $message }}</p> @enderror
+</div>
+                                </div>
+
+                                {{-- Tombol Batal Janji --}}
+                                @if(!$isCompleted && !$isCancelled)
+                                    <div class="mt-6 pt-6 border-t-2 border-dashed border-[#FF3EA5]/30">
+                                        <label class="inline-flex items-center gap-2 cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+                                            <input type="radio" name="status" value="cancelled" x-model="status" class="accent-[#FF3EA5]">
+                                            <span class="text-xs font-bold uppercase underline decoration-2 text-[#FF3EA5]">Batalkan Janji Temu</span>
+                                        </label>
                                     </div>
                                 @endif
 
-                                <div class="relative group">
-                                    <input type="file" name="image" 
-                                           class="w-full bg-white border-4 border-[#C21B75] rounded-full p-4 font-bold text-sm
-                                                  file:mr-4 file:py-2 file:px-6 file:rounded-full file:border-0 
-                                                  file:text-xs file:font-black file:bg-[#FF3EA5] file:text-white 
-                                                  hover:file:bg-[#C21B75] transition-all cursor-pointer shadow-[6px_6px_0px_0px_#FF3EA5]">
-                                </div>
-                                <p class="mt-3 text-[10px] font-black uppercase text-[#FF3EA5] ml-4 italic">* Maksimal 10MB (JPG, PNG)</p>
-                                @error('image') <p class="mt-3 text-sm font-black text-[#FF3EA5] bg-pink-50 px-2 py-1 inline-block border-2 border-[#FF3EA5] rounded-md uppercase">! {{ $message }}</p> @enderror
+                            </fieldset>
+
+                            {{-- Footer Action --}}
+                            <div class="mt-8 pt-6 flex justify-end">
+                                @if($isCancelled)
+                                    <a href="{{ route('dokter.reservasi.index') }}" 
+                                       class="px-8 py-3 bg-white text-[#FF3EA5] font-black uppercase rounded-xl border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#FF3EA5] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+                                        Kembali
+                                    </a>
+                                @else
+                                    <button type="submit" 
+                                            class="px-8 py-3 bg-[#FF3EA5] text-white font-black uppercase rounded-xl border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                                        Simpan Data
+                                    </button>
+                                @endif
                             </div>
-                        </div>
 
-                        {{-- FOOTER ACTION --}}
-                        <div class="mt-12 pt-8 border-t-4 border-[#FF3EA5] flex flex-col-reverse md:flex-row justify-end gap-5">
-                            <a href="{{ route('dokter.reservasi.index') }}" 
-                               class="text-center px-10 py-4 font-black uppercase border-4 border-[#C21B75] text-[#C21B75] rounded-2xl hover:bg-pink-50 transition-colors tracking-widest">
-                                Batal
-                            </a>
-                            <button type="submit" 
-                                    class="text-center px-10 py-4 font-black uppercase bg-[#C21B75] text-white border-4 border-[#C21B75] rounded-2xl shadow-[6px_6px_0px_0px_#FF3EA5] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all tracking-widest">
-                                Simpan Rekam Medis
-                            </button>
                         </div>
-
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
