@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 // Menggunakan Alias agar tidak bentrok dengan Dashboard Mama
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController; 
 use App\Http\Controllers\Doctor\ReservationController as DoctorReservationController;
-
+use App\Http\Controllers\Doctor\JawabPasienController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +68,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/rekap-data/{id}', [RekapDataController::class, 'detail'])->name('mama.rekap-data.detail');
 
         // Fitur: Tanya Dokter
-        Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter.index');
+        Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter');
+        Route::get('/tanya-dokter/messages/{doctorId}', [TanyaDokterController::class, 'getMessages']);
+        Route::post('/tanya-dokter/send', [TanyaDokterController::class, 'sendMessage']);
     });
 
 
@@ -108,6 +110,19 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
         // Proses Simpan Data Pemeriksaan (Update)
         Route::patch('/{id}', [DoctorReservationController::class, 'update'])->name('update');
     });
+
+    // Fitur: Jawab Pasien (Chat Dokter)
+    Route::prefix('jawab-pasien')->name('chat.')->group(function () {
+        // Halaman Utama Chat
+        Route::get('/', [JawabPasienController::class, 'index'])->name('index');
+        
+        // API Internal: Ambil Pesan
+        Route::get('/messages/{userId}', [JawabPasienController::class, 'getMessages'])->name('messages');
+        
+        // API Internal: Kirim Pesan
+        Route::post('/send', [JawabPasienController::class, 'sendMessage'])->name('send');
+    });
+    
 });
 
 

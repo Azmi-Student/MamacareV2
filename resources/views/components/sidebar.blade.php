@@ -58,10 +58,9 @@
         @if (auth()->user()->role === 'mama')
             {{-- LINK: TANYA DOKTER --}}
             @php
-                // Cek apakah route saat ini adalah 'mama.tanya-dokter' atau sub-halamannya
                 $isTanyaActive = request()->routeIs('mama.tanya-dokter*');
             @endphp
-            <a href="{{ Route::has('mama.tanya-dokter.index') ? route('mama.tanya-dokter.index') : '#' }}"
+            <a href="{{ Route::has('mama.tanya-dokter') ? route('mama.tanya-dokter') : '#' }}"
                 class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
                 {{ $isTanyaActive
                     ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
@@ -104,6 +103,8 @@
 
         {{-- === MENU KHUSUS DOKTER === --}}
         @if (auth()->user()->role === 'dokter')
+            
+            {{-- 1. DAFTAR PASIEN (RESERVASI) --}}
             @php
                 $isReservasiActive = request()->routeIs('dokter.reservasi.*');
             @endphp
@@ -113,7 +114,6 @@
                     ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
                     : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
 
-                {{-- Icon Clipboard --}}
                 <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isReservasiActive ? 'text-white' : 'text-[#FF3EA5]' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -125,29 +125,34 @@
                     Daftar Pasien
                 </span>
             </a>
-        @endif
 
-        {{-- === MENU KHUSUS ADMIN === --}}
-        @if (auth()->user()->role === 'admin')
+            {{-- 2. CHAT PASIEN (JAWAB KONSULTASI) --}}
+            {{-- Route ini nanti kita buat --}}
             @php
-                $isUserMgmtActive = request()->routeIs('admin.dashboard');
+                $isChatActive = request()->routeIs('dokter.chat.*');
             @endphp
-            <a href="{{ route('admin.dashboard') }}"
+            <a href="{{ Route::has('dokter.chat.index') ? route('dokter.chat.index') : '#' }}"
                 class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
-                {{ $isUserMgmtActive
+                {{ $isChatActive
                     ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
                     : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
-                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isUserMgmtActive ? 'text-white' : 'text-[#FF3EA5]' }}"
+
+                {{-- Icon Chat Bubble --}}
+                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isChatActive ? 'text-white' : 'text-[#FF3EA5]' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
+
                 <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isUserMgmtActive ? 'text-white' : 'text-[#FF3EA5]' }}">
-                    Data Pengguna
+                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isChatActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                    Chat Pasien
                 </span>
             </a>
+
         @endif
+
+        
 
         {{-- LINK: SETTINGS (Semua Role) --}}
         <a href="{{ route('profile.edit') }}"

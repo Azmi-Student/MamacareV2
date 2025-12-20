@@ -135,19 +135,31 @@
 
         {{-- MAIN CONTENT --}}
         <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
-            <header
-                class="lg:hidden mx-4 mt-4 rounded-xl bg-white border-2 border-[#FF3EA5] shadow-[3px_3px_0px_0px_#ff90c8] h-14 flex items-center justify-between px-4 shrink-0 z-30 relative">
-                <div class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo-icon.png') }}" alt="Mamacare Logo"
-                        class="block w-7 h-7 object-contain">
-                    <span class="font-black text-lg text-[#FF3EA5] tracking-tight pl-1 uppercase">MamaCare</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    @include('components.header')
-                </div>
-            </header>
+            
+            {{-- 
+                HEADER MOBILE
+                Logika: Tampil HANYA JIKA halaman anak TIDAK me-request untuk menyembunyikannya.
+            --}}
+            @if (!View::hasSection('hideMobileHeader'))
+                <header class="lg:hidden mx-4 mt-4 rounded-xl bg-white border-2 border-[#FF3EA5] shadow-[3px_3px_0px_0px_#ff90c8] h-14 flex items-center justify-between px-4 shrink-0 z-30 relative">
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('images/logo-icon.png') }}" alt="Mamacare Logo" class="block w-7 h-7 object-contain">
+                        <span class="font-black text-lg text-[#FF3EA5] tracking-tight pl-1 uppercase">MamaCare</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        @include('components.header')
+                    </div>
+                </header>
+            @endif
 
-            <main class="flex-1 overflow-x-hidden overflow-y-auto no-scrollbar p-4 pb-24 md:p-6 md:pb-24 lg:pb-6">
+            {{-- MAIN AREA --}}
+            {{-- 
+               Kita juga bisa atur padding top dinamis. 
+               Jika header di-hide (halaman chat), padding top (pt-6) kita hilangkan biar full screen.
+               Jika header ada, pakai pt-6.
+            --}}
+            <main class="flex-1 overflow-x-hidden overflow-y-auto no-scrollbar p-4 pb-24 md:p-6 md:pb-24 lg:pb-6 
+                {{ View::hasSection('hideMobileHeader') ? 'pt-0' : 'pt-6' }}">
                 <div class="container mx-auto max-w-7xl">
                     @yield('content')
                 </div>
