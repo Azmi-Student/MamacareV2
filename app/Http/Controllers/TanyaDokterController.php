@@ -10,45 +10,54 @@ use Illuminate\Support\Facades\Auth;
 
 class TanyaDokterController extends Controller
 {
-    // 1. TAMPILKAN HALAMAN & LIST DOKTER
+    // 1. HALAMAN DAFTAR DOKTER (index.blade.php)
     public function index()
     {
-        // Ambil semua dokter
         $doctors = Doctor::all()->map(function($doc) {
             return [
                 'id' => $doc->id,
                 'name' => $doc->name,
                 'specialist' => $doc->specialist,
-                'avatar' => substr($doc->name, 4, 1), // Ambil huruf depan nama
-                'status' => 'online', // Nanti bisa dibikin logic real online/offline
+                // Perbaikan ambil huruf depan: Menghilangkan "Dr. " jika ada
+                'avatar' => strtoupper(substr(str_replace(['Dr. ', 'dr. '], '', $doc->name), 0, 1)),
+                'status' => 'online',
             ];
         });
 
         return view('page.tanya-dokter.index', compact('doctors'));
     }
 
-    // 2. API: AMBIL PESAN (GET)
+    // 2. HALAMAN RUANG CHAT (chat.blade.php)
+    public function chat($id)
+    {
+        $activeDoctor = Doctor::findOrFail($id);
+        
+        // Tambahkan atribut inisial untuk avatar di view chat
+        $activeDoctor->avatar = strtoupper(substr(str_replace(['Dr. ', 'dr. '], '', $activeDoctor->name), 0, 1));
+
+        return view('page.tanya-dokter.chat', compact('activeDoctor'));
+    }
+
+    // 3. API: AMBIL PESAN (GET) - Tetap digunakan oleh Alpine.js
     public function getMessages($doctorId)
     {
         $userId = Auth::id();
 
-        // Cari conversation
         $conversation = Conversation::where('user_id', $userId)
             ->where('doctor_id', $doctorId)
             ->first();
 
         if (!$conversation) {
-            return response()->json([]); // Belum ada chat
+            return response()->json([]);
         }
 
-        // Ambil pesan
         $messages = $conversation->messages()
             ->orderBy('created_at', 'asc')
             ->get()
             ->map(function($msg) {
                 return [
                     'text' => $msg->message,
-                    'sender' => $msg->sender_type, // 'user' atau 'doctor'
+                    'sender' => $msg->sender_type, 
                     'time' => $msg->created_at->format('H:i'),
                 ];
             });
@@ -56,7 +65,7 @@ class TanyaDokterController extends Controller
         return response()->json($messages);
     }
 
-    // 3. API: KIRIM PESAN (POST)
+    // 4. API: KIRIM PESAN (POST) - Tetap digunakan oleh Alpine.js
     public function sendMessage(Request $request)
     {
         $request->validate([
@@ -66,19 +75,20 @@ class TanyaDokterController extends Controller
 
         $userId = Auth::id();
 
-        // Cari atau Buat Conversation Baru
         $conversation = Conversation::firstOrCreate(
             ['user_id' => $userId, 'doctor_id' => $request->doctor_id]
         );
 
-        // Simpan Pesan
         $message = Message::create([
             'conversation_id' => $conversation->id,
-            'sender_type' => 'user', // Karena ini controller sisi User
+            'sender_type' => 'user',
             'message' => $request->message,
             'is_read' => false,
         ]);
 
-        return response()->json(['status' => 'success', 'time' => $message->created_at->format('H:i')]);
+        return response()->json([
+            'status' => 'success', 
+            'time' => $message->created_at->format('H:i')
+        ]);
     }
 }

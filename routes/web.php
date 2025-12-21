@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // --- AUTH CONTROLLERS ---
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArtikelController;
 
 // --- MAMA CONTROLLERS ---
 use App\Http\Controllers\DashboardController; // Dashboard Mama
@@ -22,8 +23,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 // Menggunakan Alias agar tidak bentrok dengan Dashboard Mama
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController; 
 use App\Http\Controllers\Doctor\ReservationController as DoctorReservationController;
-use App\Http\Controllers\Doctor\JawabPasienController;
-
+use App\Http\Controllers\Doctor\JawabPasienController as JawabPasienController;
+use App\Http\Controllers\Doctor\KelolaArtikelController as DoctorKelolaArtikelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,9 +69,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/rekap-data/{id}', [RekapDataController::class, 'detail'])->name('mama.rekap-data.detail');
 
         // Fitur: Tanya Dokter
-        Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter');
-        Route::get('/tanya-dokter/messages/{doctorId}', [TanyaDokterController::class, 'getMessages']);
-        Route::post('/tanya-dokter/send', [TanyaDokterController::class, 'sendMessage']);
+Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter');
+
+// Tambahkan Route baru ini untuk halaman chat terpisah
+Route::get('/tanya-dokter/chat/{id}', [TanyaDokterController::class, 'chat'])->name('mama.tanya-dokter.chat');
+
+// API Routes (untuk Fetch Data di background)
+Route::get('/tanya-dokter/messages/{doctorId}', [TanyaDokterController::class, 'getMessages']);
+Route::post('/tanya-dokter/send', [TanyaDokterController::class, 'sendMessage']);
     });
 
 
@@ -122,16 +128,29 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
         // API Internal: Kirim Pesan
         Route::post('/send', [JawabPasienController::class, 'sendMessage'])->name('send');
     });
+
+    // Fitur: Manajemen Artikel Dok
+    // Panggil pakai nama Alias-nya
+    Route::resource('kelola-artikel', DoctorKelolaArtikelController::class);
+
+    // Route tambahan juga pakai nama Alias
+    Route::patch('/kelola-artikel/{id}/update-status', [DoctorKelolaArtikelController::class, 'updateStatus'])
+        ->name('kelola-artikel.updateStatus');
     
 });
 
 
-    // 4. SHARED (PROFILE)
+    // 4. SHARED
+    // Route untuk profile user (semua role)
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
+
+    // Route untuk halaman artikel
+    Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+    Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.show'); 
 });
 
 require __DIR__.'/auth.php';

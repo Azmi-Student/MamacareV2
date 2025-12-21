@@ -168,11 +168,11 @@
     </div>
 
     {{-- MOBILE NAVBAR --}}
-    @if (!isset($hideNavbar) || !$hideNavbar)
-        <div class="lg:hidden">
-            @include('components.navbar-mobile')
-        </div>
-    @endif
+    @if (!View::hasSection('hideMobileNav'))
+    <div class="lg:hidden">
+        @include('components.navbar-mobile')
+    </div>
+@endif
 
 
     <script>

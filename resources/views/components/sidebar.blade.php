@@ -2,7 +2,6 @@
 
     {{-- 1. LOGO AREA --}}
     <div class="h-20 flex items-center justify-center lg:justify-start lg:px-6 shrink-0 mt-2">
-        {{-- Redirect logo disesuaikan role --}}
         @php
             $dashboardRoute = 'dashboard';
             if (auth()->user()->role === 'admin') {
@@ -13,13 +12,10 @@
         @endphp
 
         <a href="{{ route($dashboardRoute) }}" class="flex items-center gap-3 group">
-            <div
-                class="w-10 h-10 bg-[#FF3EA5] rounded-lg border-2 border-[#FF3EA5] flex items-center justify-center shadow-[3px_3px_0px_0px_#ff90c8] group-hover:translate-x-1 group-hover:shadow-none transition-all">
-                <img src="{{ asset('images/logo-icon.png') }}" alt="Icon"
-                    class="w-6 h-6 object-contain brightness-0 invert">
+            <div class="w-10 h-10 bg-[#FF3EA5] rounded-lg border-2 border-[#FF3EA5] flex items-center justify-center shadow-[3px_3px_0px_0px_#ff90c8] group-hover:translate-x-1 group-hover:shadow-none transition-all">
+                <img src="{{ asset('images/logo-icon.png') }}" alt="Icon" class="w-6 h-6 object-contain brightness-0 invert">
             </div>
-            <span
-                class="text-2xl font-black text-[#FF3EA5] hidden lg:block whitespace-nowrap tracking-tighter uppercase drop-shadow-sm">
+            <span class="text-2xl font-black text-[#FF3EA5] hidden lg:block whitespace-nowrap tracking-tighter uppercase drop-shadow-sm">
                 MamaCare
             </span>
         </a>
@@ -48,8 +44,7 @@
                     d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
             </svg>
 
-            <span
-                class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isDashboardActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+            <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isDashboardActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                 Dashboard
             </span>
         </a>
@@ -72,8 +67,7 @@
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
 
-                <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                     Tanya Dokter
                 </span>
             </a>
@@ -94,8 +88,7 @@
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
 
-                <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                     Rekap Data
                 </span>
             </a>
@@ -104,7 +97,7 @@
         {{-- === MENU KHUSUS DOKTER === --}}
         @if (auth()->user()->role === 'dokter')
             
-            {{-- 1. DAFTAR PASIEN (RESERVASI) --}}
+            {{-- 1. DAFTAR PASIEN --}}
             @php
                 $isReservasiActive = request()->routeIs('dokter.reservasi.*');
             @endphp
@@ -120,14 +113,12 @@
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                 </svg>
 
-                <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isReservasiActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isReservasiActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                     Daftar Pasien
                 </span>
             </a>
 
-            {{-- 2. CHAT PASIEN (JAWAB KONSULTASI) --}}
-            {{-- Route ini nanti kita buat --}}
+            {{-- 2. CHAT PASIEN --}}
             @php
                 $isChatActive = request()->routeIs('dokter.chat.*');
             @endphp
@@ -137,23 +128,54 @@
                     ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
                     : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
 
-                {{-- Icon Chat Bubble --}}
                 <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isChatActive ? 'text-white' : 'text-[#FF3EA5]' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
 
-                <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isChatActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isChatActive ? 'text-white' : 'text-[#FF3EA5]' }}">
                     Chat Pasien
+                </span>
+            </a>
+
+            {{-- 3. [BARU] KELOLA ARTIKEL --}}
+            @php
+                $isKelolaArtikelActive = request()->routeIs('dokter.kelola-artikel.*');
+            @endphp
+            <a href="{{ route('dokter.kelola-artikel.index') }}"
+                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
+                {{ $isKelolaArtikelActive
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
+                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
+
+                {{-- Ikon Pencil Square (Edit) --}}
+                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isKelolaArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+
+                <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isKelolaArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}">
+                    Kelola Artikel
                 </span>
             </a>
 
         @endif
 
+        {{-- LINK: ARTIKEL (PUBLIK) --}}
+        {{-- Tetap ada di bawah biar semua role bisa baca artikel --}}
+        @php $isArtikelActive = request()->routeIs('artikel.index') || request()->routeIs('artikel.show'); @endphp
+        <a href="{{ route('artikel.index') }}"
+            class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
+            {{ $isArtikelActive ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1' : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
+            
+            <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+            <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}">Artikel</span>
+        </a>
         
-
         {{-- LINK: SETTINGS (Semua Role) --}}
         <a href="{{ route('profile.edit') }}"
             class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
