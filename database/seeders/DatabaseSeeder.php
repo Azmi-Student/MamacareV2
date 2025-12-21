@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $dokter1->id,
             'name' => 'Dr. Boyke Dian, Sp.OG',
             'specialist' => 'Spesialis Kandungan',
+            'phone_number' => '081234567890',
             'experience' => 15,
             'image' => 'https://ui-avatars.com/api/?name=Boyke+Dian&background=C21B75&color=fff&size=128', 
             'description' => 'Dokter senior yang sangat humoris dan detail dalam menjelaskan.'
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $dokter2->id,
             'name' => 'Dr. Aisah Putri, Sp.OG',
             'specialist' => 'Dokter Kandungan',
+            'phone_number' => '089876543210',
             'experience' => 8,
             'image' => 'https://ui-avatars.com/api/?name=Aisah+Putri&background=FF3EA5&color=fff&size=128',
             'description' => 'Sangat keibuan, sabar mendengarkan keluhan, dan pro-persalinan normal.'
@@ -79,6 +81,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $dokter3->id,
             'name' => 'Bidan Siti Aminah, S.Tr.Keb',
             'specialist' => 'Bidan Sahabat Ibu',
+            'phone_number' => '085566778899',
             'experience' => 5,
             'image' => 'https://ui-avatars.com/api/?name=Siti+Aminah&background=FF90C8&color=fff&size=128',
             'description' => 'Bidan muda yang cekatan, telaten mengurus baby, dan fokus pada relaksasi ibu hamil.'

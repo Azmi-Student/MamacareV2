@@ -16,6 +16,7 @@ return new class extends Migration
         $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // Link ke akun login
         $table->string('name');
         $table->string('specialist'); // Sp.OG / Bidan
+        $table->string('phone_number');
         $table->text('description')->nullable();
         $table->integer('experience')->default(1);
         $table->string('image')->nullable();

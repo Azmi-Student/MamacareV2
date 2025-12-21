@@ -12,20 +12,12 @@ class TanyaDokterController extends Controller
 {
     // 1. HALAMAN DAFTAR DOKTER (index.blade.php)
     public function index()
-    {
-        $doctors = Doctor::all()->map(function($doc) {
-            return [
-                'id' => $doc->id,
-                'name' => $doc->name,
-                'specialist' => $doc->specialist,
-                // Perbaikan ambil huruf depan: Menghilangkan "Dr. " jika ada
-                'avatar' => strtoupper(substr(str_replace(['Dr. ', 'dr. '], '', $doc->name), 0, 1)),
-                'status' => 'online',
-            ];
-        });
+{
+    // Cukup ambil semua data dokter langsung
+    $doctors = Doctor::all(); 
 
-        return view('page.tanya-dokter.index', compact('doctors'));
-    }
+    return view('page.tanya-dokter.index', compact('doctors'));
+}
 
     // 2. HALAMAN RUANG CHAT (chat.blade.php)
     public function chat($id)

@@ -55,48 +55,87 @@
 
         {{-- === MENU KHUSUS MAMA === --}}
         @if (auth()->user()->role === 'mama')
-            {{-- LINK: TANYA DOKTER --}}
             @php
-                $isTanyaActive = request()->routeIs('mama.tanya-dokter*');
+                $isLayananDokterActive =
+                    request()->routeIs('mama.tanya-dokter*') || request()->routeIs('mama.reservasi*');
             @endphp
-            <a href="{{ Route::has('mama.tanya-dokter') ? route('mama.tanya-dokter') : '#' }}"
-                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
-                {{ $isTanyaActive
-                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
-                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
 
-                <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
+            {{-- Dropdown Group --}}
+            <div x-data="{ open: {{ $isLayananDokterActive ? 'true' : 'false' }} }" class="space-y-1">
 
-                <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isTanyaActive ? 'text-white' : 'text-[#FF3EA5]' }}">
-                    Tanya Dokter
-                </span>
-            </a>
+                {{-- Tombol Induk Dropdown --}}
+                <button @click="open = !open"
+                    class="w-full flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group 
+            {{ $isLayananDokterActive
+                ? 'bg-pink-50 border-[#FF3EA5] text-[#FF3EA5]'
+                : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5]' }}">
 
-            {{-- LINK: REKAP DATA --}}
-            @php
-                $isRekapActive = request()->routeIs('mama.rekap-data*');
-            @endphp
+                    <svg class="w-6 h-6 shrink-0 stroke-[2.5px]" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+
+                    <span
+                        class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm flex-1 text-left">Layanan
+                        Dokter</span>
+
+                    <svg class="w-4 h-4 transition-transform duration-200 hidden lg:block"
+                        :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                {{-- Sub-Menu Area --}}
+                <div x-show="open" x-transition.origin.top class="lg:ps-4 space-y-2 mt-2 overflow-hidden">
+
+                    {{-- SUBMENU: CHAT DOKTER --}}
+                    @php $isChatActive = request()->routeIs('mama.tanya-dokter*'); @endphp
+                    <a href="{{ route('mama.tanya-dokter') }}"
+                        class="flex items-center p-2.5 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
+                {{ $isChatActive
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] text-white shadow-[3px_3px_0px_0px_#ff90c8]'
+                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5]' }}">
+                        <svg class="w-5 h-5 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span class="ms-3 hidden lg:block font-bold uppercase tracking-wide text-[11px]">Chat
+                            Dokter</span>
+                    </a>
+
+                    {{-- SUBMENU: RESERVASI --}}
+                    @php $isResActive = request()->routeIs('mama.reservasi*'); @endphp
+                    <a href="{{ Route::has('mama.reservasi') ? route('mama.reservasi') : '#' }}"
+                        class="flex items-center p-2.5 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
+                {{ $isResActive
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] text-white shadow-[3px_3px_0px_0px_#ff90c8]'
+                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5]' }}">
+                        <svg class="w-5 h-5 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span
+                            class="ms-3 hidden lg:block font-bold uppercase tracking-wide text-[11px]">Reservasi</span>
+                    </a>
+                </div>
+            </div>
+
+            {{-- LINK: REKAP DATA (Di luar dropdown agar tidak bentrok) --}}
+            @php $isRekapActive = request()->routeIs('mama.rekap-data*'); @endphp
             <a href="{{ Route::has('mama.rekap-data') ? route('mama.rekap-data') : '#' }}"
-                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group
-                {{ $isRekapActive
-                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
-                    : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
-
+                class="flex items-center p-3 rounded-xl border-2 transition-all duration-200 justify-center lg:justify-start group mt-3
+        {{ $isRekapActive
+            ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] -translate-y-1'
+            : 'bg-white border-transparent text-[#FF3EA5] hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1' }}">
                 <svg class="w-6 h-6 shrink-0 stroke-[2.5px] {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-
                 <span
-                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}">
-                    Rekap Data
-                </span>
+                    class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm {{ $isRekapActive ? 'text-white' : 'text-[#FF3EA5]' }}">Rekap
+                    Data</span>
             </a>
         @endif
 
@@ -210,18 +249,19 @@
         {{-- TOMBOL BERI DONASI (BARU)                   --}}
         {{-- =========================================== --}}
         <button id="btn-donasi"
-    class="w-full flex items-center p-3 rounded-xl border-2 border-transparent bg-white text-[#FF3EA5] shadow-none hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1 transition-all duration-200 justify-center lg:justify-start group mt-4">
-    
-    {{-- Ikon Love/Heart --}}
-    <svg class="w-6 h-6 shrink-0 stroke-[2.5px] text-[#FF3EA5] fill-none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round"
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-    
-    <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm">
-        Beri Donasi
-    </span>
-</button>
+            class="w-full flex items-center p-3 rounded-xl border-2 border-transparent bg-white text-[#FF3EA5] shadow-none hover:border-[#FF3EA5] hover:shadow-[4px_4px_0px_0px_#FF3EA5] hover:-translate-y-1 transition-all duration-200 justify-center lg:justify-start group mt-4">
+
+            {{-- Ikon Love/Heart --}}
+            <svg class="w-6 h-6 shrink-0 stroke-[2.5px] text-[#FF3EA5] fill-none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+
+            <span class="ms-3 hidden lg:block font-black uppercase tracking-wide text-sm">
+                Beri Donasi
+            </span>
+        </button>
     </nav>
 
     {{-- 3. LOGOUT BUTTON AREA --}}

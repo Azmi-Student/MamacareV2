@@ -67,35 +67,44 @@
                     </div>
 
                     {{-- ========================================== --}}
-                    {{-- BAGIAN FORM TAMBAHAN KHUSUS DOKTER --}}
-                    {{-- ========================================== --}}
-                    <div id="doctorFields" class="{{ old('role') == 'dokter' ? '' : 'hidden' }} bg-pink-50 p-6 rounded-2xl border-2 border-dashed border-pink-300 mb-8">
-                        <h4 class="text-[#C21B75] font-black uppercase text-sm mb-4 flex items-center">
-                            <span class="mr-2">🩺</span> Detail Profesi Dokter
-                        </h4>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                            <div>
-                                <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Spesialisasi</label>
-                                <input type="text" name="specialist" value="{{ old('specialist') }}"
-                                    class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
-                                    placeholder="Contoh: Spesialis Kandungan">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Pengalaman (Tahun)</label>
-                                <input type="number" name="experience" value="{{ old('experience') }}"
-                                    class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
-                                    placeholder="Contoh: 5">
-                            </div>
-                        </div>
+{{-- BAGIAN FORM TAMBAHAN KHUSUS DOKTER --}}
+{{-- ========================================== --}}
+<div id="doctorFields" class="{{ old('role') == 'dokter' ? '' : 'hidden' }} bg-pink-50 p-6 rounded-2xl border-2 border-dashed border-pink-300 mb-8">
+    <h4 class="text-[#C21B75] font-black uppercase text-sm mb-4 flex items-center">
+        <span class="mr-2"></span> Detail Profesi Dokter
+    </h4>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+        <div>
+            <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Spesialisasi</label>
+            <input type="text" name="specialist" value="{{ old('specialist') }}"
+                class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
+                placeholder="Contoh: Spesialis Kandungan">
+        </div>
+        
+        {{-- Input WhatsApp Baru --}}
+        <div>
+            <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Nomor WhatsApp</label>
+            <input type="text" name="phone_number" value="{{ old('phone_number') }}"
+                class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
+                placeholder="Contoh: 08123456789">
+        </div>
 
-                        <div>
-                            <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Deskripsi Singkat</label>
-                            <textarea name="description" rows="3" 
-                                class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
-                                placeholder="Ceritakan singkat profil dokter...">{{ old('description') }}</textarea>
-                        </div>
-                    </div>
+        <div>
+            <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Pengalaman (Tahun)</label>
+            <input type="number" name="experience" value="{{ old('experience') }}"
+                class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
+                placeholder="Contoh: 5">
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-xs font-black text-[#C21B75] uppercase mb-2">Deskripsi Singkat</label>
+        <textarea name="description" rows="3" 
+            class="w-full rounded-xl border-2 border-white focus:border-[#FF3EA5] focus:ring-[#FF3EA5] text-gray-700 font-medium" 
+            placeholder="Ceritakan singkat profil dokter...">{{ old('description') }}</textarea>
+    </div>
+</div>
 
                     {{-- Tombol Submit --}}
                     <div class="flex justify-end">

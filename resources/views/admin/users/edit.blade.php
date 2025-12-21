@@ -49,37 +49,47 @@
                     </div>
 
                     {{-- ========================================== --}}
-                    {{-- BAGIAN FORM TAMBAHAN KHUSUS DOKTER (EDIT) --}}
-                    {{-- ========================================== --}}
-                    <div id="doctorFields" class="{{ $user->role == 'dokter' ? '' : 'hidden' }} bg-rose-50 p-6 rounded-xl border-2 border-dashed border-rose-200 mb-8">
-                        <h4 class="text-rose-700 font-bold text-sm mb-4 flex items-center gap-2">
-                            🩺 Detail Profesi Dokter
-                        </h4>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Spesialisasi</label>
-                                <input type="text" name="specialist" 
-                                    value="{{ old('specialist', $user->doctor->specialist ?? '') }}"
-                                    class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
-                                    placeholder="Contoh: Spesialis Kandungan">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Pengalaman (Tahun)</label>
-                                <input type="number" name="experience" 
-                                    value="{{ old('experience', $user->doctor->experience ?? '') }}"
-                                    class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
-                                    placeholder="Contoh: 5">
-                            </div>
-                        </div>
+{{-- BAGIAN FORM TAMBAHAN KHUSUS DOKTER (EDIT) --}}
+{{-- ========================================== --}}
+<div id="doctorFields" class="{{ $user->role == 'dokter' ? '' : 'hidden' }} bg-rose-50 p-6 rounded-xl border-2 border-dashed border-rose-200 mb-8">
+    <h4 class="text-rose-700 font-bold text-sm mb-4 flex items-center gap-2">
+        🩺 Detail Profesi Dokter
+    </h4>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+            <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Spesialisasi</label>
+            <input type="text" name="specialist" 
+                value="{{ old('specialist', $user->doctor->specialist ?? '') }}"
+                class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
+                placeholder="Contoh: Spesialis Kandungan">
+        </div>
 
-                        <div>
-                            <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Deskripsi Profil</label>
-                            <textarea name="description" rows="3" 
-                                class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
-                                placeholder="Ceritakan singkat profil dokter...">{{ old('description', $user->doctor->description ?? '') }}</textarea>
-                        </div>
-                    </div>
+        {{-- Input WhatsApp Edit --}}
+        <div>
+            <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Nomor WhatsApp</label>
+            <input type="text" name="phone_number" 
+                value="{{ old('phone_number', $user->doctor->phone_number ?? '') }}"
+                class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
+                placeholder="Contoh: 08123456789">
+        </div>
+
+        <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Pengalaman (Tahun)</label>
+            <input type="number" name="experience" 
+                value="{{ old('experience', $user->doctor->experience ?? '') }}"
+                class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
+                placeholder="Contoh: 5">
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-rose-600 uppercase mb-1">Deskripsi Profil</label>
+        <textarea name="description" rows="3" 
+            class="w-full rounded-lg border-gray-300 focus:border-rose-500 focus:ring-rose-500 text-sm" 
+            placeholder="Ceritakan singkat profil dokter...">{{ old('description', $user->doctor->description ?? '') }}</textarea>
+    </div>
+</div>
 
                     {{-- Action Buttons --}}
                     <div class="flex justify-end items-center gap-3 pt-4 border-t border-gray-100">
