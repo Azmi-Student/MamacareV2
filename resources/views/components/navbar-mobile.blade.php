@@ -28,8 +28,6 @@
         {{-- === ROLE: MAMA === --}}
         @if(auth()->user()->role === 'mama')
             
-            {{-- ... (CODE MENU DOKTER/REKAP UNTUK MAMA TETAP SAMA SEPERTI SEBELUMNYA) ... --}}
-            {{-- Saya persingkat bagian Mama agar fokus ke Dokter --}}
              @php 
                 $isDoctorActive = request()->routeIs('mama.tanya-dokter*') || request()->routeIs('mama.reservasi*'); 
             @endphp
@@ -39,10 +37,11 @@
                     <div class="h-0.5 bg-pink-100 w-full"></div>
                     <a href="{{ Route::has('mama.tanya-dokter') ? route('mama.tanya-dokter') : '#' }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 text-[#FF3EA5]"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg><span class="text-xs font-black uppercase">Chat</span></a>
                 </div>
-                <button @click="openMenu = (openMenu === 'dokter' ? null : 'dokter')" class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200 {{ $isDoctorActive || request()->routeIs('mama.tanya-dokter*') ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' }}">
+                <button @click="openMenu = (openMenu === 'dokter' ? null : 'dokter')" class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200 {{ $isDoctorActive ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' }}">
                     <svg class="w-5 h-5 stroke-[2.5px] {{ $isDoctorActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg><span class="text-[9px] font-black uppercase tracking-wide {{ $isDoctorActive ? 'text-white' : 'text-[#FF3EA5]' }}">Dokter</span>
                 </button>
             </div>
+            
             {{-- Menu Rekap Mama --}}
              @php $isRekapActive = request()->routeIs('mama.rekap-data*'); @endphp
             <a href="{{ route('mama.rekap-data') }}" @click="openMenu = null" class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200 {{ $isRekapActive ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' }}">
@@ -52,7 +51,6 @@
         {{-- === ROLE: DOKTER === --}}
         @elseif(auth()->user()->role === 'dokter')
             
-            {{-- 1. TOMBOL TRIGGER MENU PASIEN (Sudah Ada) --}}
             @php 
                 $isPasienActive = request()->routeIs('dokter.reservasi.*') || request()->routeIs('dokter.chat.*');
             @endphp
@@ -93,15 +91,10 @@
                 </button>
             </div>
 
-            {{-- 2. TOMBOL TRIGGER MENU ARTIKEL (BARU DITAMBAHKAN UNTUK DOKTER) --}}
             @php 
-                // Sesuaikan route name untuk 'kelola' artikel jika berbeda
-                // Misal: dokter.artikel.index atau dokter.artikel.manage
                 $isArtikelDokterActive = request()->routeIs('dokter.artikel.*') || request()->routeIs('artikel.index');
             @endphp
             <div class="relative w-full flex justify-center">
-                
-                {{-- Drop-Up Menu Artikel --}}
                 <div x-show="openMenu === 'artikel_dokter'" 
                      @click.away="openMenu = null"
                      x-transition:enter="transition ease-out duration-200"
@@ -113,8 +106,6 @@
                      class="absolute bottom-16 left-1/2 -translate-x-1/2 w-48 bg-white border-2 border-[#FF3EA5] rounded-xl shadow-[4px_4px_0px_0px_#ff90c8] p-2 flex flex-col gap-1 z-50"
                      style="display: none;">
                     
-                    {{-- Sub 1: Kelola Artikel --}}
-                    {{-- Pastikan ganti route('dokter.artikel.index') sesuai route Anda --}}
                     <a href="{{ Route::has('dokter.kelola-artikel.index') ? route('dokter.kelola-artikel.index') : '#' }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 text-[#FF3EA5]">
                         <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                         <span class="text-xs font-black uppercase">Kelola</span>
@@ -122,14 +113,12 @@
                     
                     <div class="h-0.5 bg-pink-100 w-full"></div>
 
-                    {{-- Sub 2: Lihat Artikel --}}
                     <a href="{{ route('artikel.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 text-[#FF3EA5]">
                         <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                         <span class="text-xs font-black uppercase">Lihat</span>
                     </a>
                 </div>
 
-                {{-- Trigger Button --}}
                 <button @click="openMenu = (openMenu === 'artikel_dokter' ? null : 'artikel_dokter')"
                         class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200
                         {{ $isArtikelDokterActive 
@@ -155,24 +144,7 @@
             </a>
         @endif
 
-        {{-- 3. MENU: SETTINGS (UMUM) --}}
-        @php $isProfileActive = request()->routeIs('profile.edit'); @endphp
-        <a href="{{ route('profile.edit') }}" 
-           @click="openMenu = null"
-           class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200
-           {{ $isProfileActive 
-                ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' 
-                : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' 
-           }}">
-            <svg class="w-5 h-5 stroke-[2.5px] {{ $isProfileActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            <span class="text-[9px] font-black uppercase tracking-wide {{ $isProfileActive ? 'text-white' : 'text-[#FF3EA5]' }}">Settings</span>
-        </a>
-        
         {{-- MENU: ARTIKEL (UMUM / SELAIN DOKTER) --}}
-        {{-- Tambahkan pengecekan if role != dokter agar tidak double --}}
         @if(auth()->user()->role !== 'dokter')
             @php $isArtikelActive = request()->routeIs('artikel.index'); @endphp
             <a href="{{ route('artikel.index') }}" 
@@ -188,5 +160,16 @@
                 <span class="text-[9px] font-black uppercase tracking-wide {{ $isArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}">Artikel</span>
             </a>
         @endif
+
+        {{-- 3. [BARU] TOMBOL DONASI --}}
+        {{-- Menggantikan tombol Settings --}}
+        <button onclick="openModalDonasi()" 
+           class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 border-transparent text-[#FF3EA5] hover:bg-pink-50 focus:bg-[#FF3EA5] focus:text-white focus:border-[#FF3EA5] focus:shadow-[2px_2px_0px_0px_#ff90c8] transition-all duration-200">
+            <svg class="w-5 h-5 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span class="text-[9px] font-black uppercase tracking-wide">Donasi</span>
+        </button>
+        
     </div>
 </nav>

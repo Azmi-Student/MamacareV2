@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\DonationController;
 
 // --- MAMA CONTROLLERS ---
 use App\Http\Controllers\DashboardController; // Dashboard Mama
@@ -151,6 +152,11 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
     // Route untuk halaman artikel
     Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
     Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.show'); 
+
+    // 
+    Route::post('/donasi/pay', [DonationController::class, 'pay'])->name('donasi.pay');
+    Route::get('/donasi/check-status/{orderId}', [DonationController::class, 'checkStatus'])
+    ->name('donasi.check');
 });
 
 require __DIR__.'/auth.php';
