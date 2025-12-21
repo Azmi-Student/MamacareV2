@@ -43,7 +43,8 @@
         </style>
 
         {{-- Hero Section: Neo Brutalism Pink --}}
-        <section
+        {{-- KITA TAMBAHKAN x-data DI SINI UNTUK MENGONTROL NOTIFIKASI --}}
+        <section x-data="{ showComingSoon: false }"
             class="bg-[#FF3EA5] rounded-xl border-2 border-[#FF3EA5] shadow-[6px_6px_0px_0px_#ff90c8] overflow-hidden flex md:flex-row items-center relative mb-6 isolate">
 
             {{-- 1. Efek Gelas --}}
@@ -59,10 +60,7 @@
 
                 {{-- Sapaan --}}
                 <h1 class="text-2xl md:text-4xl font-black text-white mb-2 tracking-tight drop-shadow-md leading-none">
-                    {{-- Bagian Selamat Datang: Boleh Uppercase atau Normal (Tergantung selera) --}}
                     Selamat Datang, <br>
-
-                    {{-- Bagian Nama: Capitalize + Font Black (Sangat Tebal) --}}
                     <span
                         class="bg-white text-[#FF3EA5] px-2 rounded-md shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)] inline-block mt-1 capitalize font-black">
                         {{ Auth::user()->name ?? 'Bunda' }}!
@@ -74,15 +72,13 @@
                 </p>
 
                 {{-- Menu Grid: Gaya Tombol Neo Brutal --}}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 relative">
 
                     {{-- Tombol 1: KALENDER KEHAMILAN --}}
                     <a href="{{ route('mama.kalender') }}"
                         class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
-
                         <img src="{{ asset('images/fitur-kalender.png') }}"
                             class="w-8 h-8 object-contain transition group-hover:scale-110">
-
                         <span
                             class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3 max-w-[80px]">
                             Kalender Kehamilan
@@ -111,15 +107,54 @@
                         </span>
                     </a>
 
-                    {{-- Tombol 4: LAINNYA --}}
-                    <a href="#"
-                        class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full">
-                        <img src="{{ asset('images/fitur-lainnya.png') }}"
-                            class="w-8 h-8 object-contain transition group-hover:scale-110">
+                    {{-- ==================================================== --}}
+                    {{-- Tombol 4: LAINNYA (YANG DIMODIFIKASI) --}}
+                    {{-- ==================================================== --}}
+                    {{-- Kita tambahkan @click.prevent untuk memicu notifikasi --}}
+                    <a href="#" @click.prevent="showComingSoon = true; setTimeout(() => showComingSoon = false, 2500)"
+                        class="bg-white p-2 rounded-lg border-2 border-white shadow-[3px_3px_0px_0px_#ff90c8] flex flex-col items-center justify-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#ff90c8] active:translate-y-0 active:shadow-none h-full relative">
+
+                        {{-- IKON SVG BARU (Menggantikan <img>) --}}
+                        {{-- Ini adalah ikon kotak menu (squares-2x2) --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-8 h-8 text-[#FF3EA5] transition group-hover:scale-110">
+                            <path fill-rule="evenodd"
+                                d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z"
+                                clip-rule="evenodd" />
+                        </svg>
+
                         <span class="font-black text-[9px] md:text-[10px] text-[#FF3EA5] uppercase text-center leading-3">
                             Lainnya
                         </span>
                     </a>
+
+                    {{-- ==================================================== --}}
+                    {{-- NOTIFIKASI TOAST "COMING SOON" --}}
+                    {{-- ==================================================== --}}
+                    {{-- Muncul di tengah area tombol ketika showComingSoon bernilai true --}}
+                    <div x-show="showComingSoon" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-y-2 scale-90"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 translate-y-2 scale-90"
+                        class="absolute inset-0 z-50 flex items-center justify-center pointer-events-none px-4"
+                        style="display: none;"> {{-- style display none agar tidak berkedip saat loading --}}
+
+                        <div
+                            class="bg-[#FF3EA5] border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,0.5)] px-4 py-3 rounded-xl flex items-center gap-3 pointer-events-auto">
+                             {{-- Ikon Jam Pasir Kecil --}}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white animate-pulse">
+                                <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                                <path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z" clip-rule="evenodd" />
+                                <path d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
+                              </svg>
+
+                            <span class="text-white font-black uppercase text-xs md:text-sm tracking-wider">
+                                Fitur Segera Hadir!
+                            </span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
