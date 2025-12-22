@@ -1,78 +1,148 @@
-/* FOOTER */
-.container footer {
-    padding: 0 5%;
-    padding-bottom: 7%;
+/* --- FOOTER BASE --- */
+footer {
     background-color: #FF3EA5;
     color: #FAFAFA;
-    display: flex;
+    padding: 70px 10% 30px 10%;
     position: relative;
-    z-index: 5;
+    z-index: 10;
 }
 
-/* FOOTER KIRI */
-.container footer .footer-kiri {
-    width: 40%;
-    margin-right: 5%;
-}
-.container footer .footer-logo {
+.footer-wrapper {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Supaya otomatis turun baris di mobile */
+    gap: 30px;
+}
+
+.footer-box {
+    flex: 1;
+    min-width: 250px; /* Mencegah kolom terlalu ciut */
+}
+
+/* BRANDING */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 20px;
 }
-.container footer .footer-logo .logo-img {
-    width: 2.3em;
-    height: 2.3em;
-    margin-right: 8%;
+
+.footer-logo img {
+    width: 45px;
+    height: auto;
 }
-.container footer .footer-logo .logo-img img {
-    position: relative;
-    bottom: 35%;
-    width: 3.5em;
-}
-.container footer .footer-logo .logo-tag h2 {
-    font-size: 2.3em;
+
+.footer-logo h2 {
+    font-size: 2rem;
     font-weight: 700;
 }
-.container footer .footer-kiri p {
-    line-height: 1.5em;
+
+.school-name {
+    font-weight: 700;
+    margin-bottom: 5px;
 }
 
-/* FOOTER TENGAH */
-.container footer .footer-tengah {
-    width: 30%;
-    margin-right: 5%;
-    padding-top: 15px;
+.address {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
 }
-.container footer .footer-tengah h3 {
-    font-size: 1.5em;
+
+/* SITE MAP */
+.sitemap h3, .social h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
     font-weight: 600;
+}
+
+.menu-container {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-ul li {
     margin-bottom: 10px;
 }
-.container footer .footer-tengah .footer-menu {
-    display: flex;
-    justify-content: space-between;
-}
-.container footer .footer-tengah .footer-menu a {
+
+.footer-ul a {
     text-decoration: none;
-    line-height: 1.8em;
     color: #FAFAFA;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
-/* FOOTER KANAN */
-.container footer .footer-kanan {
-    padding-top: 15px;
-    width: 20%;
-}
-.container footer .footer-kanan h3 {
-    font-size: 1.5em;
-    font-weight: 600;
-    margin-bottom: 10px;
+.footer-ul a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
-.container footer .footer-kanan .sosmed {
+/* SOSIAL MEDIA */
+.sosmed-list {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    gap: 15px;
 }
-.container footer .footer-kanan .sosmed img {
-    width: 45px;
+
+.sosmed-list img {
+    width: 40px;
+    transition: transform 0.3s ease;
+}
+
+.sosmed-list img:hover {
+    transform: scale(1.1);
+}
+
+/* COPYRIGHT */
+.footer-copy {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* --- RESPONSIVE MOBILE FIX --- */
+
+
+@media screen and (max-width: 768px) {
+    footer {
+        padding: 50px 7% 20px 7%;
+        text-align: center; /* Rata tengah semua di mobile */
+    }
+
+    .footer-wrapper {
+        flex-direction: column; /* Susun ke bawah satu-satu */
+        align-items: center;
+        gap: 40px;
+    }
+
+    .footer-box {
+        width: 100%; /* Ambil lebar penuh */
+    }
+
+    .footer-logo {
+        justify-content: center; /* Logo ke tengah */
+    }
+
+    .menu-container {
+        justify-content: center; /* Menu ke tengah */
+        gap: 20px;
+    }
+
+    .sosmed-list {
+        justify-content: center; /* Icon ke tengah */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .menu-container {
+        flex-direction: column; /* Menu tumpuk di HP kecil */
+        gap: 10px;
+    }
 }

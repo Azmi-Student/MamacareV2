@@ -1,119 +1,143 @@
-/* LAYANAN STYLE */
-.container .layanan {
-    padding: 7% 10%;
-    /* height: 90vh; */
+/* =================================
+   LAYANAN SECTION GENERAL (DESKTOP)
+   ================================== */
+.layanan {
+    padding: 80px 10%;
     color: #FAFAFA;
     background-color: #FF3EA5;
+    overflow: hidden;
 }
-/* HEADER LAYANAN */
-.container .layanan .header {
+
+.layanan .header {
     text-align: center;
-    margin-bottom: 4%;
+    margin-bottom: 60px;
 }
-.container .layanan .header h2{
-    font-size: 1.5em;
+
+.layanan .header h2 {
+    font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 15px;
-}
-.container .layanan .header p {
-    line-height: 1.5em;
-}
-
-.container .layanan .konten {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-/* KONTEN KANAN */
-.container .layanan .konten .konten-kanan {
-    width: 60%;
-    margin-right: 5%;
-    margin-top: 7%;
-}
-.container .layanan .konten .konten-kanan .img-layanan1,
-.container .layanan .konten .konten-kanan .img-layanan2,
-.container .layanan .konten .konten-kanan .img-layanan3,
-.container .layanan .konten .konten-kanan .img-layanan4,
-.container .layanan .konten .konten-kanan .img-layanan5,
-.container .layanan .konten .konten-kanan .img-layanan6,
-.container .layanan .konten .konten-kanan .img-layanan7 {
-    width: 0px;
-    height: 0px;
-}
-.container .layanan .konten .konten-kanan .img-layanan1 img {
-    width: 28vw;
-    position: relative;
-    z-index: 6;
-    left: 5vw;
-}
-.container .layanan .konten .konten-kanan .img-layanan2 img {
-    width: 14vw;
-    position: relative;
-    z-index: 4;
-    bottom: 3vh;
-    left: 23vw;
-}
-.container .layanan .konten .konten-kanan .img-layanan3 img {
-    width: 13vw;
-    position: relative;
-    z-index: 4;
-    left: 11vw;
-    bottom: 13vh;
-}
-.container .layanan .konten .konten-kanan .img-layanan4 img {
-    width: 9vw;
-    position: relative;
-    z-index: 3;
-    left: 2vw;
-    bottom: 1vh;
-}
-.container .layanan .konten .konten-kanan .img-layanan5 img {
-    width: 5.5vw;
-    position: relative;
-    z-index: 5;
-    left: 24vw;
-    bottom: 4vh;
-}
-.container .layanan .konten .konten-kanan .img-layanan6 img {
-    width: 3.5vw;
-    position: relative;
-    z-index: 5;
-    top: 36vh;
-    left: 2.5vw;
-}
-.container .layanan .konten .konten-kanan .img-layanan7 img {
-    width: 29vw;
-    position: relative;
-    z-index: 5;
-    bottom: 17vh;
-    left: 2vw;
-    opacity: 0.5;
-}
-
-/* KONTEN KIRI */
-.container .layanan .konten .konten-kiri {
-    width: 65%;
-}
-.container .layanan .konten .konten-kiri .layanan-info {
-    display: flex;
     margin-bottom: 20px;
 }
-.container .layanan .konten .konten-kiri .layanan-info .circular-check {
-    width: 25px;
-    height: 25px;
+
+.konten-layanan-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* KONTEN VISUAL (SUSUNAN GAMBAR) */
+.konten-visual {
+    flex: 1;
+    position: relative;
+    height: 450px;
+}
+
+.img-wrapper {
+    position: absolute;
+}
+
+/* Posisi gambar collage di desktop */
+.img-layanan1 img { width: 28vw; z-index: 6; left: 0; }
+.img-layanan2 img { width: 14vw; z-index: 4; top: -30px; left: 18vw; }
+.img-layanan3 img { width: 13vw; z-index: 4; left: 8vw; top: 150px; }
+.img-layanan4 img { width: 9vw; z-index: 3; left: -20px; top: 100px; }
+.img-layanan5 img { width: 5.5vw; z-index: 5; left: 20vw; top: 250px; }
+.img-layanan6 img { width: 3.5vw; z-index: 5; left: 1vw; top: 300px; }
+.img-layanan7 img { width: 29vw; z-index: 2; left: 0; top: 50px; opacity: 0.3; }
+
+/* KONTEN INFO */
+.konten-info {
+    flex: 1;
+}
+
+.layanan-item {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.circular-check {
+    min-width: 30px;
+    height: 30px;
     background-color: #FAFAFA;
-    border: 1px solid #000;
-    /* border-radius: 100%; */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 20px;
+    flex-shrink: 0; /* Menjaga agar check tidak gepeng */
 }
-.container .layanan .konten .konten-kiri .layanan-info .circular-check img {
-    width: 20px;
+
+.circular-check img {
+    width: 18px;
 }
-.container .layanan .konten .konten-kiri .layanan-info h3 {
-    font-size: 1.3em;
+
+.ktn-layanan h3 {
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
-.container .layanan .konten .konten-kiri .layanan-info p {
-    line-height: 1.3em;
+
+.ktn-layanan p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* =================================
+   RESPONSIVE (MOBILE & TABLET)
+   ================================== */
+
+@media screen and (max-width: 992px) {
+    /* ILANGIN GAMBAR DI LAYAR DI BAWAH 992PX */
+    .konten-visual {
+        display: none !important;
+    }
+
+    .layanan {
+        padding: 60px 7%;
+        text-align: center; /* Teks rata tengah di mobile agar seimbang */
+    }
+
+    .konten-layanan-wrapper {
+        justify-content: center;
+    }
+
+    .konten-info {
+        max-width: 600px; /* Batasi lebar teks agar tidak terlalu melar */
+    }
+
+    .layanan-item {
+        flex-direction: column; /* Icon di atas, teks di bawah (Opsional) */
+        align-items: center;
+        text-align: center;
+    }
+
+    .circular-check {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .layanan .header h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .layanan {
+        padding: 40px 5%;
+    }
+
+    .layanan .header h2 {
+        font-size: 1.4rem;
+    }
+
+    .ktn-layanan h3 {
+        font-size: 1.2rem;
+    }
+
+    .ktn-layanan p {
+        font-size: 0.95rem;
+    }
 }

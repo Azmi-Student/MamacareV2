@@ -1,4 +1,13 @@
 /* GENERAL CSS */
+
+html {
+    /* 1. Membuat efek scroll jadi meluncur halus */
+    scroll-behavior: smooth;
+
+    /* 2. Mencegah judul section tertutup Navbar saat scroll berhenti */
+    /* Nilai 80px didapat dari: Tinggi Navbar (70px) + Jarak Nafas (10px) */
+    scroll-padding-top: 80px;
+}
 body {
     overflow-x: hidden;
     font-family: "Poppins", "sans-serif";

@@ -1,32 +1,35 @@
-<body>
-    <!-- BANTUAN -->
-    <div class="bantuan fade-in-up" id="bantuan">
-        <div class="bantuan-kiri">
-            <img class="bantuan-img1" src="{{ asset('images/img-landingpage/bantuan-img1.png') }}" alt="">
-            <img class="bantuan-img2 up-down1" src="{{ asset('images/img-landingpage/bantuan-img2.png') }}" alt="">
-            <img class="bantuan-img3 up-down3" src="{{ asset('images/img-landingpage/bantuan-img3.png') }}" alt="">
+<div class="bantuan-section" id="bantuan">
+    <div class="bantuan-container">
+        
+        <div class="bantuan-visual">
+            <div class="image-stack">
+                <img class="img-base" src="{{ asset('images/img-landingpage/bantuan-img1.png') }}" alt="Base">
+                <img class="img-decor-1 up-down1" src="{{ asset('images/img-landingpage/bantuan-img2.png') }}" alt="Decor 1">
+                <img class="img-decor-2 up-down3" src="{{ asset('images/img-landingpage/bantuan-img3.png') }}" alt="Decor 2">
+            </div>
         </div>
-        <div class="bantuan-kanan">
+
+        <div class="bantuan-content fade-in-up">
             <h3>Butuh bantuan?</h3>
             <p>Kini aduan layanan kesehatan kehamilan dapat dilakukan secara online. MamaCare hadir sebagai bentuk komitmen dalam mewujudkan Generasi Emas yang Sehat. Sampaikan keluhan Mama melalui fitur yang tersedia, MamaCare akan menanggapi segera.</p>
-            <div class="btn1">
-                <div class="btn-manual-book">
-                    <button>Manual Book</button>
-                    <div class="btn-bg-mb"></div>
+            
+            <div class="btn-group">
+                <div class="custom-btn-wrapper">
+                    <button class="btn-front">Manual Book</button>
+                    <div class="btn-shadow"></div>
                 </div>
-            </div>
-            <div class="btn1">
-                <div class="btn-manual-book">
-                    <button>WhatsApp</button>
-                    <div class="btn-bg-mb"></div>
+                
+                <div class="custom-btn-wrapper">
+                    <button class="btn-front">WhatsApp</button>
+                    <div class="btn-shadow"></div>
                 </div>
-            </div>
-            <div class="btn1">
-                <div class="btn-manual-book">
-                    <button>Email</button>
-                    <div class="btn-bg-mb"></div>
+                
+                <div class="custom-btn-wrapper">
+                    <button class="btn-front">Email</button>
+                    <div class="btn-shadow"></div>
                 </div>
             </div>
         </div>
+
     </div>
-</body>
+</div>

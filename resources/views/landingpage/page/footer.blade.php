@@ -1,48 +1,48 @@
-<body>
-    <!-- FOOTER -->
-    <footer id="footer">
-        <div class="footer-kiri fade-in-up">
+<footer id="footer">
+    <div class="footer-wrapper">
+        
+        <div class="footer-box branding">
             <div class="footer-logo">
-                <div class="logo-img">
-                    <img src="{{ asset('images/img-landingpage/logo.png') }}" alt="logo" class="logo-spin">
-                </div>
-                <div class="logo-tag">
-                    <h2>MamaCare</h2>
-                </div>
+                <img src="{{ asset('images/img-landingpage/logo.png') }}" alt="logo" class="logo-spin">
+                <h2>MamaCare</h2>
             </div>
-            <p>Politeknik Negeri Indramayu</p>
-            <p>Jl. Lohbener Lama No.08, Legok, Kec. Lohbener, Kabupaten Indramayu, Jawa Barat 45252</p>
-        </div>
-        <div class="footer-tengah fade-in-up">
-            <h3>Site Map</h3>
-            <div class="footer-menu">
-                <div class="menu-kiri">
-                    <ul>
-                        <li><a href="">Tentang kami</a></li>
-                        <li><a href="">Kebijakan privasi</a></li>
-                        <li><a href="">Karier</a></li>
-                        <li><a href="">Hubungi kami</a></li>
-                        <li><a href="">Visi kami</a></li>
-                    </ul>
-                </div>
-                <div class="menu-kanan">
-                    <ul>
-                        <li><a href="">Blog dan berita</a></li>
-                        <li><a href="">Pusat bantuan</a></li>
-                        <li><a href="">Masukkan</a></li>
-                    </ul>
-                </div>
+            <div class="footer-info">
+                <p class="school-name">Politeknik Negeri Indramayu</p>
+                <p class="address">Jl. Lohbener Lama No.08, Legok, Kec. Lohbener, Kabupaten Indramayu, Jawa Barat 45252</p>
             </div>
         </div>
-        <div class="footer-kanan fade-in-up">
-            <h3>Kunjungan</h3>
 
-            <div class="sosmed">
-                <img src="{{ asset('images/img-landingpage/instagram.png') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/email.png') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/youtube.png') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/facebook.png') }}" alt="">
+        <div class="footer-box sitemap">
+            <h3>Site Map</h3>
+            <div class="menu-container">
+                <ul class="footer-ul">
+                    <li><a href="">Tentang kami</a></li>
+                    <li><a href="">Kebijakan privasi</a></li>
+                    <li><a href="">Karier</a></li>
+                    <li><a href="">Hubungi kami</a></li>
+                </ul>
+                <ul class="footer-ul">
+                    <li><a href="">Visi kami</a></li>
+                    <li><a href="">Blog dan berita</a></li>
+                    <li><a href="">Pusat bantuan</a></li>
+                    <li><a href="">Masukkan</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
-</body>
+
+        <div class="footer-box social">
+            <h3>Kunjungan</h3>
+            <div class="sosmed-list">
+                <a href="#"><img src="{{ asset('images/img-landingpage/instagram.png') }}" alt="IG"></a>
+                <a href="#"><img src="{{ asset('images/img-landingpage/email.png') }}" alt="Email"></a>
+                <a href="#"><img src="{{ asset('images/img-landingpage/youtube.png') }}" alt="YT"></a>
+                <a href="#"><img src="{{ asset('images/img-landingpage/facebook.png') }}" alt="FB"></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-copy">
+        <p>&copy; 2025 MamaCare - Politeknik Negeri Indramayu. All Rights Reserved.</p>
+    </div>
+</footer>

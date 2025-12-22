@@ -1,130 +1,128 @@
-/* HERO SECTION */
-.container .hero {
-    height: 40vw;
+/* =================================
+   HERO SECTION GENERAL (DESKTOP)
+   ================================== */
+.hero {
+    min-height: 80vh;
     display: flex;
-    padding: 0% 10%;
+    padding: 0 10%;
     position: relative;
     align-items: center;
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url('/images/hero-panel.svg');
-    color: #FAFAFA;
     background-color: #FF3EA5;
+    background-image: url('/images/hero-panel.svg');
+    background-size: cover;
+    background-position: center;
+    color: #FAFAFA;
 }
-/* TEXT HERO SECTION */
-.container .hero .text { 
-    bottom: 20px;
-    padding-left: 2%;
-    margin-right: 5%;
-    position: relative;
-    text-align: justify;
+
+.hero .text { 
+    flex: 1;
+    z-index: 2;
 }
-.container .hero .text h2 {
-    font-size: 2.5em;
+
+.hero .text h2 {
+    font-size: 2.8rem;
     font-weight: 700;
-    margin-bottom: 5%;
-    line-height: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.2;
 }
-.container .hero .text .btn-get-started {
-    width: 120px;
-    height: 35px;
-    font-size: 1em;
+
+/* Default Buttons */
+.hero .text .btn-get-started {
+    padding: 12px 30px;
+    font-size: 1rem;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 5px;
-    border-color: transparent;
+    border-radius: 8px;
+    border: none;
     color: #FF3EA5;
     background-color: #FAFAFA;
 }
-/* MASKOT DOKTER HERO SECTION */
-.container .hero img {
-    width: 32%;
-    z-index: 1;
-    bottom: 7px;
-    position: relative;
-}
-.container .hero .text .hero-logo,
-.container .hero .text .btn-login,
-.container .hero .text .btn-regist {
+
+/* Hidden by default in Desktop */
+.hero .text .hero-logo,
+.hero .text .btn-login,
+.hero .text .btn-regist {
     display: none;
 }
 
-@media screen and (max-width: 1000px) {
-    .container .hero .text h2 {
-        font-size: 2.1em;
-    }
+.hero .hero-image {
+    flex: 0.8;
+    display: flex;
+    justify-content: flex-end;
 }
 
-/* CSS RESPONSIVE TABLET (768) */
+.hero .dokter {
+    width: 100%;
+    max-width: 450px;
+}
+
+/* =================================
+   RESPONSIVE (TABLET & PHONE)
+   ================================== */
+
 @media screen and (max-width: 768px) {
-    .container .hero .text h2 {
-        font-size: 1.63em;
-    }
-    .container .hero .text .btn-get-started {
-        width: 100px;
-        height: 30px;
-        font-size: 0.8em;
-    }
-}
-
-/* CSS RESPONSIVE PHONE (576) */
-@media screen and (max-width: 576px) {
-    .container .hero {
-        height: 45vh;
-        background-size: 85%;
-        padding: 0 7%;
-    }
-    /* HERO - LOGO */
-    .container .hero .text .hero-logo {
-        width: 100%;
-        display: flex;
-    }
-    .container .hero .text .hero-logo .logo-spin {
-        width: 40px;
-        bottom: 7px;
-        position: relative;
-    }
-    .container .hero .text .hero-logo .logo-tag {
-        margin-left: 5%;
-        font-size: 1.8em;
-        font-weight: 700;
-        color: #FAFAFA;
+    .hero {
+        text-align: center;
+        padding: 60px 7%;
+        min-height: 60vh; /* Sesuaikan tinggi karena gambar hilang */
     }
 
-    .container .hero .text h2 {
-        font-size: 0.6em;
-        font-weight: 500;
-        line-height: 1.7em;
-    }
-    .container .hero .text .btn-get-started {
+    /* SEMBUNYIKAN GAMBAR DI MOBILE */
+    .hero .hero-image {
         display: none;
     }
 
-    .container .hero .text .btn-login,
-    .container .hero .text .btn-regist {
-        order: 2;
-        width: 30%;
-        height: 23px;
-        cursor: pointer;
-        display: inline;
-        font-size: 0.5em;
-        font-weight: 600;
-        border-radius: 5px;
-        border-color: transparent;
-    }
-    .container .hero .text .btn-login {
-        color: #FFFFFF;
-        background-color: #D10079;
-        margin-right: 2%;
-    }
-    .container .hero .text .btn-regist {
-        color: #FF3EA5;
-        background-color: #FAFAFA;
+    .hero .text {
+        flex: 1;
     }
 
-    .container .hero .dokter {
-        top: 3px;
-        position: relative;
+    .hero .text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    /* HERO - LOGO (Muncul di Mobile) */
+    .hero .text .hero-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .hero .text .hero-logo img {
+        width: 50px;
+    }
+
+    .hero .text .hero-logo .logo-tag {
+        font-size: 1.8rem;
+        margin-left: 12px;
+        font-weight: 700;
+    }
+
+    /* SWITCH BUTTONS */
+    .hero .text .btn-get-started {
+        display: none;
+    }
+
+    .hero .text .btn-login,
+    .hero .text .btn-regist {
+        display: inline-block;
+        width: 45%;
+        padding: 12px 0;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        border: none;
+        margin: 5px;
+    }
+
+    .hero .text .btn-login {
+        color: #FFFFFF;
+        background-color: #D10079;
+    }
+
+    .hero .text .btn-regist {
+        color: #FF3EA5;
+        background-color: #FAFAFA;
     }
 }
