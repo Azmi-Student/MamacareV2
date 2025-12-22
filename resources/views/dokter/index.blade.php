@@ -71,7 +71,7 @@
                 <div class="hidden md:flex relative z-30 w-2/5 justify-end items-center pr-6">
                     
                     {{-- REVISI UKURAN: w-64 h-64 (Sangat Besar) --}}
-                    <img src="{{ asset('images/img-landingpage/icon_docter.svg') }}" 
+                    <img src="{{ asset('images/img-landingpage/icon_docter.png') }}" 
                          alt="Ikon Dokter"
                          class="w-64 h-64 object-contain animate-bounce-slow drop-shadow-2xl">
 
