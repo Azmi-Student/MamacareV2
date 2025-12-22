@@ -1,10 +1,10 @@
 <body> 
     <div class="tentang" id="tentang">
         <div class="pola1">
-            <img src="{{ asset('images/img-landingpage/pola1.svg') }}" alt="pola">
+            <img src="{{ asset('images/img-landingpage/pola1.png') }}" alt="pola">
         </div>
         <div class="love-spin1">
-            <img src="{{ asset('images/img-landingpage/lovespin1.svg') }}" alt="pola" class="lovespin1">
+            <img src="{{ asset('images/img-landingpage/lovespin1.png') }}" alt="pola" class="lovespin1">
         </div>
 
         <div class="menu">

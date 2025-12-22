@@ -4,7 +4,7 @@
         <div class="nav-logo">
             <!-- NAVBAR LOGO -->
             <div class="logo-img">
-                <img src="{{ asset('images/img-landingpage/logo.svg') }}" alt="logo" class="logo-spin">
+                <img src="{{ asset('images/img-landingpage/logo.png') }}" alt="logo" class="logo-spin">
             </div>
             <div class="logo-tag">
                 <h4>MamaCare</h4>

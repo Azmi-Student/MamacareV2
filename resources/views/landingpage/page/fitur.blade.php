@@ -8,10 +8,10 @@
         </div>
 
         <div class="pola2">
-            <img src="{{ asset('images/img-landingpage/pola2.svg') }}" alt="pola">
+            <img src="{{ asset('images/img-landingpage/pola2.png') }}" alt="pola">
         </div>
         <div class="lovespin2">
-            <img src="{{ asset('images/img-landingpage/lovespin2.svg') }}" alt="pola" class="spin">
+            <img src="{{ asset('images/img-landingpage/lovespin2.png') }}" alt="pola" class="spin">
         </div>
         
         <div class="konten-fitur fade-in-up">

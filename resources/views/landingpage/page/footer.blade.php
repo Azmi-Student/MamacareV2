@@ -4,7 +4,7 @@
         <div class="footer-kiri fade-in-up">
             <div class="footer-logo">
                 <div class="logo-img">
-                    <img src="{{ asset('images/img-landingpage/logo.svg') }}" alt="logo" class="logo-spin">
+                    <img src="{{ asset('images/img-landingpage/logo.png') }}" alt="logo" class="logo-spin">
                 </div>
                 <div class="logo-tag">
                     <h2>MamaCare</h2>
@@ -38,10 +38,10 @@
             <h3>Kunjungan</h3>
 
             <div class="sosmed">
-                <img src="{{ asset('images/img-landingpage/instagram.svg') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/email.svg') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/youtube.svg') }}" alt="">
-                <img src="{{ asset('images/img-landingpage/facebook.svg') }}" alt="">
+                <img src="{{ asset('images/img-landingpage/instagram.png') }}" alt="">
+                <img src="{{ asset('images/img-landingpage/email.png') }}" alt="">
+                <img src="{{ asset('images/img-landingpage/youtube.png') }}" alt="">
+                <img src="{{ asset('images/img-landingpage/facebook.png') }}" alt="">
             </div>
         </div>
     </footer>

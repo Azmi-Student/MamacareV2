@@ -2,15 +2,15 @@
     <!-- ARTIKEL -->
     <div class="artikel-page" id="artikel">
         <div class="kotak">
-            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor1.svg') }}" alt="" class="decor1 slide-down delay-1"></div>
-            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor2.svg') }}" alt="" class="decor2 slide-down delay-2"></div>
-            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor3.svg') }}" alt="" class="decor3 slide-down delay-3"></div>
-            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor4.svg') }}" alt="" class="decor4 slide-down delay-4"></div>
+            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor1.png') }}" alt="" class="decor1 slide-down delay-1"></div>
+            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor2.png') }}" alt="" class="decor2 slide-down delay-2"></div>
+            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor3.png') }}" alt="" class="decor3 slide-down delay-3"></div>
+            <div class="kotak1"><img src="{{ asset('images/img-landingpage/decor4.png') }}" alt="" class="decor4 slide-down delay-4"></div>
 
-            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor4.svg') }}" alt="" class="decor1 slide-down delay-4"></div>
-            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor6.svg') }}" alt="" class="decor2 slide-down delay-3"></div>
-            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor7.svg') }}" alt="" class="decor3 slide-down delay-2"></div>
-            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor8.svg') }}" alt="" class="decor4 slide-down delay-1"></div>
+            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor4.png') }}" alt="" class="decor1 slide-down delay-4"></div>
+            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor6.png') }}" alt="" class="decor2 slide-down delay-3"></div>
+            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor7.png') }}" alt="" class="decor3 slide-down delay-2"></div>
+            <div class="kotak2"><img src="{{ asset('images/img-landingpage/decor8.png') }}" alt="" class="decor4 slide-down delay-1"></div>
         </div>
 
         <!-- HEADER ARTIKEL -->
@@ -22,11 +22,11 @@
         <div class="artikel">
             <div class="card">
                 <div class="img-card">
-                    <img src="{{ asset('images/img-landingpage/artikel-img1.svg') }}" alt="">
+                    <img src="{{ asset('images/img-landingpage/artikel-img1.png') }}" alt="">
                 </div>
                 <div class="tag">
                     <div class="dot-tag"></div>
-                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.svg') }}" alt="tag">
+                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.png') }}" alt="tag">
                     <p>Artikel</p>
                 </div>
                 <div class="deskripsi-artikel">
@@ -35,17 +35,17 @@
                 </div>
                 <div class="line"></div>
                 <div class="timestamp">
-                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.svg') }}" alt="clock">
+                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.png') }}" alt="clock">
                     <p>12 Mei 2025</p>
                 </div>
             </div>
             <div class="card">
                 <div class="img-card">
-                    <img src="{{ asset('images/img-landingpage/artikel-img2.svg') }}" alt="">
+                    <img src="{{ asset('images/img-landingpage/artikel-img2.png') }}" alt="">
                 </div>
                 <div class="tag">
                     <div class="dot-tag"></div>
-                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.svg') }}" alt="tag">
+                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.png') }}" alt="tag">
                     <p>Artikel</p>
                 </div>
                 <div class="deskripsi-artikel">
@@ -54,17 +54,17 @@
                 </div>
                 <div class="line"></div>
                 <div class="timestamp">
-                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.svg') }}" alt="clock">
+                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.png') }}" alt="clock">
                     <p>12 Mei 2025</p>
                 </div>
             </div>
             <div class="card">
                 <div class="img-card">
-                    <img src="{{ asset('images/img-landingpage/artikel-img3.svg') }}" alt="">
+                    <img src="{{ asset('images/img-landingpage/artikel-img3.png') }}" alt="">
                 </div>
                 <div class="tag">
                     <div class="dot-tag"></div>
-                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.svg') }}" alt="tag">
+                    <img src="{{ asset('images/img-landingpage/artikel-tag-img.png') }}" alt="tag">
                     <p>Artikel</p>
                 </div>
                 <div class="deskripsi-artikel">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="line"></div>
                 <div class="timestamp">
-                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.svg') }}" alt="clock">
+                    <img src="{{ asset('images/img-landingpage/artikel-clock-img.png') }}" alt="clock">
                     <p>12 Mei 2025</p>
                 </div>
             </div>
@@ -82,10 +82,10 @@
         <button class="btn-get-started">Selengkapnya</button>
 
         <div class="artikel-img">
-            <img src="{{ asset('images/img-landingpage/mama-anak.svg') }}" alt="" class="img1">
+            <img src="{{ asset('images/img-landingpage/mama-anak.png') }}" alt="" class="img1">
         </div>
         <div class="artikel-img">
-            <img src="{{ asset('images/img-landingpage/fly-love.svg') }}" alt="" class="img2 fly-up">
+            <img src="{{ asset('images/img-landingpage/fly-love.png') }}" alt="" class="img2 fly-up">
         </div>
     </div>
 </body>

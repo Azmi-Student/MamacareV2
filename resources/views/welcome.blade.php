@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ asset('css/css-landingpage/faq.css') }}">
         <link rel="stylesheet" href="{{ asset('css/css-landingpage/footer.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="{{ asset('images/logo1.svg') }}" type="image/svg+xml">
+        <link rel="icon" href="{{ asset('images/img-landingpage/logo.png') }}" type="image/svg+xml">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -26,7 +26,7 @@
 
             @include('landingpage.page.hero')
 
-            <img class="wave1" src="{{ asset('images/img-landingpage/wave_1.svg') }}" alt="Wave Decoration">
+            <img class="wave1" src="{{ asset('images/img-landingpage/wave_1.png') }}" alt="Wave Decoration">
 
             @include('landingpage.page.tentang')
 
@@ -35,7 +35,7 @@
 
             @include('landingpage.page.fitur')
 
-            <img class="wave2" src="{{ asset('images/img-landingpage/wave_2.svg') }}" alt="Wave Decoration">
+            <img class="wave2" src="{{ asset('images/img-landingpage/wave_2.png') }}" alt="Wave Decoration">
             
             @include('landingpage.page.layanan')
             
@@ -44,11 +44,11 @@
             
             @include('landingpage.page.info')
 
-            <img class="wave3" src="{{ asset('images/img-landingpage/wave_3.svg') }}" alt="Wave Decoration">
+            <img class="wave3" src="{{ asset('images/img-landingpage/wave_3.png') }}" alt="Wave Decoration">
             
             @include('landingpage.page.artikel')
 
-            <img class="wave4" src="{{ asset('images/img-landingpage/wave_4.svg') }}" alt="Wave Decoration">
+            <img class="wave4" src="{{ asset('images/img-landingpage/wave_4.png') }}" alt="Wave Decoration">
             
             @include('landingpage.page.bantuan')
             
@@ -57,11 +57,11 @@
             
             @include('landingpage.page.landing-form')
             
-            <img class="wave5" src="{{ asset('images/img-landingpage/wave_5.svg') }}" alt="Wave Decoration">
+            <img class="wave5" src="{{ asset('images/img-landingpage/wave_5.png') }}" alt="Wave Decoration">
             
             @include('landingpage.page.faq')
             
-            <img class="wave6" src="{{ asset('images/img-landingpage/wave_6.svg') }}" alt="Wave Decoration">
+            <img class="wave6" src="{{ asset('images/img-landingpage/wave_6.png') }}" alt="Wave Decoration">
 
             @include('landingpage.page.footer')
         </div>

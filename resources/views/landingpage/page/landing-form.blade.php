@@ -11,9 +11,9 @@
             <button>Daftar</button>
             <div class="btn-bg-form"></div>
         </div>
-        <div class="form-img1"><img src="{{ asset('images/img-landingpage/balon-kiri.svg') }}" alt="" class="up-down1"></div>
-        <div class="form-img2"><img src="{{ asset('images/img-landingpage/balon-kanan.svg') }}" alt="" class="up-down2"></div>
-        <div class="form-img3"><img src="{{ asset('images/img-landingpage/balon-tengah.svg') }}" alt="" class="up-down3"></div>
-        <div class="form-img4"><img src="{{ asset('images/img-landingpage/teddy-bear.svg') }}" alt=""></div>
+        <div class="form-img1"><img src="{{ asset('images/img-landingpage/balon-kiri.png') }}" alt="" class="up-down1"></div>
+        <div class="form-img2"><img src="{{ asset('images/img-landingpage/balon-kanan.png') }}" alt="" class="up-down2"></div>
+        <div class="form-img3"><img src="{{ asset('images/img-landingpage/balon-tengah.png') }}" alt="" class="up-down3"></div>
+        <div class="form-img4"><img src="{{ asset('images/img-landingpage/teddy-bear.png') }}" alt=""></div>
     </div>
 </body>

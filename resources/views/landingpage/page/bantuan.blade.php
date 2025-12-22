@@ -2,9 +2,9 @@
     <!-- BANTUAN -->
     <div class="bantuan fade-in-up" id="bantuan">
         <div class="bantuan-kiri">
-            <img class="bantuan-img1" src="{{ asset('images/img-landingpage/bantuan-img1.svg') }}" alt="">
-            <img class="bantuan-img2 up-down1" src="{{ asset('images/img-landingpage/bantuan-img2.svg') }}" alt="">
-            <img class="bantuan-img3 up-down3" src="{{ asset('images/img-landingpage/bantuan-img3.svg') }}" alt="">
+            <img class="bantuan-img1" src="{{ asset('images/img-landingpage/bantuan-img1.png') }}" alt="">
+            <img class="bantuan-img2 up-down1" src="{{ asset('images/img-landingpage/bantuan-img2.png') }}" alt="">
+            <img class="bantuan-img3 up-down3" src="{{ asset('images/img-landingpage/bantuan-img3.png') }}" alt="">
         </div>
         <div class="bantuan-kanan">
             <h3>Butuh bantuan?</h3>
