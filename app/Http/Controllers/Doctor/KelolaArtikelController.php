@@ -60,12 +60,7 @@ class KelolaArtikelController extends Controller
         $data['slug'] = Str::slug($request->title) . '-' . time();
 
         // 2. Logika Excerpt Otomatis/Manual
-        // Jika kolom excerpt diisi manual, gunakan itu. Jika kosong, ambil dari konten.
-        if ($request->filled('excerpt')) {
-            $data['excerpt'] = Str::limit($request->excerpt, 150);
-        } else {
-            $data['excerpt'] = Str::limit(strip_tags($request->content), 150);
-        }
+        $data['excerpt'] = $this->generateExcerpt($request);
 
         // 3. Handle Upload Gambar
         if ($request->hasFile('image')) {
@@ -112,11 +107,7 @@ class KelolaArtikelController extends Controller
         }
 
         // 2. Update Excerpt Otomatis/Manual
-        if ($request->filled('excerpt')) {
-            $data['excerpt'] = Str::limit($request->excerpt, 150);
-        } else {
-            $data['excerpt'] = Str::limit(strip_tags($request->content), 150);
-        }
+        $data['excerpt'] = $this->generateExcerpt($request);
 
         // 3. Handle Update Gambar (Hapus yang lama jika ada upload baru)
         if ($request->hasFile('image')) {
@@ -164,5 +155,16 @@ class KelolaArtikelController extends Controller
         ]);
 
         return back()->with('success', 'Status artikel berhasil diperbarui!');
+    }
+
+    /**
+     * Helper: Menghasilkan excerpt otomatis atau manual.
+     */
+    private function generateExcerpt(Request $request)
+    {
+        if ($request->filled('excerpt')) {
+            return Str::limit($request->excerpt, 150);
+        }
+        return Str::limit(strip_tags($request->content), 150);
     }
 }

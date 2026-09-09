@@ -1,4 +1,5 @@
-<div x-data="appCalendar()" x-init="initDate()" x-cloak class="h-full">
+@props(['appointments' => []])
+<div x-data="appCalendar({{ json_encode($appointments) }})" x-init="initDate()" x-cloak class="h-full">
     {{-- Container Utama --}}
     <div
         class="bg-white rounded-xl p-3 border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#FF3EA5] h-full flex flex-col transition-transform hover:-translate-y-1">
@@ -51,15 +52,22 @@
                 {{-- 1. Mobile (Default): w-full aspect-square (Full Kotak) --}}
                 {{-- 2. Tablet (md): w-10 h-10 (Fix 40px, ditengahin mx-auto) --}}
                 {{-- 3. Desktop (lg): w-6 h-6 (Fix 24px) --}}
-                <div class="flex items-center justify-center rounded cursor-pointer mx-auto font-black border-2 transition-all duration-100
+                <div class="relative flex items-center justify-center rounded cursor-pointer mx-auto font-black border-2 transition-all duration-100
                             w-full aspect-square 
                             md:w-10 md:h-10 
                             lg:w-6 lg:h-6 
                             text-sm md:text-xs lg:text-[10px]" 
                     :class="isToday(date) ?
                         'bg-[#FF3EA5] text-white border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8] -translate-y-0.5' :
-                        'text-[#FF3EA5] border-transparent hover:border-[#FF3EA5] hover:bg-pink-50'"
-                    x-text="date">
+                        'text-[#FF3EA5] border-transparent hover:border-[#FF3EA5] hover:bg-pink-50'">
+                    <span x-text="date"></span>
+                    
+                    {{-- DOT Indikator Reservasi --}}
+                    <template x-if="hasAppointment(date)">
+                        <div class="absolute bottom-1 w-1.5 h-1.5 rounded-full"
+                             :class="isToday(date) ? 'bg-white' : 'bg-pink-400'">
+                        </div>
+                    </template>
                 </div>
             </template>
         </div>
@@ -81,8 +89,9 @@
 
     {{-- Script JavaScript (TETAP SAMA) --}}
     <script>
-        function appCalendar() {
+        function appCalendar(appointments = []) {
             return {
+                appointments: appointments, // Simpan jadwal reservasi
                 month: '',
                 year: '',
                 no_of_days: [],
@@ -103,6 +112,17 @@
                     const today = new Date();
                     const d = new Date(this.year, this.month, date);
                     return today.toDateString() === d.toDateString();
+                },
+
+                // Fungsi baru untuk ngecek apakah tanggal ini ada jadwal reservasi
+                hasAppointment(date) {
+                    // Format tanggal di Alpine JS sama dengan format Laravel: YYYY-MM-DD
+                    const d = new Date(this.year, this.month, date);
+                    // Sesuaikan ke timezone lokal tanpa tergeser UTC
+                    const offset = d.getTimezoneOffset();
+                    const localDate = new Date(d.getTime() - (offset*60*1000));
+                    const dateStr = localDate.toISOString().split('T')[0];
+                    return this.appointments.includes(dateStr);
                 },
 
                 changeMonth(val) {

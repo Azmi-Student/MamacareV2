@@ -9,12 +9,18 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DonationController;
 
 // --- MAMA CONTROLLERS ---
-use App\Http\Controllers\DashboardController; // Dashboard Mama
-use App\Http\Controllers\KalenderKehamilanController;
-use App\Http\Controllers\ReservationController; // Reservasi Mama
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\RekapDataController;
-use App\Http\Controllers\TanyaDokterController;
+use App\Http\Controllers\Mama\DashboardController; // Dashboard Mama
+use App\Http\Controllers\Mama\KalenderKehamilanController;
+use App\Http\Controllers\Mama\ReservationController; // Reservasi Mama
+use App\Http\Controllers\Mama\ChatController;
+use App\Http\Controllers\Mama\RekapDataController;
+use App\Http\Controllers\Mama\TanyaDokterController;
+use App\Http\Controllers\Mama\KickCounterController;
+use App\Http\Controllers\Mama\ContractionTimerController;
+use App\Http\Controllers\Mama\WeightTrackerController;
+use App\Http\Controllers\Mama\BabySizeController;
+use App\Http\Controllers\Mama\FoodScannerController;
+use App\Http\Controllers\Mama\NutritionGuideController;
 
 // --- ADMIN CONTROLLERS ---
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -26,6 +32,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Doctor\ReservationController as DoctorReservationController;
 use App\Http\Controllers\Doctor\JawabPasienController as JawabPasienController;
 use App\Http\Controllers\Doctor\KelolaArtikelController as DoctorKelolaArtikelController;
+use App\Http\Controllers\Doctor\KelolaNutrisiController as DoctorKelolaNutrisiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,35 +56,56 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Fitur: Kalender Kehamilan
-        // SAYA KEMBALIKAN NAMANYA PERSIS SEPERTI DULU (Manual Naming)
-        Route::prefix('kalender-kehamilan')->group(function () {
-            Route::get('/', [KalenderKehamilanController::class, 'index'])->name('mama.kalender'); // Nama Route Kembali Asal
-            Route::get('/detail', [KalenderKehamilanController::class, 'detail'])->name('mama.kalender.detail');
-            Route::get('/reset', [KalenderKehamilanController::class, 'reset'])->name('mama.kalender.reset');
-            Route::post('/update-checklist', [KalenderKehamilanController::class, 'updateChecklist'])->name('mama.kalender.update_checklist');
+        Route::controller(KalenderKehamilanController::class)->prefix('kalender-kehamilan')->name('mama.kalender')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/detail', 'detail')->name('.detail');
+            Route::get('/reset', 'reset')->name('.reset');
+            Route::post('/update-checklist', 'updateChecklist')->name('.update_checklist');
         });
 
         // Fitur: Reservasi Dokter (Sisi Mama)
-        Route::get('/reservasi-dokter', [ReservationController::class, 'index'])->name('mama.reservasi');
-        Route::post('/reservasi-dokter', [ReservationController::class, 'store'])->name('mama.reservasi.store');
+        Route::controller(ReservationController::class)->prefix('reservasi-dokter')->name('mama.reservasi')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store')->name('.store');
+        });
 
         // Fitur: Mama AI
-        Route::get('/mama-ai', [ChatController::class, 'index'])->name('mama.ai');
-        Route::post('/mama-ai/send', [ChatController::class, 'chat'])->name('mama.ai.send');
+        Route::controller(ChatController::class)->prefix('mama-ai')->name('mama.ai')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/send', 'chat')->name('.send');
+        });
 
-        // Fitur: Rekap Data Pemeriksaan\
-        Route::get('/rekap-data', [RekapDataController::class, 'index'])->name('mama.rekap-data');
-        Route::get('/rekap-data/{id}', [RekapDataController::class, 'detail'])->name('mama.rekap-data.detail');
+        // Fitur: Rekap Data Pemeriksaan
+        Route::controller(RekapDataController::class)->prefix('rekap-data')->name('mama.rekap-data')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{id}', 'detail')->name('.detail');
+        });
 
         // Fitur: Tanya Dokter
-Route::get('/tanya-dokter', [TanyaDokterController::class, 'index'])->name('mama.tanya-dokter');
+        Route::controller(TanyaDokterController::class)->prefix('tanya-dokter')->group(function () {
+            Route::get('/', 'index')->name('mama.tanya-dokter');
+            Route::get('/chat/{id}', 'chat')->name('mama.tanya-dokter.chat');
+            // API Routes (untuk Fetch Data di background)
+            Route::get('/messages/{doctorId}', 'getMessages');
+            Route::post('/send', 'sendMessage');
+        });
 
-// Tambahkan Route baru ini untuk halaman chat terpisah
-Route::get('/tanya-dokter/chat/{id}', [TanyaDokterController::class, 'chat'])->name('mama.tanya-dokter.chat');
+        // Fitur: 4 Ekstra
+        Route::get('/kick-counter', [KickCounterController::class, 'index'])->name('mama.kick-counter');
+        Route::post('/kick-counter', [KickCounterController::class, 'store'])->name('mama.kick-counter.store');
+        
+        Route::get('/contraction-timer', [ContractionTimerController::class, 'index'])->name('mama.contraction-timer');
+        Route::post('/contraction-timer', [ContractionTimerController::class, 'store'])->name('mama.contraction-timer.store');
+        
+        Route::get('/weight-tracker', [WeightTrackerController::class, 'index'])->name('mama.weight-tracker');
+        Route::post('/weight-tracker', [WeightTrackerController::class, 'store'])->name('mama.weight-tracker.store');
+        
+        Route::get('/baby-size', [BabySizeController::class, 'index'])->name('mama.baby-size');
 
-// API Routes (untuk Fetch Data di background)
-Route::get('/tanya-dokter/messages/{doctorId}', [TanyaDokterController::class, 'getMessages']);
-Route::post('/tanya-dokter/send', [TanyaDokterController::class, 'sendMessage']);
+        Route::get('/food-scanner', [FoodScannerController::class, 'index'])->name('mama.food-scanner');
+        Route::post('/food-scanner/scan', [FoodScannerController::class, 'scan'])->name('mama.food-scanner.scan');
+
+        Route::get('/panduan-nutrisi', [NutritionGuideController::class, 'index'])->name('mama.nutrition-guide');
     });
 
 
@@ -88,14 +116,12 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
     // Manajemen Users (CRUD)
-    Route::prefix('users')->name('users.')->group(function () {
-        // Perhatikan: Saya sederhanakan nama functionnya (create, store, edit, dst)
-        Route::get('/create', [AdminUserController::class, 'create'])->name('create');
-        Route::post('/', [AdminUserController::class, 'store'])->name('store');
-        
-        Route::get('/{user}/edit', [AdminUserController::class, 'edit'])->name('edit');
-        Route::patch('/{user}', [AdminUserController::class, 'update'])->name('update');
-        Route::delete('/{user}', [AdminUserController::class, 'destroy'])->name('destroy');
+    Route::controller(AdminUserController::class)->prefix('users')->name('users.')->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{user}/edit', 'edit')->name('edit');
+        Route::patch('/{user}', 'update')->name('update');
+        Route::delete('/{user}', 'destroy')->name('destroy');
     });
 });
 
@@ -107,32 +133,25 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
     Route::get('/dashboard', [DoctorDashboardController::class, 'index'])->name('dashboard');
 
     // Manajemen Pasien / Reservasi (Sisi Dokter)
-    Route::prefix('reservasi')->name('reservasi.')->group(function () {
-        // Halaman Daftar Pasien (Index)
-        Route::get('/', [DoctorReservationController::class, 'index'])->name('index');
-        
-        // Halaman Form Periksa (Edit)
-        Route::get('/{id}/edit', [DoctorReservationController::class, 'edit'])->name('edit');
-        
-        // Proses Simpan Data Pemeriksaan (Update)
-        Route::patch('/{id}', [DoctorReservationController::class, 'update'])->name('update');
+    Route::controller(DoctorReservationController::class)->prefix('reservasi')->name('reservasi.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::patch('/{id}', 'update')->name('update');
     });
 
     // Fitur: Jawab Pasien (Chat Dokter)
-    Route::prefix('jawab-pasien')->name('chat.')->group(function () {
-        // Halaman Utama Chat
-        Route::get('/', [JawabPasienController::class, 'index'])->name('index');
-        
-        // API Internal: Ambil Pesan
-        Route::get('/messages/{userId}', [JawabPasienController::class, 'getMessages'])->name('messages');
-        
-        // API Internal: Kirim Pesan
-        Route::post('/send', [JawabPasienController::class, 'sendMessage'])->name('send');
+    Route::controller(JawabPasienController::class)->prefix('jawab-pasien')->name('chat.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/messages/{userId}', 'getMessages')->name('messages');
+        Route::post('/send', 'sendMessage')->name('send');
     });
 
     // Fitur: Manajemen Artikel Dok
     // Panggil pakai nama Alias-nya
     Route::resource('kelola-artikel', DoctorKelolaArtikelController::class);
+
+    // Fitur: Manajemen Nutrisi Dok
+    Route::resource('kelola-nutrisi', DoctorKelolaNutrisiController::class);
 
     // Route tambahan juga pakai nama Alias
     Route::patch('/kelola-artikel/{id}/update-status', [DoctorKelolaArtikelController::class, 'updateStatus'])

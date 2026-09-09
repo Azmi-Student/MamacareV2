@@ -132,6 +132,22 @@
                 </button>
             </div>
 
+            @php 
+                $isNutrisiDokterActive = request()->routeIs('dokter.kelola-nutrisi.*');
+            @endphp
+            <a href="{{ route('dokter.kelola-nutrisi.index') }}" 
+               @click="openMenu = null"
+               class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200
+               {{ $isNutrisiDokterActive 
+                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' 
+                    : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' 
+               }}">
+                <svg class="w-5 h-5 stroke-[2.5px] {{ $isNutrisiDokterActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <span class="text-[9px] font-black uppercase tracking-wide {{ $isNutrisiDokterActive ? 'text-white' : 'text-[#FF3EA5]' }}">Nutrisi</span>
+            </a>
+
         {{-- === ROLE: ADMIN === --}}
         @elseif(auth()->user()->role === 'admin')
             <a href="{{ route('admin.dashboard') }}" 
@@ -144,21 +160,49 @@
             </a>
         @endif
 
-        {{-- MENU: ARTIKEL (UMUM / SELAIN DOKTER) --}}
+        {{-- MENU: ARTIKEL & NUTRISI (UMUM / SELAIN DOKTER) --}}
         @if(auth()->user()->role !== 'dokter')
-            @php $isArtikelActive = request()->routeIs('artikel.index'); @endphp
-            <a href="{{ route('artikel.index') }}" 
-               @click="openMenu = null"
-               class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200
-               {{ $isArtikelActive 
-                    ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' 
-                    : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' 
-               }}">
-                <svg class="w-5 h-5 stroke-[2.5px] {{ $isArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                </svg>
-                <span class="text-[9px] font-black uppercase tracking-wide {{ $isArtikelActive ? 'text-white' : 'text-[#FF3EA5]' }}">Artikel</span>
-            </a>
+            @php 
+                $isArtikelAtauNutrisiActive = request()->routeIs('artikel.index') || request()->routeIs('mama.nutrition-guide');
+            @endphp
+            <div class="relative w-full flex justify-center">
+                <div x-show="openMenu === 'bacaan'" 
+                     @click.away="openMenu = null"
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+                     class="absolute bottom-16 left-1/2 -translate-x-1/2 w-48 bg-white border-2 border-[#FF3EA5] rounded-xl shadow-[4px_4px_0px_0px_#ff90c8] p-2 flex flex-col gap-1 z-50"
+                     style="display: none;">
+                    
+                    <a href="{{ route('artikel.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 text-[#FF3EA5]">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span class="text-xs font-black uppercase">Artikel Edukasi</span>
+                    </a>
+                    
+                    @if(auth()->user()->role === 'mama')
+                    <div class="h-0.5 bg-pink-100 w-full"></div>
+                    <a href="{{ route('mama.nutrition-guide') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 text-[#FF3EA5]">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span class="text-xs font-black uppercase">Panduan Nutrisi</span>
+                    </a>
+                    @endif
+                </div>
+
+                <button @click="openMenu = (openMenu === 'bacaan' ? null : 'bacaan')"
+                        class="flex flex-col items-center justify-center w-full h-12 space-y-0.5 rounded-lg border-2 transition-all duration-200
+                        {{ $isArtikelAtauNutrisiActive 
+                            ? 'bg-[#FF3EA5] border-[#FF3EA5] shadow-[2px_2px_0px_0px_#ff90c8]' 
+                            : 'border-transparent text-[#FF3EA5] hover:bg-pink-50' 
+                        }}">
+                    <svg class="w-5 h-5 stroke-[2.5px] {{ $isArtikelAtauNutrisiActive ? 'text-white' : 'text-[#FF3EA5]' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span class="text-[9px] font-black uppercase tracking-wide {{ $isArtikelAtauNutrisiActive ? 'text-white' : 'text-[#FF3EA5]' }}">Bacaan</span>
+                </button>
+            </div>
         @endif
 
         {{-- 3. [BARU] TOMBOL DONASI --}}

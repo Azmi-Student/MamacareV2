@@ -5,6 +5,11 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Article;
+use App\Models\KehamilanMama;
+use App\Models\Appointment;
+use App\Models\Conversation;
+use App\Models\Message;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -18,10 +23,10 @@ class DatabaseSeeder extends Seeder
         // ==========================================
 
         // 1. User Mama
-        User::create([
+        $mama = User::create([
             'name' => 'Bunda Jule',
             'email' => 'mama@gmail.com',
-            'password' => Hash::make('mama'),
+            'password' => Hash::make('password'),
             'role' => 'mama',
         ]);
 
@@ -29,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::create([
             'name' => 'Administrator',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
@@ -37,11 +42,11 @@ class DatabaseSeeder extends Seeder
         $dokter1 = User::create([
             'name' => 'Dr. Boyke Dian',
             'email' => 'dokter@gmail.com',
-            'password' => Hash::make('dokter'),
+            'password' => Hash::make('password'),
             'role' => 'dokter',
         ]);
 
-        Doctor::create([
+        $profilDokter1 = Doctor::create([
             'user_id' => $dokter1->id,
             'name' => 'Dr. Boyke Dian, Sp.OG',
             'specialist' => 'Spesialis Kandungan',
@@ -55,11 +60,11 @@ class DatabaseSeeder extends Seeder
         $dokter2 = User::create([
             'name' => 'Dr. Aisah Putri',
             'email' => 'aisah@gmail.com',
-            'password' => Hash::make('dokter'),
+            'password' => Hash::make('password'),
             'role' => 'dokter',
         ]);
 
-        Doctor::create([
+        $profilDokter2 = Doctor::create([
             'user_id' => $dokter2->id,
             'name' => 'Dr. Aisah Putri, Sp.OG',
             'specialist' => 'Dokter Kandungan',
@@ -73,11 +78,11 @@ class DatabaseSeeder extends Seeder
         $dokter3 = User::create([
             'name' => 'Bidan Siti',
             'email' => 'siti@gmail.com',
-            'password' => Hash::make('dokter'),
+            'password' => Hash::make('password'),
             'role' => 'dokter',
         ]);
 
-        Doctor::create([
+        $profilDokter3 = Doctor::create([
             'user_id' => $dokter3->id,
             'name' => 'Bidan Siti Aminah, S.Tr.Keb',
             'specialist' => 'Bidan Sahabat Ibu',
@@ -222,6 +227,75 @@ class DatabaseSeeder extends Seeder
             ',
             'image' => null,
             'status' => 'published',
+        ]);
+
+        // ==========================================
+        // 3. DATA FITUR INTERAKTIF (Bunda Jule)
+        // ==========================================
+        
+        // --- A. Profil Kehamilan ---
+        // HPHT diset 4 bulan yang lalu agar pas masuk trimester 2
+        KehamilanMama::create([
+            'user_id' => $mama->id,
+            'hpht' => Carbon::now()->subMonths(4)->format('Y-m-d'),
+            'ai_data' => null,
+        ]);
+
+        // --- B. Data Reservasi (Appointment & Rekap) ---
+        // 1. Rekap Medis Masa Lalu (Selesai)
+        Appointment::create([
+            'user_id' => $mama->id,
+            'doctor_id' => $profilDokter1->id, // Dr. Boyke
+            'date' => Carbon::now()->subDays(10)->format('Y-m-d'),
+            'time' => '10:00',
+            'notes' => 'Bunda merasa sedikit kram di perut bagian bawah saat bangun tidur.',
+            'diagnosis' => 'Kram perut normal akibat peregangan otot rahim (Round Ligament Pain). Kondisi janin sangat sehat dan aktif.',
+            'prescription' => "1. Vitamin C 500mg (1x sehari)\n2. Kalsium (1x sehari)\n3. Banyak istirahat dan kurangi naik turun tangga.",
+            'image' => null,
+            'status' => 'completed',
+        ]);
+
+        // 2. Jadwal Mendatang (Pending)
+        Appointment::create([
+            'user_id' => $mama->id,
+            'doctor_id' => $profilDokter2->id, // Dr. Aisah
+            'date' => Carbon::now()->addDays(5)->format('Y-m-d'),
+            'time' => '15:30',
+            'notes' => 'Jadwal kontrol rutin bulanan dan ingin cek jenis kelamin.',
+            'diagnosis' => null,
+            'prescription' => null,
+            'image' => null,
+            'status' => 'pending',
+        ]);
+
+        // --- C. Data Chat (Conversation & Messages) ---
+        $chat = Conversation::create([
+            'user_id' => $mama->id,
+            'doctor_id' => $profilDokter1->id,
+        ]);
+
+        Message::create([
+            'conversation_id' => $chat->id,
+            'sender_type' => 'user',
+            'message' => 'Halo Dok, selamat pagi. Saya mau tanya, kalau ibu hamil trimester 2 boleh makan durian tidak ya? Soalnya lagi kepengen banget.',
+            'is_read' => true,
+            'created_at' => Carbon::now()->subHours(2),
+        ]);
+
+        Message::create([
+            'conversation_id' => $chat->id,
+            'sender_type' => 'doctor',
+            'message' => 'Halo Bunda Jule! Boleh saja kok makan durian, asalkan jangan berlebihan ya. Maksimal 2-3 potong kecil saja, karena durian mengandung gula dan gas yang tinggi.',
+            'is_read' => true,
+            'created_at' => Carbon::now()->subHours(1)->subMinutes(45),
+        ]);
+
+        Message::create([
+            'conversation_id' => $chat->id,
+            'sender_type' => 'user',
+            'message' => 'Syukurlah, terima kasih banyak Dok penjelasannya! Nanti saya batasi porsinya.',
+            'is_read' => false,
+            'created_at' => Carbon::now()->subMinutes(10),
         ]);
     }
 }

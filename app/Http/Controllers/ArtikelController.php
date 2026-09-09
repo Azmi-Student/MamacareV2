@@ -17,7 +17,7 @@ class ArtikelController extends Controller
                             ->latest()
                             ->get();
 
-        return view('page.artikel.index', compact('articles'));
+        return view('mama.artikel.index', compact('articles'));
     }
 
     /**
@@ -43,6 +43,6 @@ class ArtikelController extends Controller
                             ->take(3)
                             ->get();
 
-        return view('page.artikel.detail', compact('article', 'related'));
+        return view('mama.artikel.detail', compact('article', 'related'));
     }
 }
