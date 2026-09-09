@@ -1,86 +1,100 @@
 <p align="center">
   <img src="public/images/logo-icon.png" width="100" alt="Mamacare Logo">
 </p>
-<h1 align="center">Mamacare V2 🤰✨</h1>
+
+<h1 align="center">Mamacare V2</h1>
 
 <p align="center">
-  Mamacare adalah aplikasi asisten kehamilan cerdas berbasis web yang didesain secara khusus dengan pendekatan UI/UX bergaya <strong>Neo-Brutalism</strong> yang ceria, tebal, dan ramah pengguna (Mobile-First). Platform ini menghubungkan ibu hamil (Mama) dengan tenaga medis profesional (Dokter & Bidan).
+  Platform asisten kehamilan cerdas berbasis web yang menghubungkan ibu hamil (Mama) dengan tenaga medis profesional (Dokter & Bidan). Dilengkapi dengan integrasi Artificial Intelligence (AI) untuk membantu menganalisis keluhan dan nutrisi secara <i>real-time</i>.
 </p>
+
+---
+
+## 📌 Daftar Isi
+1. [Tentang Mamacare](#-tentang-mamacare)
+2. [Fitur Utama](#-fitur-utama)
+   - [Akses Mama](#akses-mama)
+   - [Akses Dokter](#akses-dokter)
+   - [Akses Admin](#akses-admin)
+3. [Teknologi yang Digunakan](#-teknologi-yang-digunakan)
+4. [Panduan Instalasi](#-panduan-instalasi)
+5. [Konfigurasi API](#-konfigurasi-api)
+6. [Data Akun Uji Coba](#-data-akun-uji-coba)
+
+---
+
+## 📖 Tentang Mamacare
+Mamacare bertujuan untuk mengurangi angka kecemasan pada ibu hamil dengan menyediakan informasi medis yang tervalidasi, asisten AI siaga 24/7, serta akses langsung ke fasilitas layanan kesehatan (dokter dan bidan).
 
 ---
 
 ## 🌟 Fitur Utama
 
-Aplikasi ini dibagi menjadi 3 peran (*role*) pengguna utama: **Mama**, **Dokter**, dan **Admin**.
+### Akses Mama
+- **Chat Mama AI:** Asisten cerdas (Google Gemini AI) untuk menjawab keluhan kehamilan seketika.
+- **AI Food Scanner:** Memindai foto makanan dan menganalisis kandungan gizi serta keamanannya bagi ibu hamil.
+- **Tanya Dokter (Live Chat):** Konsultasi langsung dengan tenaga medis profesional terdaftar.
+- **Reservasi Medis:** Pembuatan jadwal temu (*appointment*) untuk pemeriksaan kehamilan luring (offline).
+- **Pemantau Kehamilan:**
+  - **Ukuran Janin:** Visualisasi ukuran janin setiap minggu disandingkan dengan analogi buah.
+  - **Pantau Berat Badan:** Grafik *weight tracker* cerdas berbasis perhitungan *Body Mass Index* (BMI).
+  - **Penghitung Tendangan (Kick Counter):** Pencatat frekuensi pergerakan janin dalam rentang waktu tertentu.
+  - **Penghitung Kontraksi (Contraction Timer):** Pengukur durasi dan interval kontraksi menjelang persalinan.
+- **Panduan Nutrisi:** Direktori makanan rekomendasi dan pantangan per trimester yang dikurasi langsung oleh dokter.
+- **Kalender Kehamilan & Rekap Medis:** Pencatatan HPHT, estimasi usia kandungan, dan rekam medis lengkap.
 
-### 👩‍🍼 Fitur Khusus Mama
-- **Chat Mama AI:** Asisten cerdas berbasis Artificial Intelligence (menggunakan Google Gemini API) untuk menjawab keluhan kehamilan secara *real-time*.
-- **AI Food Scanner (Scanner Gizi):** Memungkinkan mama mengunggah foto makanan dan membiarkan AI menganalisis kandungan gizi serta keamanannya bagi kehamilan.
-- **Tanya Dokter (Live Chat):** Konsultasi langsung dengan dokter spesialis atau bidan yang terdaftar.
-- **Reservasi Medis:** Membuat janji temu untuk pemeriksaan kehamilan secara *offline*.
-- **Ukuran Janin:** Panduan visual interaktif yang menyamakan ukuran janin setiap minggu dengan buah-buahan (misal: "Sebesar alpukat di minggu ke-16!").
-- **Pantau Berat Badan:** Grafik *weight tracker* cerdas untuk memantau kenaikan berat badan ideal selama kehamilan berdasarkan *Body Mass Index* (BMI).
-- **Penghitung Tendangan (Kick Counter):** Alat sederhana untuk menghitung frekuensi tendangan bayi dalam rentang waktu 2 jam.
-- **Penghitung Kontraksi (Contraction Timer):** Fitur kronometer untuk mengukur durasi dan interval kontraksi menjelang persalinan.
-- **Panduan Nutrisi:** Direktori makanan rekomendasi dan pantangan (berdasarkan Trimester) yang dikurasi langsung oleh dokter.
-- **Kalender Kehamilan & Rekap Medis:** Mencatat HPM, usia kehamilan, dan menyimpan semua hasil diagnosis dokter.
+### Akses Dokter
+- **Manajemen Artikel Kesehatan:** Platform *Content Management System* (CMS) untuk menulis dan menerbitkan edukasi.
+- **Kelola Panduan Nutrisi:** Mengatur daftar makanan yang disarankan atau dilarang berdasarkan kriteria medis.
+- **Manajemen Pasien & Reservasi:** Mengelola jadwal janji temu dan mengisi riwayat diagnosis.
+- **Jawab Konsultasi:** Sistem perpesanan untuk membalas keluhan dari para pengguna (Mama).
 
-### 👩‍⚕️ Fitur Khusus Dokter
-- **Manajemen Artikel Kesehatan:** Sistem CMS penuh (*Create, Read, Update, Delete*) bagi dokter untuk menulis dan menerbitkan artikel edukasi kehamilan.
-- **Manajemen Panduan Nutrisi:** Dokter dapat merekomendasikan atau melarang suatu jenis makanan dan gizi berdasarkan usia trimester kehamilan.
-- **Manajemen Pasien & Reservasi:** Mengelola jadwal janji temu, menulis catatan rekam medis (diagnosis & resep obat).
-- **Jawab Chat Pasien:** Berkomunikasi membalas keluhan dari para Mama.
-
-### 🛠️ Fitur Admin
-- **Kelola Pengguna:** Menambah, memverifikasi, dan menghapus akun pengguna (Dokter & Mama).
-- **Dasbor Analitik:** Memantau aktivitas platform secara menyeluruh.
-
----
-
-## 🎨 Design System (Neo-Brutalism)
-Mamacare mengadopsi gaya visual yang sangat berani:
-- **Warna Utama:** Pink Terang (`#FF3EA5`, `#ff47a1`), Pink Gelap (`#C21B75`), dan Putih.
-- **Bentuk:** Sudut sangat bulat (`rounded-3xl`), garis pinggir tebal (`border-2`), dan bayangan blok tebal (*solid drop shadows* `shadow-[4px_4px_0px_0px_#ff90c8]`).
-- **Interaksi:** Mikro-animasi saat ditekan (`active:translate-y-1 active:shadow-none`), memberikan sensasi memencet tombol fisik (sangat memuaskan!).
-- **Framework:** TailwindCSS terintegrasi via Vite, dengan elemen interaktif ditenagai oleh Alpine.js.
+### Akses Admin
+- **Kelola Pengguna:** Melakukan kurasi, verifikasi, atau penghapusan terhadap pendaftaran akun dokter.
+- **Dasbor Analitik:** Memantau ringkasan statistik dan aktivitas keseluruhan platform.
 
 ---
 
-## 🚀 Instalasi & Cara Menjalankan
+## 🛠️ Teknologi yang Digunakan
+- **Backend:** Laravel 10 (PHP)
+- **Frontend:** Blade Templating, TailwindCSS, Alpine.js
+- **Database:** MySQL
+- **AI Integration:** Google Gemini API
+- **Asset Compiler:** Vite
 
-Ikuti langkah-langkah berikut untuk menjalankan Mamacare secara lokal di komputer Anda:
+---
 
-1. **Clone repositori ini:**
+## 🚀 Panduan Instalasi
+
+Ikuti langkah-langkah di bawah ini untuk menjalankan Mamacare di sistem lokal Anda:
+
+1. **Unduh Repositori**
    ```bash
    git clone https://github.com/Azmi-Student/MamacareV2.git
    cd mamacare
    ```
 
-2. **Install Dependensi PHP & Node.js:**
+2. **Pasang Dependensi (PHP & Node.js)**
    ```bash
    composer install
    npm install
    ```
 
-3. **Konfigurasi Environment:**
-   Salin file konfigurasi lalu sesuaikan kredensial database (contohnya MySQL/MariaDB melalui Laragon/XAMPP).
+3. **Konfigurasi Environment**
+   Salin file konfigurasi bawaan dan sesuaikan informasi koneksi database Anda (seperti DB_DATABASE, DB_USERNAME).
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
-   > ⚠️ **Penting:** Pastikan Anda menambahkan API Key Gemini di `.env` agar fitur AI Scanner & Chat AI berfungsi.
-   > ```env
-   > GEMINI_API_KEY="AIzaSyYourApiKeyHere..."
-   > ```
 
-4. **Migrasi dan Seeder Database:**
-   Perintah ini akan membuat semua struktur tabel dan mengisi data awal (dummy users, artikel, dan panduan nutrisi).
+4. **Migrasi dan Seed Database**
+   Perintah ini akan menyusun seluruh struktur tabel dan memasukkan data tiruan (*dummy data*) yang diperlukan untuk pengujian.
    ```bash
    php artisan migrate:fresh --seed
    ```
 
-5. **Jalankan Aplikasi:**
-   Buka dua jendela terminal untuk menjalankan backend server dan compiler aset frontend.
+5. **Jalankan Aplikasi**
+   Buka dua terminal terpisah untuk menjalankan *server* PHP dan *compiler* aset statis.
    ```bash
    php artisan serve
    ```
@@ -88,15 +102,29 @@ Ikuti langkah-langkah berikut untuk menjalankan Mamacare secara lokal di kompute
    npm run dev
    ```
 
-6. Buka browser dan akses `http://localhost:8000`.
+6. **Akses Aplikasi**
+   Buka browser web Anda dan kunjungi `http://localhost:8000`.
 
 ---
 
-## 🔐 Akun Dummy (Seeder)
-Untuk masuk dan mencoba fitur aplikasi, gunakan akun bawaan berikut (Password untuk semua akun adalah: `password`):
-- **Admin:** `admin@gmail.com`
-- **Dokter:** `dokter@gmail.com` (Dr. Boyke) / `aisah@gmail.com` (Dr. Aisah)
-- **Mama:** `mama@gmail.com` (Bunda Jule)
+## 🔑 Konfigurasi API
+Untuk memastikan fitur **Chat Mama AI** dan **AI Food Scanner** beroperasi, Anda wajib mendaftarkan dan memasukkan kunci API dari Google Gemini ke dalam file `.env`.
+Tambahkan baris berikut di file `.env`:
+```env
+GEMINI_API_KEY="AIzaSyYourApiKeyHere..."
+```
 
 ---
-*Dibuat dengan penuh cinta untuk kesehatan Ibu dan Anak. 👶💕*
+
+## 👥 Data Akun Uji Coba (Seeder)
+Sistem otomatis menyediakan beberapa akun *dummy* untuk memudahkan pengujian. Password untuk **seluruh** akun di bawah ini adalah: `password`.
+
+| Peran (Role) | Email | Keterangan |
+| :--- | :--- | :--- |
+| **Admin** | `admin@gmail.com` | Administrator Sistem |
+| **Dokter** | `dokter@gmail.com` | Dr. Boyke (Spesialis Kandungan) |
+| **Dokter** | `aisah@gmail.com` | Dr. Aisah (Spesialis Kandungan) |
+| **Mama** | `mama@gmail.com` | Pengguna Ibu Hamil |
+
+---
+*Mamacare — Dikembangkan untuk mendukung perjalanan kehamilan yang lebih aman, nyaman, dan teredukasi.*
