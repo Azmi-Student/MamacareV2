@@ -1,59 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center">
+  <img src="public/images/logo-icon.png" width="100" alt="Mamacare Logo">
+</p>
+<h1 align="center">Mamacare V2 🤰✨</h1>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  Mamacare adalah aplikasi asisten kehamilan cerdas berbasis web yang didesain secara khusus dengan pendekatan UI/UX bergaya <strong>Neo-Brutalism</strong> yang ceria, tebal, dan ramah pengguna (Mobile-First). Platform ini menghubungkan ibu hamil (Mama) dengan tenaga medis profesional (Dokter & Bidan).
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi ini dibagi menjadi 3 peran (*role*) pengguna utama: **Mama**, **Dokter**, dan **Admin**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 👩‍🍼 Fitur Khusus Mama
+- **Chat Mama AI:** Asisten cerdas berbasis Artificial Intelligence (menggunakan Google Gemini API) untuk menjawab keluhan kehamilan secara *real-time*.
+- **AI Food Scanner (Scanner Gizi):** Memungkinkan mama mengunggah foto makanan dan membiarkan AI menganalisis kandungan gizi serta keamanannya bagi kehamilan.
+- **Tanya Dokter (Live Chat):** Konsultasi langsung dengan dokter spesialis atau bidan yang terdaftar.
+- **Reservasi Medis:** Membuat janji temu untuk pemeriksaan kehamilan secara *offline*.
+- **Ukuran Janin:** Panduan visual interaktif yang menyamakan ukuran janin setiap minggu dengan buah-buahan (misal: "Sebesar alpukat di minggu ke-16!").
+- **Pantau Berat Badan:** Grafik *weight tracker* cerdas untuk memantau kenaikan berat badan ideal selama kehamilan berdasarkan *Body Mass Index* (BMI).
+- **Penghitung Tendangan (Kick Counter):** Alat sederhana untuk menghitung frekuensi tendangan bayi dalam rentang waktu 2 jam.
+- **Penghitung Kontraksi (Contraction Timer):** Fitur kronometer untuk mengukur durasi dan interval kontraksi menjelang persalinan.
+- **Panduan Nutrisi:** Direktori makanan rekomendasi dan pantangan (berdasarkan Trimester) yang dikurasi langsung oleh dokter.
+- **Kalender Kehamilan & Rekap Medis:** Mencatat HPM, usia kehamilan, dan menyimpan semua hasil diagnosis dokter.
 
-## Learning Laravel
+### 👩‍⚕️ Fitur Khusus Dokter
+- **Manajemen Artikel Kesehatan:** Sistem CMS penuh (*Create, Read, Update, Delete*) bagi dokter untuk menulis dan menerbitkan artikel edukasi kehamilan.
+- **Manajemen Panduan Nutrisi:** Dokter dapat merekomendasikan atau melarang suatu jenis makanan dan gizi berdasarkan usia trimester kehamilan.
+- **Manajemen Pasien & Reservasi:** Mengelola jadwal janji temu, menulis catatan rekam medis (diagnosis & resep obat).
+- **Jawab Chat Pasien:** Berkomunikasi membalas keluhan dari para Mama.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 🛠️ Fitur Admin
+- **Kelola Pengguna:** Menambah, memverifikasi, dan menghapus akun pengguna (Dokter & Mama).
+- **Dasbor Analitik:** Memantau aktivitas platform secara menyeluruh.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🎨 Design System (Neo-Brutalism)
+Mamacare mengadopsi gaya visual yang sangat berani:
+- **Warna Utama:** Pink Terang (`#FF3EA5`, `#ff47a1`), Pink Gelap (`#C21B75`), dan Putih.
+- **Bentuk:** Sudut sangat bulat (`rounded-3xl`), garis pinggir tebal (`border-2`), dan bayangan blok tebal (*solid drop shadows* `shadow-[4px_4px_0px_0px_#ff90c8]`).
+- **Interaksi:** Mikro-animasi saat ditekan (`active:translate-y-1 active:shadow-none`), memberikan sensasi memencet tombol fisik (sangat memuaskan!).
+- **Framework:** TailwindCSS terintegrasi via Vite, dengan elemen interaktif ditenagai oleh Alpine.js.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🚀 Instalasi & Cara Menjalankan
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Ikuti langkah-langkah berikut untuk menjalankan Mamacare secara lokal di komputer Anda:
 
-## Contributing
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/Azmi-Student/MamacareV2.git
+   cd mamacare
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Install Dependensi PHP & Node.js:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Code of Conduct
+3. **Konfigurasi Environment:**
+   Salin file konfigurasi lalu sesuaikan kredensial database (contohnya MySQL/MariaDB melalui Laragon/XAMPP).
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   > ⚠️ **Penting:** Pastikan Anda menambahkan API Key Gemini di `.env` agar fitur AI Scanner & Chat AI berfungsi.
+   > ```env
+   > GEMINI_API_KEY="AIzaSyYourApiKeyHere..."
+   > ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Migrasi dan Seeder Database:**
+   Perintah ini akan membuat semua struktur tabel dan mengisi data awal (dummy users, artikel, dan panduan nutrisi).
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
 
-## Security Vulnerabilities
+5. **Jalankan Aplikasi:**
+   Buka dua jendela terminal untuk menjalankan backend server dan compiler aset frontend.
+   ```bash
+   php artisan serve
+   ```
+   ```bash
+   npm run dev
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Buka browser dan akses `http://localhost:8000`.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🔐 Akun Dummy (Seeder)
+Untuk masuk dan mencoba fitur aplikasi, gunakan akun bawaan berikut (Password untuk semua akun adalah: `password`):
+- **Admin:** `admin@gmail.com`
+- **Dokter:** `dokter@gmail.com` (Dr. Boyke) / `aisah@gmail.com` (Dr. Aisah)
+- **Mama:** `mama@gmail.com` (Bunda Jule)
+
+---
+*Dibuat dengan penuh cinta untuk kesehatan Ibu dan Anak. 👶💕*
