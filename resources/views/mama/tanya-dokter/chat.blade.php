@@ -105,10 +105,7 @@
                     <h4 class="font-black text-sm md:text-xl uppercase leading-tight text-[#FF3EA5] truncate">
                         {{ $activeDoctor->name }}
                     </h4>
-                    <div class="flex items-center gap-1">
-                        {{-- Indikator Pulse Tetap Kita Pake Biar Keren --}}
-                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-
+                    <div class="mt-0.5">
                         {{-- GANTI DISINI: Panggil Spesialis dari database --}}
                         <p class="text-[10px] font-black text-[#FF3EA5] uppercase opacity-60 truncate">
                             {{ $activeDoctor->specialist }}

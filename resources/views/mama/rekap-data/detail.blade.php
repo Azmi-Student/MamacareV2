@@ -211,8 +211,7 @@
                         </div>
                     </div>
                     <div class="mt-12 pt-6 border-t-2 border-dashed border-[#FF3EA5] text-center">
-                        <p class="text-[8px] md:text-[9px] font-black uppercase opacity-40 tracking-[0.3em]">Mamacare
-                            Digital Health Record System</p>
+                        <p class="text-[8px] md:text-[9px] font-black uppercase opacity-40 tracking-[0.3em]">Mamacare</p>
                     </div>
                 </div>
             </div>
@@ -243,7 +242,6 @@
                     alt="Logo Mamacare">
                 <div>
                     <h1 class="text-3xl font-bold uppercase tracking-wider">Mamacare</h1>
-                    <p class="text-sm mt-1">Digital Health Record System</p>
                 </div>
             </div>
             <div class="text-right">

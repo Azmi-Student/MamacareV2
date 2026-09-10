@@ -383,10 +383,6 @@
                         <span class="font-black text-[10px] md:text-xs text-[#FF3EA5] uppercase leading-tight mt-1">Ukuran Janin</span>
                     </a>
                     
-                    <a href="{{ route('mama.nutrition-guide') }}" class="bg-white p-3 rounded-xl border-2 border-[#FF3EA5] shadow-[3px_3px_0px_0px_#ff90c8] hover:bg-pink-50 flex flex-col items-center justify-center gap-2 group hover:-translate-y-1 active:translate-y-0 active:shadow-none transition-all text-center">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🥦</span>
-                        <span class="font-black text-[10px] md:text-xs text-[#FF3EA5] uppercase leading-tight mt-1">Panduan Nutrisi</span>
-                    </a>
                 </div>
             </div>
         </div>

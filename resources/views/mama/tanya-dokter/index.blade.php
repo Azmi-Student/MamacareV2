@@ -17,10 +17,7 @@
                         </svg>
                         Kembali
                     </a>
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight leading-none text-[#FF3EA5]">Tanya
-                        Dokter</h2>
-                    <p class="text-xs font-bold mt-2 opacity-60 uppercase tracking-wider">Konsultasi Full-Screen dengan
-                        Ahlinya.</p>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight leading-none text-[#FF3EA5]">Tanya Dokter</h2>
                 </div>
 
                 {{-- Search Bar Aesthetic --}}
@@ -62,8 +59,7 @@
                                 <h4 class="font-black text-lg uppercase leading-tight truncate text-[#FF3EA5]">
                                     {{ $doc->name }}
                                 </h4>
-                                <div class="flex items-center gap-1.5 mt-1">
-                                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                <div class="mt-1">
                                     <p class="text-[10px] font-black opacity-60 uppercase tracking-tighter">
                                         {{ $doc->specialist }}
                                     </p>

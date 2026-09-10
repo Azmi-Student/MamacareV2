@@ -1,6 +1,15 @@
 <div class="flex flex-col h-full bg-white">
-
-    {{-- 1. LOGO AREA --}}
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>    {{-- 1. LOGO AREA --}}
     <div class="sidebar-logo-container h-20 flex items-center justify-center lg:justify-start lg:px-6 shrink-0 mt-2">
         @php
             $dashboardRoute = 'dashboard';
@@ -25,7 +34,7 @@
     </div>
 
     {{-- 2. NAVIGATION LINKS --}}
-    <nav class="flex-1 overflow-y-auto py-4 px-4 space-y-3">
+    <nav class="flex-1 overflow-y-auto py-4 px-4 space-y-3 no-scrollbar">
 
         {{-- LINK: DASHBOARD (Dynamic based on Role) --}}
         @php
