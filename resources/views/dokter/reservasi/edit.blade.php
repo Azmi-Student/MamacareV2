@@ -27,9 +27,7 @@
                 <div class="md:col-span-4 space-y-6">
                     <div class="bg-white border-2 border-[#FF3EA5] rounded-2xl p-6 shadow-[5px_5px_0px_0px_#FF3EA5] sticky top-6">
                         <div class="flex flex-col items-center text-center mb-6">
-                            <div class="w-20 h-20 bg-[#FF3EA5] text-white rounded-full flex items-center justify-center text-3xl font-black border-2 border-[#FF3EA5] mb-3">
-                                {{ substr($appointment->user->name, 0, 1) }}
-                            </div>
+                            <x-avatar :user="$appointment->user" size="lg" class="mb-3" />
                             <h3 class="text-lg font-black uppercase leading-tight">{{ $appointment->user->name }}</h3>
                             <p class="text-xs font-bold opacity-60 mt-1">{{ $appointment->user->email }}</p>
                         </div>

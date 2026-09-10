@@ -100,7 +100,7 @@ class ChatController extends Controller
             $response = Http::withHeaders([
                 'x-goog-api-key' => $key,
                 'Content-Type' => 'application/json',
-            ])->timeout(30)->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent", [
+            ])->timeout(30)->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent", [
                 // --- UPDATE: Langsung kirim $contents (karena strukturnya sudah array) ---
                 "contents" => $contents
             ]);

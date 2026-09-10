@@ -88,17 +88,7 @@
                     </svg>
                 </a>
                 <div class="shrink-0">
-                    @if ($activeDoctor->image)
-                        {{-- Jika dokter punya foto --}}
-                        <img src="{{ $activeDoctor->image }}" alt="{{ $activeDoctor->name }}"
-                            class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#FF3EA5] object-cover bg-white shadow-sm">
-                    @else
-                        {{-- Jika foto kosong, tampilkan inisial --}}
-                        <div
-                            class="w-10 h-10 md:w-12 md:h-12 bg-[#FF3EA5] rounded-full flex items-center justify-center text-white font-black border-2 border-[#FF3EA5] shrink-0 uppercase">
-                            {{ substr(str_replace(['Dr. ', 'dr. '], '', $activeDoctor->name), 0, 1) }}
-                        </div>
-                    @endif
+                    <x-avatar :user="$activeDoctor" size="md" class="w-10 h-10 md:w-12 md:h-12 shadow-sm" />
                 </div>
                 <div class="min-w-0">
                     {{-- Nama Dokter --}}

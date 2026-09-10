@@ -25,19 +25,8 @@
     </script>
     <script src="//unpkg.com/alpinejs" defer></script>
 
-    {{-- Style Loading (Sama seperti App Blade Mama) --}}
+    {{-- Style Input Autofill --}}
     <style>
-        #loading-screen {
-            position: fixed; inset: 0; z-index: 9999;
-            background-color: white; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
-            opacity: 1; visibility: visible;
-            transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
-        }
-        .loader-hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
-        .spin-continuous { animation: spin 1.5s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        #progress-bar-fill { width: 0%; transition: width 0.2s ease-out; }
 
         /* 1. Mengatur teks saat preview & setelah dipilih (Autofill) */
     input:-webkit-autofill,
@@ -66,40 +55,13 @@
 <body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
 
     {{-- LOADING SCREEN --}}
-    <div id="loading-screen">
-        <img src="{{ asset('images/logo-icon.png') }}" alt="Loading..." class="w-16 h-16 object-contain spin-continuous mb-8">
-        <div class="w-64 h-2 bg-gray-100 rounded-full overflow-hidden relative shadow-inner">
-            <div id="progress-bar-fill" class="h-full bg-[#FF3EA5] rounded-full"></div>
-        </div>
-        <p class="mt-4 text-xs font-semibold text-gray-400 tracking-[0.2em] animate-pulse uppercase">Memuat</p>
-    </div>
+    @include('components.loading-screen')
 
     {{-- TEMPAT KONTEN --}}
     <div class="min-h-screen flex flex-col lg:flex-row overflow-hidden">
         @yield('content')
     </div>
 
-    {{-- Script Loading --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const loader = document.getElementById('loading-screen');
-            const progressFill = document.getElementById('progress-bar-fill');
-            let progress = 0; let isPageLoaded = false;
-            function runProgressSimulation() {
-                loader.classList.remove('loader-hidden');
-                let interval = setInterval(() => {
-                    if (!isPageLoaded) { if (progress < 90) progress += Math.random() * 2; } 
-                    else { progress += 10; }
-                    if (progress >= 100) {
-                        progress = 100; clearInterval(interval);
-                        setTimeout(() => { loader.classList.add('loader-hidden'); }, 600);
-                    }
-                    progressFill.style.width = progress + '%';
-                }, 50);
-            }
-            runProgressSimulation();
-            window.addEventListener('load', () => { isPageLoaded = true; });
-        });
-    </script>
+
 </body>
 </html>

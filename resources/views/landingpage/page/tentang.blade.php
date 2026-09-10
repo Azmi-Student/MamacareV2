@@ -6,7 +6,7 @@
         <img src="{{ asset('images/img-landingpage/lovespin1.png') }}" alt="pola" class="lovespin1">
     </div>
 
-    <div class="menu">
+    <div class="menu" data-aos="fade-up" data-aos-delay="100">
         <h4>MamaCare</h4>
         <ul>
             <li><a href="#" class="tab-link aktif" onclick="showContent(event, 'about')">Apa itu MamaCare?</a></li>
@@ -16,7 +16,7 @@
         </ul>
     </div>
 
-    <div class="konten-kanan">
+    <div class="konten-kanan" data-aos="fade-up" data-aos-delay="300">
         <div id="about" class="konten aktif">
             <p>
                 MamaCare adalah aplikasi yang dirancang untuk membantu ibu hamil dalam menjaga kesehatan kandungan ibu secara optimal. Aplikasi ini berfokus pada penyediaan layanan kesehatan berbasis website yang memungkinkan penggunanya untuk memantau perkembangan kesehatan selama kehamilan, mendapatkan informasi nutrisi yang tepat, dan menerima pengingat otomatis untuk kontrol kesehatan serta imunisasi.

@@ -7,13 +7,13 @@
     </div>
 
     <div class="container-fitur">
-        <div class="header-fitur">
+        <div class="header-fitur" data-aos="fade-down">
             <h2>Fitur Utama</h2>
             <p>Fitur utama yang kami berikan untuk Mama sebagai bentuk komitmen dalam mewujudkan tools rekomendasi perawatan kesehatan kehamilan ibu</p>
         </div>
 
         <div class="konten-fitur">
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="100">
                 <div class="circular">
                     <i class="fa-solid fa-calendar-check"></i>
                 </div>
@@ -21,7 +21,7 @@
                 <p>Pantau setiap tahap perkembangan janin dengan informasi yang sesuai usia kehamilan.</p>
             </div>
 
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="200">
                 <div class="circular">
                     <i class="fa-solid fa-clipboard-list"></i>
                 </div>
@@ -29,7 +29,7 @@
                 <p>Atur dan kelola jadwal pemeriksaan kehamilan agar tidak terlewat.</p>
             </div>
 
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="300">
                 <div class="circular">
                     <i class="fa-solid fa-bell"></i>
                 </div>
@@ -37,7 +37,7 @@
                 <p>Notifikasi otomatis untuk memastikan ibu tidak melewatkan kontrol kesehatan penting.</p>
             </div>
 
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="400">
                 <div class="circular">
                     <i class="fa-solid fa-apple-whole"></i>
                 </div>
@@ -45,7 +45,7 @@
                 <p>Rekomendasi makanan sehat untuk mendukung kesehatan ibu dan perkembangan janin.</p>
             </div>
 
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="500">
                 <div class="circular">
                     <i class="fa-solid fa-user-doctor"></i>
                 </div>
@@ -53,7 +53,7 @@
                 <p>Dapatkan jawaban langsung dari tenaga medis profesional kapan saja.</p>
             </div>
 
-            <div class="fitur-card">
+            <div class="fitur-card" data-aos="zoom-in" data-aos-delay="600">
                 <div class="circular">
                     <i class="fa-solid fa-users-rays"></i>
                 </div>

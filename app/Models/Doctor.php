@@ -67,12 +67,11 @@ class Doctor extends Model
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=FF3EA5&color=fff';
     }
     // Ambil inisial nama (Menghilangkan Dr. atau dr.)
-public function getAvatarAttribute()
-{
-    // Hapus gelar supaya inisialnya bukan 'D' semua
-    $cleanName = str_replace(['Dr. ', 'dr. ', 'Sp.OG', 'Sp.A', ','], '', $this->name);
-    
-    // Ambil huruf pertama dari nama yang sudah bersih
-    return strtoupper(substr(trim($cleanName), 0, 1));
-}
+    public function getAvatarAttribute()
+    {
+        if ($this->user && $this->user->avatar) {
+            return $this->user->avatar;
+        }
+        return $this->image;
+    }
 }

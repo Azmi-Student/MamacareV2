@@ -145,8 +145,7 @@
                         class="group bg-white rounded-3xl border-2 border-[#FF3EA5] shadow-[6px_6px_0px_0px_#FF3EA5] overflow-hidden hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#FF3EA5] transition-all duration-300 flex flex-col h-full text-[#FF3EA5]">
 
                         <div class="bg-white p-5 flex items-center gap-4 border-b-2 border-[#FF3EA5] border-dashed">
-                            <img src="{{ $doctor->image }}" alt="{{ $doctor->name }}"
-                                class="w-16 h-16 rounded-full border-2 border-[#FF3EA5] object-cover bg-white shadow-sm flex-none">
+                            <x-avatar :user="$doctor" size="lg" class="shadow-sm" />
                             <div class="flex-1 min-w-0">
                                 <h3 class="text-lg font-black uppercase leading-tight truncate mb-1">{{ $doctor->name }}
                                 </h3>
@@ -174,7 +173,7 @@
                                 </p>
                             </div>
 
-                            <button @click="openBooking({{ $doctor }})"
+                            <button @click="openBooking({ id: {{ $doctor->id }}, name: '{{ addslashes($doctor->name) }}' })"
                                 class="mt-auto w-full py-3 bg-[#FF3EA5] text-white text-sm font-black uppercase tracking-wider rounded-xl border-2 border-[#FF3EA5] shadow-[4px_4px_0px_0px_#ff90c8] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:scale-95 transition-all">
                                 Buat Janji Temu
                             </button>

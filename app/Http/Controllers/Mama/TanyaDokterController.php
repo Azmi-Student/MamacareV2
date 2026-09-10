@@ -25,8 +25,6 @@ class TanyaDokterController extends Controller
     {
         $activeDoctor = Doctor::findOrFail($id);
         
-        // Tambahkan atribut inisial untuk avatar di view chat
-        $activeDoctor->avatar = strtoupper(substr(str_replace(['Dr. ', 'dr. '], '', $activeDoctor->name), 0, 1));
 
         return view('mama.tanya-dokter.chat', compact('activeDoctor'));
     }

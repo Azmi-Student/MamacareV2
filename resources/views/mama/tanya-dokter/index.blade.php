@@ -43,17 +43,7 @@
 
                         {{-- Profile Info --}}
                         <div class="flex items-center gap-5 mb-6">
-                            @if ($doc->image)
-                                {{-- Jika ada gambar di database --}}
-                                <img src="{{ $doc->image }}" alt="{{ $doc->name }}"
-                                    class="w-16 h-16 rounded-full border-2 border-[#FF3EA5] object-cover bg-white shadow-sm flex-none">
-                            @else
-                                {{-- Jika gambar kosong, tampilkan inisial (Fallback) --}}
-                                <div
-                                    class="w-16 h-16 rounded-full bg-[#FF3EA5] flex items-center justify-center text-white font-black text-2xl border-2 border-[#FF3EA5] shrink-0 uppercase shadow-sm">
-                                    {{ substr(str_replace(['Dr. ', 'dr. '], '', $doc->name), 0, 1) }}
-                                </div>
-                            @endif
+                            <x-avatar :user="$doc" size="lg" class="shadow-sm" />
 
                             <div class="min-w-0">
                                 <h4 class="font-black text-lg uppercase leading-tight truncate text-[#FF3EA5]">

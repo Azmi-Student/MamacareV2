@@ -59,7 +59,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => 'Email atau kata sandi tidak cocok dengan data kami.',
+                'email' => 'Email atau kata sandi Anda salah.',
             ]);
         }
 

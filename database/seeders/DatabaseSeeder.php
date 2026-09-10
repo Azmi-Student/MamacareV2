@@ -297,5 +297,13 @@ class DatabaseSeeder extends Seeder
             'is_read' => false,
             'created_at' => Carbon::now()->subMinutes(10),
         ]);
+
+        // ==========================================
+        // 4. JALANKAN SEEDER LAINNYA
+        // ==========================================
+        $this->call([
+            CommunitySeeder::class,
+            NutritionGuideSeeder::class,
+        ]);
     }
 }

@@ -75,9 +75,7 @@
                                     {{-- Kolom Pasien --}}
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 bg-white border-2 border-[#FF3EA5] rounded-full flex items-center justify-center text-sm font-black text-[#FF3EA5]">
-                                                {{ substr($appointment->user->name, 0, 1) }}
-                                            </div>
+                                            <x-avatar :user="$appointment->user" size="sm" class="w-10 h-10" />
                                             <div>
                                                 <div class="font-black text-sm uppercase leading-tight">{{ $appointment->user->name }}</div>
                                                 <div class="text-[10px] font-bold opacity-50 uppercase">{{ $appointment->user->email }}</div>

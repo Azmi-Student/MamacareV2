@@ -166,6 +166,7 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
+        Route::delete('/profile/avatar', 'destroyAvatar')->name('profile.avatar.destroy');
     });
 
     // Route untuk halaman artikel
@@ -176,6 +177,16 @@ Route::middleware('role:dokter')->prefix('dokter')->name('dokter.')->group(funct
     Route::post('/donasi/pay', [DonationController::class, 'pay'])->name('donasi.pay');
     Route::get('/donasi/check-status/{orderId}', [DonationController::class, 'checkStatus'])
     ->name('donasi.check');
+
+    // Fitur Komunitas (Shared untuk Mama dan Dokter)
+    Route::controller(\App\Http\Controllers\CommunityController::class)->prefix('komunitas')->name('komunitas.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::post('/{id}/like', 'toggleLike')->name('like');
+        Route::post('/{id}/comment', 'comment')->name('comment');
+    });
 });
 
 require __DIR__.'/auth.php';

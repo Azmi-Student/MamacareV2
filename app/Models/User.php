@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'google_id',
         'role',
+        'avatar',
     ];
 
     /**
@@ -60,5 +61,17 @@ class User extends Authenticatable
     // Relasi: User bisa punya profil Dokter (kalau dia dokter)
     public function doctor() {
         return $this->hasOne(Doctor::class);
+    }
+
+    public function communityPosts() {
+        return $this->hasMany(CommunityPost::class);
+    }
+    
+    public function communityLikes() {
+        return $this->hasMany(CommunityLike::class);
+    }
+    
+    public function communityComments() {
+        return $this->hasMany(CommunityComment::class);
     }
 }

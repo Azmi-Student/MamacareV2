@@ -154,10 +154,7 @@
                             @forelse($pasiens as $pasien)
                                 <tr class="hover:bg-pink-50/50 transition duration-150">
                                     <td class="p-4 text-sm font-bold text-[#C21B75] flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-pink-100 text-[#FF3EA5] flex items-center justify-center font-black text-xs">
-                                            {{ substr($pasien->name, 0, 1) }}
-                                        </div>
+                                        <x-avatar :user="$pasien" size="sm" class="w-8 h-8" />
                                         {{ $pasien->name }}
                                     </td>
                                     <td class="p-4 text-sm font-bold text-pink-400">{{ $pasien->email }}</td>
